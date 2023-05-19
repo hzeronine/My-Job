@@ -39,7 +39,6 @@ public class Register extends AppCompatActivity {
         editText_re_password = findViewById(R.id.txtbox_re_password);
     }
     void init(){
-        txt_signin = findViewById(R.id.txt_signin);
         String text = "Already have an account? <b>Login</b>";
         txt_signin.setText(Html.fromHtml(text));
     }
@@ -70,7 +69,7 @@ public class Register extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(Register.this, "Create Account succes.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Register.this, "Create Account success.", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Register.this, "Create Account fail.", Toast.LENGTH_SHORT).show();

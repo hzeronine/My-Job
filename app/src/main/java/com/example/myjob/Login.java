@@ -32,14 +32,13 @@ public class Login extends AppCompatActivity {
         setEvent();
     }
     void getID(){
-        txt_signup = findViewById(R.id.txt_signin);
+        txt_signup = findViewById(R.id.txt_signup);
         editText_username = findViewById(R.id.txtbox_username);
         editText_password = findViewById(R.id.txtbox_re_password);
         btn_login = findViewById(R.id.btn_register);
         mAuth = FirebaseAuth.getInstance();
     }
     void init(){
-        txt_signup = findViewById(R.id.txt_signin);
         String text = "You Don't have an account? <b>Sign Up</b>";
         txt_signup.setText(Html.fromHtml(text));
     }

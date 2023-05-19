@@ -7,7 +7,7 @@
     tools:context=".Register">
 
     <EditText
-        android:id="@+id/txtbox_username2"
+        android:id="@+id/txtbox_username"
         android:layout_width="335dp"
         android:layout_height="52dp"
         android:layout_marginTop="172dp"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtbox_re_password2"
+        android:id="@+id/txtbox_re_password"
         android:layout_width="333dp"
         android:layout_height="50dp"
         android:layout_marginTop="348dp"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn_register2"
+        android:id="@+id/btn_register"
         android:layout_width="310dp"
         android:layout_height="56dp"
         android:layout_marginBottom="196dp"
@@ -118,7 +118,7 @@
         app:srcCompat="@drawable/ic_account" />
 
     <TextView
-        android:id="@+id/txt_signin2"
+        android:id="@+id/txt_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
