@@ -96,7 +96,7 @@
         android:background="@drawable/custom_inputbox"
         android:ems="10"
         android:hint="Enter Re-Password"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -104,12 +104,12 @@
         app:layout_constraintTop_toBottomOf="@+id/txtbox_password" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_register"
         android:layout_width="310dp"
         android:layout_height="56dp"
         android:layout_marginTop="112dp"
         android:backgroundTint="#Fe7235"
-        android:text="Button"
+        android:text="Register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
