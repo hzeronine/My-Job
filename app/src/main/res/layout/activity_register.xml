@@ -8,7 +8,7 @@
     tools:context=".Register">
 
     <EditText
-        android:id="@+id/txtbox_password"
+        android:id="@+id/txtbox_register_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="30dp"
@@ -20,9 +20,8 @@
         android:paddingLeft="18dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbox_userEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/txtbox_register_userEmail" />
 
     <TextView
         android:id="@+id/txt2"
@@ -63,7 +62,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtbox_userEmail"
+        android:id="@+id/txtbox_register_userEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="30dp"
@@ -80,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt2" />
 
     <EditText
-        android:id="@+id/txtbox_re_password"
+        android:id="@+id/txtbox_register_re_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="30dp"
@@ -92,9 +91,8 @@
         android:paddingLeft="18dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbox_password" />
+        app:layout_constraintTop_toBottomOf="@+id/txtbox_register_password" />
 
     <Button
         android:id="@+id/btn_register"
@@ -107,7 +105,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtbox_re_password" />
+        app:layout_constraintTop_toBottomOf="@+id/txtbox_register_re_password" />
 
     <TextView
         android:id="@+id/txt_signin"

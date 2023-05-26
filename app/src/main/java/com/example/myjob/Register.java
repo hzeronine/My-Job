@@ -34,9 +34,9 @@ public class Register extends AppCompatActivity {
         txt_signin = findViewById(R.id.txt_signin);
         mAuth = FirebaseAuth.getInstance();
         btn_register = findViewById(R.id.btn_register);
-        editText_emailUser = findViewById(R.id.txtbox_userEmail);
-        editText_password = findViewById(R.id.txtbox_password);
-        editText_re_password = findViewById(R.id.txtbox_re_password);
+        editText_emailUser = findViewById(R.id.txtbox_register_userEmail);
+        editText_password = findViewById(R.id.txtbox_register_password);
+        editText_re_password = findViewById(R.id.txtbox_register_re_password);
     }
     void init(){
         String text = "Already have an account? <b>Login</b>";

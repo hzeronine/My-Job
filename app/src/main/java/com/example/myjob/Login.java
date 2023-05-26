@@ -33,8 +33,8 @@ public class Login extends AppCompatActivity {
     }
     void getID(){
         txt_signup = findViewById(R.id.txt_signin);
-        editText_username = findViewById(R.id.txtbox_username);
-        editText_password = findViewById(R.id.txtbox_password);
+        editText_username = findViewById(R.id.txtbox_login_username);
+        editText_password = findViewById(R.id.txtbox_login_password);
         btn_login = findViewById(R.id.btn_login);
         mAuth = FirebaseAuth.getInstance();
     }
