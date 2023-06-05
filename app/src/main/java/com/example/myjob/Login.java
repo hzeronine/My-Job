@@ -46,31 +46,33 @@ public class Login extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password;
-                email = String.valueOf(editText_username.getText());
-                password = String.valueOf(editText_password.getText());
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this,"Enter Email",Toast.LENGTH_SHORT);
-                    return;
-                }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Login.this,"Enter Password",Toast.LENGTH_SHORT);
-                    return;
-                }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(Login.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+//                String email, password;
+//                email = String.valueOf(editText_username.getText());
+//                password = String.valueOf(editText_password.getText());
+//                if(TextUtils.isEmpty(email)){
+//                    Toast.makeText(Login.this,"Enter Email",Toast.LENGTH_SHORT);
+//                    return;
+//                }
+//                if(TextUtils.isEmpty(password)){
+//                    Toast.makeText(Login.this,"Enter Password",Toast.LENGTH_SHORT);
+//                    return;
+//                }
+//
+//                mAuth.signInWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    // Sign in success, update UI with the signed-in user's information
+//                                    Toast.makeText(Login.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Toast.makeText(Login.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+                Intent intent = new Intent(Login.this,SavedActivity.class);
+                startActivity(intent);
             }
         });
         txt_signup.setOnClickListener(new View.OnClickListener() {
