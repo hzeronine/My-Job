@@ -8,11 +8,14 @@ public class ViecLam {
     private String mucLuong;
     private String thoiHan;
 
-    public ViecLam(String tieuDe, String tenCty, String mucLuong, String thoiHan, int hinhAnh)
+    private String viTri;
+
+    public ViecLam(String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
     {
         this.tieuDe = tieuDe;
         this.tenCty = tenCty;
         this.mucLuong = mucLuong;
+        this.thoiHan = thoiHan;
         this.thoiHan = thoiHan;
         this.hinhAnh = hinhAnh;
     }
@@ -35,6 +38,14 @@ public class ViecLam {
     public String getThoiHan() {
         return thoiHan;
     }
+    public String getViTri() {
+        return viTri;
+    }
+
+    public void setViTri(String viTri) {
+        this.viTri = viTri;
+    }
+
     public void setTieuDe(String tieuDe) {
         this.tieuDe = tieuDe;
     }
