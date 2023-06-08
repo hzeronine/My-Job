@@ -331,7 +331,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView8"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
@@ -341,7 +341,6 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/textView10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
@@ -349,7 +348,6 @@
                         android:textColor="#747170" />
 
                     <TextView
-                        android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
