@@ -129,7 +129,7 @@
                     android:paddingVertical="5dp">
 
                     <TextView
-                        android:id="@+id/button"
+                        android:id="@+id/btn_infor_changePassword"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="3dp"

@@ -3,6 +3,7 @@
     <style name="Base.Theme.MyJob" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/Orange</item>
     </style>
 
     <style name="Theme.MyJob" parent="Base.Theme.MyJob" />
