@@ -23,6 +23,8 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="4dp"
         android:text="Đăng tin tuyển dụng"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +36,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="52dp"
         android:text="Tiêu đề tin(*)"
+        android:textStyle="bold"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,12 +48,13 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="72dp"
         android:text="Viết ngắn gọn , chính xác vị trí và công việc cần tuyển"
+        android:textColor="#FD000000"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/edt_UL_tieudetin"
         android:layout_width="405dp"
         android:layout_height="43dp"
         android:layout_marginStart="4dp"
@@ -70,6 +74,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="148dp"
         android:text="Tên công ty(*)"
+        android:textStyle="bold"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -82,11 +87,12 @@
         android:layout_marginTop="168dp"
         android:text="Tên đầy đủ của công ty theo giấy phép kinh doanh"
         android:textSize="10sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText5"
+        android:id="@+id/edt_UL_tencty"
         android:layout_width="405dp"
         android:layout_height="42dp"
         android:layout_marginStart="4dp"
@@ -106,6 +112,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="244dp"
         android:text="Địa chỉ làm việc(*)"
+        android:textStyle="bold"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -118,11 +125,12 @@
         android:layout_marginTop="264dp"
         android:text="Nhân viên khi đi làm sẽ làm việc tại địa chỉ này"
         android:textSize="10sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText6"
+        android:id="@+id/edt_UL_diachi"
         android:layout_width="403dp"
         android:layout_height="43dp"
         android:layout_marginStart="4dp"
@@ -142,6 +150,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="340dp"
         android:text="Nghành(*)"
+        android:textStyle="bold"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -154,11 +163,12 @@
         android:layout_marginTop="360dp"
         android:text="Lựa chọn các nghành nghề liên quan đến vị trí tuyển dụng"
         android:textSize="10sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText7"
+        android:id="@+id/edt_UL_nghanh"
         android:layout_width="405dp"
         android:layout_height="42dp"
         android:layout_marginStart="4dp"
@@ -170,13 +180,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="103dp"
+        android:layout_height="59dp"
+        android:backgroundTint="#FE7235"
+        android:text="UPLOAD"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.901" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="476dp"
+        android:text="Điền đầy đủ form thông tin trên: công việc, tên công ty, địa chỉ công ty,… Càng chi tiết càng tốt, sẽ tìm được ứng viên thích hợp với công việc bạn đang tuyển. Không nên đăng chung chung sẽ khiến ứng viên hiểu lầm và mơ hồ về công việc. Như vậy, ứng viên sẽ lượt bỏ qua Công ty của bạn"
+        android:textColor="#FF5722"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="440dp"
-        android:text="Note : "
+        android:text="Note : Những ô có dấu (*) là những ô thông tin bắt buộc."
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
