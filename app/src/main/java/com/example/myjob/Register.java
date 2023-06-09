@@ -130,7 +130,7 @@ public class Register extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), HomeJob.class);
                                             startActivity(intent);
                                             finish();
                                             Toast.makeText(Register.this, "add data succes.", Toast.LENGTH_SHORT).show();
