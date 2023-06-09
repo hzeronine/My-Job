@@ -45,6 +45,8 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         holder.txt_ViTri.setText(viecLam.getViTri());
         holder.txt_ThoiHan.setText(viecLam.getThoiHan());
         holder.img_avt.setImageResource(viecLam.getHinhAnh());
+        holder.img_Luong.setImageResource(R.drawable.img_3);
+        holder.img_ViTri.setImageResource(R.drawable.img_4);
     }
 
     @Override
@@ -59,6 +61,11 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         TextView txt_MucLuong;
         TextView txt_ViTri;
         TextView txt_ThoiHan;
+
+        ImageView img_Luong;
+
+        ImageView img_ViTri;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Ánh xạ view
@@ -68,6 +75,8 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             txt_ViTri = itemView.findViewById(R.id.txt_ViTri);
             txt_MucLuong = itemView.findViewById(R.id.txt_MucLuong);
             txt_ThoiHan = itemView.findViewById(R.id.txt_ThoiHan);
+            img_Luong = itemView.findViewById(R.id.imageView_Luong);
+            img_ViTri = itemView.findViewById(R.id.imageView_ViTri);
         }
     }
 }

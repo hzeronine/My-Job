@@ -1,5 +1,9 @@
 package com.example.myjob;
 
+import android.graphics.drawable.Drawable;
+
+import androidx.core.content.ContextCompat;
+
 public class ViecLam {
     private String tieuDe;
 
@@ -15,7 +19,7 @@ public class ViecLam {
         this.tieuDe = tieuDe;
         this.tenCty = tenCty;
         this.mucLuong = mucLuong;
-        this.thoiHan = thoiHan;
+        this.viTri = viTri;
         this.thoiHan = thoiHan;
         this.hinhAnh = hinhAnh;
     }
@@ -36,7 +40,7 @@ public class ViecLam {
     }
 
     public String getThoiHan() {
-        return thoiHan;
+        return "Còn " + thoiHan + " để ứng tuyển";
     }
     public String getViTri() {
         return viTri;
