@@ -24,19 +24,14 @@
             android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-<<<<<<< HEAD
-            android:name=".InformationForm"
-            android:exported="true">
-=======
             android:name=".SavedActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".InformationForm"
             android:exported="true" >
->>>>>>> 69b53665731f8c9bbdb0571b711471abee569590
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
