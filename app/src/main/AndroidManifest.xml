@@ -28,13 +28,13 @@
             android:exported="false" />
         <activity
             android:name=".SavedActivity"
-            android:exported="true"/>
+            android:exported="false"/>
         <activity android:name=".DangBai"
             android:exported="false"/>
-        <activity android:name=".ChangePassword"
+        <activity android:name=".Login"
             android:exported="false"/>
         <activity
-            android:name=".Login"
+            android:name="ChangePassword"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
