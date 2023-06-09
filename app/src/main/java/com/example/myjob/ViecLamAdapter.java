@@ -1,24 +1,25 @@
 package com.example.myjob;
 
 import android.content.Context;
-import android.media.Image;
+
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Locale;
+
 
 public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHolder> {
     Context context;
     ArrayList<ViecLam> listViecLam;
+    RecyclerView recyclerView;
 
     public ViecLamAdapter(Context context, ArrayList<ViecLam> listViecLam)
     {
@@ -39,8 +40,6 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         // Gán dữ liêu
         ViecLam viecLam = listViecLam.get(position);
         holder.txt_TieuDe.setText(viecLam.getTieuDe());
-        Locale locale = new Locale("vn", "VN");
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         holder.txt_Ten.setText(viecLam.getTenCty());
         holder.txt_MucLuong.setText(viecLam.getMucLuong());
         holder.txt_ViTri.setText(viecLam.getViTri());
@@ -53,7 +52,7 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         return listViecLam.size(); // trả item tại vị trí postion
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img_avt;
         TextView txt_TieuDe;
         TextView txt_Ten;
