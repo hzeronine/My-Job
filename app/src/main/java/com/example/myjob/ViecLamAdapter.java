@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHolder> {
     Context context;
     ArrayList<ViecLam> listViecLam;
+    ArrayList<ViecLam> filteredList;
+
 
 
 
@@ -93,7 +96,12 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     public int getItemCount() {
         return listViecLam.size(); // trả item tại vị trí postion
     }
-
+    public void removeItem(int position) {
+        listViecLam.remove(position);
+        filteredList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, filteredList.size());
+    }
     static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox ck_Delete;
         LinearLayout rowItem;
@@ -124,4 +132,5 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
 
         }
     }
+    
 }
