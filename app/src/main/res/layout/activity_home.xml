@@ -1,103 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InformationForm">
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_infor_changePassword"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="284dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="#FD7F47"
-        android:text="Change Password"
-        android:textSize="16dp"
-        app:cornerRadius="10dp"
-        app:icon="@android:drawable/ic_dialog_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_infor_NameUser" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="665dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_infor_uploadCV"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="284dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#FD7F47"
-        android:text="Upload CV"
-        android:textSize="16dp"
-        app:cornerRadius="10dp"
-        app:icon="@android:drawable/ic_menu_upload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_infor_changePassword" />
-
-    <Button
-        android:id="@+id/btn_infor_logout"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="191dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/Red"
-        android:text="Log Out"
-        android:textSize="16dp"
-        app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_infor_uploadCV" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_infor_avatar"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="32dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
-        app:civ_border_color="#3F51B5"
-        app:civ_border_width="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_infor_NameUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Name"
-        android:textColor="#FE7235"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_infor_avatar" />
-
+    </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home"
-        android:layout_width="407dp"
-        android:layout_height="74dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="68dp"
+            android:layout_marginBottom="65dp"
             android:background="@drawable/custom_line_1dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="0dp"></LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </LinearLayout>
 
         <LinearLayout
 
@@ -108,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <FrameLayout
-                android:id="@+id/btn_infor_homejob"
+                android:id="@+id/home_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
@@ -116,11 +45,11 @@
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/icon_home" />
 
                 <TextView
@@ -132,7 +61,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_saved"
+                android:id="@+id/Saved_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -154,7 +83,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_post"
+                android:id="@+id/Post_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -176,7 +105,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_Jobs"
+                android:id="@+id/Jobs_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -198,7 +127,7 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_Account"
+                android:id="@+id/Account_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
@@ -224,5 +153,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

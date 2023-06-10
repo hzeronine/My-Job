@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -79,7 +80,7 @@ public class Login extends AppCompatActivity {
 //                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
 //                                    startActivity(intent);
 //                                    finish();
-                                    Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                                    Intent intent = new Intent(getApplicationContext(), InformationForm.class);
                                     startActivity(intent);
                                     finish();
                                     Toast.makeText(Login.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
@@ -100,7 +101,14 @@ public class Login extends AppCompatActivity {
                 finish();
             }
         });
-
-
+        BeginSignInRequest signInRequest = BeginSignInRequest.builder()
+                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                        .setSupported(true)
+                        // Your server's client ID, not your Android client ID.
+                        .setServerClientId(getString(R.string.default_web_client_id))
+                        // Only show accounts previously used to sign in.
+                        .setFilterByAuthorizedAccounts(true)
+                        .build())
+                .build();
     }
 }

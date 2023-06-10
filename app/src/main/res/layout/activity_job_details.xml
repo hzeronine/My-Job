@@ -116,7 +116,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/txt_infor_NameUser"
         android:layout_width="64dp"
         android:layout_height="14dp"
         android:layout_marginStart="44dp"
