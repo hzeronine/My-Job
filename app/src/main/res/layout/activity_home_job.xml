@@ -101,7 +101,7 @@
                     android:layout_marginVertical="10dp">
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/btn_newst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FE7235"
@@ -109,11 +109,11 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="newest"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/btn_congNghe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -123,12 +123,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Công nghệ"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button8"
+                        android:id="@+id/btn_IT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -139,12 +139,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="IT"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button9"
+                        android:id="@+id/btn_makerting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -154,12 +154,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Makerting"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button10"
+                        android:id="@+id/btn_phucVu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -169,7 +169,7 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Phục Vụ"
                         android:textColor="#747170"
                         android:textSize="10dp" />
                 </LinearLayout>

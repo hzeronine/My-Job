@@ -39,11 +39,23 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Gán dữ liêu
         Test_Home test_home = test_homes.get(position);
-        holder.txt_tieuDe.setText(test_home.getTieuDe());
+
+
+        int maxLength = 40; // Số ký tự tối đa bạn muốn hiển thị
+
+        String originalText = test_home.getTieuDe();
+        if (originalText.length() > maxLength) {
+            String trimmedText = originalText.substring(0, maxLength) + "...";
+            holder.txt_tieuDe.setText(trimmedText);
+        } else {
+            holder.txt_tieuDe.setText(test_home.getTieuDe());
+        }
+        holder.txt_company.setText(test_home.getCompany());
         holder.txt_diaChi.setText(test_home.getDiaChi());
         holder.txt_luong.setText(test_home.getLuong());
         holder.img_icon.setImageResource(test_home.getHinhAnh());
         holder.btn_imgSave.setImageResource(R.drawable.icon_save);
+        holder.txt_date.setText(test_home.getDate());
     }
 //
     @Override
@@ -55,7 +67,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         TextView txt_diaChi;
         TextView txt_tieuDe;
         TextView txt_luong;
+
+        TextView txt_date;
         ImageButton btn_imgSave;
+
+        TextView txt_company;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,7 +82,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             txt_diaChi = itemView.findViewById(R.id.txt_diaChi);
             txt_tieuDe = itemView.findViewById(R.id.txt_tieuDe);
             txt_luong = itemView.findViewById(R.id.txt_luong);
+            txt_date = itemView.findViewById(R.id.txt_date);
             btn_imgSave = itemView.findViewById(R.id.btn_imgsave);
+            txt_company = itemView.findViewById(R.id.txt_company);
+
+
         }
+
+    }
+    public void clearRecyclerView() {
+        test_homes.clear();
+        notifyDataSetChanged();
     }
 }

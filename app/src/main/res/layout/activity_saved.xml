@@ -36,7 +36,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:background="@drawable/search_view_saved"
+                    android:background="@drawable/search_logo"
                     app:iconifiedByDefault="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,12 +181,12 @@
                     android:layout_width="36dp"
                     android:layout_height="34dp"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/img_delete"
+                    android:background="@drawable/img_1"
                     android:backgroundTint="#FEFEFE"
                     android:scaleType="fitCenter"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/searchView"
-                    app:srcCompat="@drawable/img_delete" />
+                    app:srcCompat="@drawable/img_1" />
 
                 <TextView
                     android:id="@+id/textView5"

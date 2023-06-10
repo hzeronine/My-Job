@@ -40,28 +40,44 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/search_logo" />
 
-                <TextView
-
-                    android:id="@+id/txt_tieuDe"
-                    android:layout_weight="4"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="119dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:text="FB Developer"
-                    android:textColor="#000000"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:id="@+id/txt_tieuDe"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="4"
+                        android:text="FB Developer"
+                        android:textColor="#000000"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:text="Gear"
+                        android:textColor="#FE7235"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/btn_imgsave"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.6"
                     android:background="#FFFFFF"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_save"
                     android:paddingHorizontal="15dp"
-                    />
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_save" />
 
             </LinearLayout>
 
@@ -73,15 +89,36 @@
                 android:text="California - USA"
                 android:textColor="#747170" />
 
-            <TextView
-                android:id="@+id/txt_luong"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:text="$1200 - $3000 / Mo"
-                android:textColor="#747170" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_luong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="$1200 - $3000 / Mo"
+                    android:textColor="#747170" />
+
+                <TextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="10/06/2023"
+                    android:gravity="right"
+                    android:textColor="#747170"
+                    />
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

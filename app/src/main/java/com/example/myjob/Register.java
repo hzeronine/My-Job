@@ -123,7 +123,7 @@ public class Register extends AppCompatActivity {
                             Map<String, Object> DataUser = new HashMap<>();
                             DataUser.put("email", email);
                             DataUser.put("name", nameDisplay);
-                            DataUser.put("image", "user_image/nonAvatar/nonAvatar.jpg");
+                            DataUser.put("image", "user_image/nonAvatar/nonAvatar.jpg"); //
 
                             db.collection("Users").document(user.getUid())
                                     .set(DataUser)

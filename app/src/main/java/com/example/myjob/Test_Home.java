@@ -6,12 +6,26 @@ public class Test_Home {
     private String luong;
     private int hinhAnh;
 
-    public Test_Home(String tieuDe, String diaChi, String luong, int hinhAnh) {
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    private String company;
+    private String date;
+
+    public Test_Home(String tieuDe,String company, String diaChi, String luong,String date, int hinhAnh) {
+        this.company = company;
         this.tieuDe = tieuDe;
         this.diaChi = diaChi;
         this.luong = luong;
+        this.date = date;
         this.hinhAnh = hinhAnh;
     }
+
 
 
     public String getTieuDe() {
@@ -46,5 +60,11 @@ public class Test_Home {
         this.hinhAnh = hinhAnh;
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
