@@ -77,6 +77,7 @@ public class SavedActivity extends AppCompatActivity {
         });
     }
 
+    //Đưa data vào đây nè Huy
     private ArrayList<ViecLam> generateViecLamList() {
         ArrayList<ViecLam> list = new ArrayList<>();
         list.add(new ViecLam("1","Chuyên Viên Cao Cấp Chăm Sóc Phát triển Khách Hàng", "Ngân hàng TMCP Phát triển TP.HCM (HDBank)", "Tới 28 triệu", "Hải Phòng, Hà Nội", "as", R.drawable.img_1));
