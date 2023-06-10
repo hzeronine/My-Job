@@ -15,8 +15,11 @@ public class ViecLam {
 
     private String viTri;
 
-    public ViecLam(String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
+    private String ID;
+
+    public ViecLam(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
     {
+        this.ID = ID;
         this.tieuDe = tieuDe;
         this.tenCty = tenCty;
         this.mucLuong = mucLuong;
@@ -49,6 +52,13 @@ public class ViecLam {
     }
     public boolean isSelected() {
         return isSelected;
+    }
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public void setSelected(boolean selected) {
