@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/containerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- Các khối tùy chỉnh sẽ được thêm vào đây -->
+
+        <LinearLayout
+            android:layout_width="245dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_corners"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/search_logo" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="$1200 - $3000 / Mo"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_tenCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="Senior Project Manager"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_diaChiCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="California - USA"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+                <TextView
+                    android:id="@+id/button"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_block_radius_mini"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:text="Full time"
+                    android:textAlignment="center"
+                    android:textColor="#FE7235"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_block_radius_mini"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:text="Full time"
+                    android:textAlignment="center"
+                    android:textColor="#FE7235"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_block_radius_mini"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    android:text="Full time"
+                    android:textAlignment="center"
+                    android:textColor="#FE7235"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    app:srcCompat="@drawable/save_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

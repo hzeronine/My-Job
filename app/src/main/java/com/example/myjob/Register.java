@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(Register.this, "Create Account success.", Toast.LENGTH_SHORT).show();
-                                    Adddatabase(email, password, nameDisplay);
+                                        Adddatabase(email, password, nameDisplay);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Register.this, "Create Account fail.", Toast.LENGTH_SHORT).show();
