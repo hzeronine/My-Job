@@ -30,16 +30,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/edtSearch"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:padding="10dp"
+                    android:background="@drawable/search_view_saved"
+                    android:layout_margin="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView24"
+                    app:queryHint="Search Here..."
+                    app:iconifiedByDefault="false"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
@@ -50,7 +51,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtSearch"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView"
                     tools:listitem="@layout/item_view">
 
                 </androidx.recyclerview.widget.RecyclerView>

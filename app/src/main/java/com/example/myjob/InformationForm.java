@@ -30,6 +30,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InformationForm extends AppCompatActivity {
@@ -77,7 +85,7 @@ public class InformationForm extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             // Got the download URL for 'users/me/profile.png'
 
-                            Glide.with(getApplicationContext())
+                            Glide.with(InformationForm.this)
                                     .load(uri.toString())
                                     .into(image_avatar);
                         }

@@ -2,7 +2,6 @@ package com.example.myjob;
 
 import android.content.Context;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +24,12 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     {
         this.context = context;
         this.listViecLam = listViecLam;
+    }
+
+    public void setFilteredList(ArrayList<ViecLam> filteredList)
+    {
+        this.listViecLam = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

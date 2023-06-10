@@ -17,9 +17,9 @@
             android:exported="false"
             android:label="@string/title_activity_home_job"
             android:theme="@style/Theme.MyJob" />
-        <activity
-            android:name=".InformationForm"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".InformationForm"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".Register"
             android:exported="false" />
@@ -27,14 +27,14 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SavedActivity"
-            android:exported="true"/>
+            android:name=".Login"
+            android:exported="false"/>
         <activity android:name=".DangBai"
             android:exported="false"/>
-        <activity android:name=".ChangePassword"
-            android:exported="false"/>
+<!--        <activity android:name=".ChangePassword"-->
+<!--            android:exported="false"/>-->
         <activity
-            android:name=".Login"
+            android:name=".SavedActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

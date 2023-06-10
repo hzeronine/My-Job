@@ -40,7 +40,7 @@ public class ViecLam {
     }
 
     public String getThoiHan() {
-        return "Còn " + thoiHan + " để ứng tuyển";
+        return "Còn " + thoiHan + " ngày để ứng tuyển";
     }
     public String getViTri() {
         return viTri;
