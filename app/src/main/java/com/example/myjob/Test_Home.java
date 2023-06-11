@@ -5,6 +5,16 @@ public class Test_Home {
     private String diaChi;
     private String luong;
     private int hinhAnh;
+    private boolean checked = true;
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+
 
     public String getCompany() {
         return company;
@@ -17,13 +27,14 @@ public class Test_Home {
     private String company;
     private String date;
 
-    public Test_Home(String tieuDe,String company, String diaChi, String luong,String date, int hinhAnh) {
+    public Test_Home(String tieuDe,String company, String diaChi, String luong,String date, int hinhAnh, boolean checked) {
         this.company = company;
         this.tieuDe = tieuDe;
         this.diaChi = diaChi;
         this.luong = luong;
         this.date = date;
         this.hinhAnh = hinhAnh;
+        this.checked = checked;
     }
 
 

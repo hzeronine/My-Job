@@ -55,23 +55,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.txt_diaChi.setText(test_home.getDiaChi());
         holder.txt_luong.setText(test_home.getLuong());
         holder.img_icon.setImageResource(test_home.getHinhAnh());
-        holder.btn_imgSave.setImageResource(R.drawable.icon_save);
+        //holder.btn_imgSave.setImageResource(R.drawable.icon_save);
         holder.txt_date.setText(test_home.getDate());
-//        if (hind == 0) {
-//            holder.btn_imgSave.setImageResource(R.drawable.icon_save);
-//        }
+
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
             int clickCount = 0;
 
             @Override
             public void onClick(View v) {
-                hind = 1;
-                if (clickCount == 0) {
-                    holder.btn_imgSave.setImageResource(R.drawable.icon_tick);
-                    clickCount = 1;
-                } else {
+                if(test_home.isChecked()) {
                     holder.btn_imgSave.setImageResource(R.drawable.icon_save);
-                    clickCount = 0;
+                    test_home.setChecked(false);
+                } else {
+                    holder.btn_imgSave.setImageResource(R.drawable.icon_tick);
+                    test_home.setChecked(true);
                 }
             }
         });

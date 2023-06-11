@@ -189,8 +189,9 @@
             android:id="@+id/recycView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="55dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"
             tools:listitem="@layout/item_view_home" />
 
         <LinearLayout

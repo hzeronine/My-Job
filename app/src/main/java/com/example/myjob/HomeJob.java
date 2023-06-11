@@ -183,7 +183,7 @@ public class HomeJob extends AppCompatActivity {
                                         date_submitted = documentSnapshot.getData().get("date_submitted").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
 
-                                            list_home.add(new Test_Home(career,companyName,city,salary,date_submitted,R.drawable.img_1));
+                                            list_home.add(new Test_Home(career,companyName,city,salary,date_submitted,R.drawable.img_1, true));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
                                             Collections.sort(list_home, new Comparator<Test_Home>() {
@@ -292,7 +292,7 @@ public class HomeJob extends AppCompatActivity {
                                                     //Clear RecyclerView trước khi add mới
                                                     homeAdapter.clearRecyclerView();
                                                     // Thêm dữ liệu vào RecyclerView
-                                                    list_home.add(new Test_Home(career, companyName, city, salary, date_submitted, R.drawable.img_1));
+                                                    list_home.add(new Test_Home(career, companyName, city, salary, date_submitted, R.drawable.img_1,true));
                                                 }
                                                     // Sắp xếp danh sách theo thời gian gần nhất
 //                                                    Collections.sort(list_home, new Comparator<Test_Home>() {
