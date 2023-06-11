@@ -57,10 +57,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.img_icon.setImageResource(test_home.getHinhAnh());
         //holder.btn_imgSave.setImageResource(R.drawable.icon_save);
         holder.txt_date.setText(test_home.getDate());
-
+        holder.btn_imgSave.setImageResource(test_home.isChecked() ? R.drawable.icon_tick : R.drawable.icon_save);
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
-            int clickCount = 0;
-
             @Override
             public void onClick(View v) {
                 if(test_home.isChecked()) {

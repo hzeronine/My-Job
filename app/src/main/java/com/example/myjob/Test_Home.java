@@ -5,7 +5,7 @@ public class Test_Home {
     private String diaChi;
     private String luong;
     private int hinhAnh;
-    private boolean checked = true;
+    private boolean checked;
     public boolean isChecked() {
         return checked;
     }

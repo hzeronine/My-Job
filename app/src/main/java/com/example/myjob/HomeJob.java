@@ -183,7 +183,7 @@ public class HomeJob extends AppCompatActivity {
                                         date_submitted = documentSnapshot.getData().get("date_submitted").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
 
-                                            list_home.add(new Test_Home(career,companyName,city,salary,date_submitted,R.drawable.img_1, true));
+                                            list_home.add(new Test_Home(career,companyName,city,salary,date_submitted,R.drawable.img_1, false));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
                                             Collections.sort(list_home, new Comparator<Test_Home>() {
