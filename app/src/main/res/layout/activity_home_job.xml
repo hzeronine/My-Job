@@ -57,7 +57,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="558dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,120 +80,12 @@
                 android:layout_marginHorizontal="20dp">
 
                 <LinearLayout
-                    android:id="@+id/containerLayout"
+                    android:id="@+id/linear_layout_horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!-- Các khối tùy chỉnh sẽ được thêm vào đây -->
-
-                    <LinearLayout
-                        android:layout_width="245dp"
-                        android:layout_height="150dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/rounded_corners"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_margin="10dp"
-                                android:src="@drawable/search_logo" />
-
-                            <TextView
-                                android:id="@+id/textView14"
-                                android:layout_width="220dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:text="$1200 - $3000 / Mo"
-                                android:textColor="#FFFFFF" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/textView17"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:text="Senior Project Manager"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textView18"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="10dp"
-                            android:text="California - USA"
-                            android:textColor="#FFFFFF" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:paddingVertical="5dp">
-
-                            <TextView
-                                android:id="@+id/button"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="3dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/custom_block_radius_mini"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
-                                android:text="Full time"
-                                android:textAlignment="center"
-                                android:textColor="#FE7235"
-                                android:textSize="12dp" />
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="3dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/custom_block_radius_mini"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
-                                android:text="Full time"
-                                android:textAlignment="center"
-                                android:textColor="#FE7235"
-                                android:textSize="12dp" />
-
-                            <TextView
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="3dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/custom_block_radius_mini"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
-                                android:text="Full time"
-                                android:textAlignment="center"
-                                android:textColor="#FE7235"
-                                android:textSize="12dp" />
-
-                            <ImageView
-                                android:id="@+id/imageView3"
-                                android:layout_width="48dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:srcCompat="@drawable/save_icon" />
-
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
+                    <!-- Đây là vị trí để chèn item_view -->
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -209,7 +101,7 @@
                     android:layout_marginVertical="10dp">
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/btn_newst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#FE7235"
@@ -217,11 +109,11 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="newest"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button7"
+                        android:id="@+id/btn_congNghe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -231,12 +123,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Công nghệ"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button8"
+                        android:id="@+id/btn_IT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -247,12 +139,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="IT"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button9"
+                        android:id="@+id/btn_makerting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -262,12 +154,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Makerting"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/button10"
+                        android:id="@+id/btn_phucVu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -277,7 +169,7 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="All jobs"
+                        android:text="Phục Vụ"
                         android:textColor="#747170"
                         android:textSize="10dp" />
                 </LinearLayout>
@@ -285,289 +177,26 @@
 
             </HorizontalScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="horizontal"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="#FFFFFF"
-                    android:elevation="4dp"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/search_logo" />
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="left"
-                            android:layout_marginLeft="60dp"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/icon_save" />
-
-                    </LinearLayout>
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="FB Developer"
-                        android:textColor="#000000"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="California - USA"
-                        android:textColor="#747170" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="$1200 - $3000 / Mo"
-                        android:textColor="#747170" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="#FFFFFF"
-                    android:elevation="4dp"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/search_logo" />
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="left"
-                            android:layout_marginLeft="60dp"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/icon_save" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="FB Developer"
-                        android:textColor="#000000"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="California - USA"
-                        android:textColor="#747170" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="$1200 - $3000 / Mo"
-                        android:textColor="#747170" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="horizontal"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="#FFFFFF"
-                    android:elevation="4dp"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/search_logo" />
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="left"
-                            android:layout_marginLeft="60dp"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/icon_save" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="FB Developer"
-                        android:textColor="#000000"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="California - USA"
-                        android:textColor="#747170" />
-
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="$1200 - $3000 / Mo"
-                        android:textColor="#747170" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rounded_corners"
-                    android:backgroundTint="#FFFFFF"
-                    android:elevation="4dp"
-                    android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/search_logo" />
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="48dp"
-                            android:layout_gravity="left"
-                            android:layout_marginLeft="60dp"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/icon_save" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="FB Developer"
-                        android:textColor="#000000"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="California - USA"
-                        android:textColor="#747170" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:text="$1200 - $3000 / Mo"
-                        android:textColor="#747170" />
-
-                </LinearLayout>
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="55dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_view_home" />
 
         <LinearLayout
-            android:layout_width="418dp"
-            android:layout_height="0dp"
-            android:background="@drawable/custom_line_1dp"
-            android:orientation="horizontal"
-
-            app:layout_constraintBottom_toTopOf="parent"></LinearLayout>
-
-        <LinearLayout
-
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginBottom="10dp"
+            android:background="@color/white"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -578,7 +207,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="1"
