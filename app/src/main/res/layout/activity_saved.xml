@@ -180,7 +180,7 @@
                     android:id="@+id/btn_Delete"
                     android:layout_width="36dp"
                     android:layout_height="34dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="4dp"
                     android:background="@drawable/img_delete"
                     android:backgroundTint="#FEFEFE"
                     android:scaleType="fitCenter"
@@ -193,10 +193,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="12dp"
                     android:text="Delete"
                     app:layout_constraintStart_toEndOf="@+id/btn_Delete"
                     app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+                <CheckBox
+                    android:id="@+id/ck_SAll"
+                    android:layout_width="126dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="28dp"
+                    android:text="Select All"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView"
+                    app:layout_constraintVertical_bias="0.363" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

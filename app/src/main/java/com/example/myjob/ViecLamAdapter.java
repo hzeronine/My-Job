@@ -29,6 +29,8 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     ArrayList<ViecLam> listViecLam;
     ArrayList<ViecLam> filteredList;
 
+    private boolean isAllSelected;
+
 
 
 
@@ -89,6 +91,10 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             holder.ck_Delete.setOnCheckedChangeListener((CheckBox, isChecked) -> {
                 viecLam.setSelected(isChecked);
             });
+            holder.ck_Delete.setChecked(viecLam.isSelected() || isAllSelected);
+            holder.ck_Delete.setOnClickListener(v -> {
+                viecLam.setSelected(holder.ck_Delete.isChecked());
+            });
         }
     }
 
@@ -101,6 +107,17 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         filteredList.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, filteredList.size());
+    }
+    public void selectAll() {
+        isAllSelected = true;
+        notifyDataSetChanged();
+    }
+    public void deselectAll() {
+        isAllSelected = false;
+        for (ViecLam item : listViecLam) {
+            item.setSelected(false);
+        }
+        notifyDataSetChanged();
     }
     static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox ck_Delete;

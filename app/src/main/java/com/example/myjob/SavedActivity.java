@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -73,7 +75,14 @@ public class SavedActivity extends AppCompatActivity {
                 viecLamAdapter.notifyDataSetChanged();
 
             }
-
+        });
+        CheckBox ck_SAll = findViewById(R.id.ck_SAll);
+        ck_SAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+               viecLamAdapter.selectAll();
+            } else {
+                viecLamAdapter.deselectAll();
+            }
         });
     }
 
