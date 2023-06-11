@@ -14,7 +14,8 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
                 <TextView
                     android:id="@+id/textView24"
@@ -30,16 +31,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/edtSearch"
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:padding="10dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/search_view_saved"
+                    app:iconifiedByDefault="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView24"
+                    app:queryHint="Search Here...">
+
+                </androidx.appcompat.widget.SearchView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview"
@@ -48,9 +52,9 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtSearch"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_Delete"
                     tools:listitem="@layout/item_view">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -59,9 +63,10 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    tools:layout_editor_absoluteX="-16dp">
+                    tools:layout_editor_absoluteX="-16dp" >
 
                         <FrameLayout
                             android:layout_width="wrap_content"
@@ -70,7 +75,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
                                     android:layout_weight="1"
@@ -169,8 +174,40 @@
                                     android:layout_marginTop="22dp"
                                     android:text="Account" />
                         </FrameLayout>
-
                 </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btn_Delete"
+                    android:layout_width="36dp"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/img_delete"
+                    android:backgroundTint="#FEFEFE"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView"
+                    app:srcCompat="@drawable/img_delete" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Delete"
+                    app:layout_constraintStart_toEndOf="@+id/btn_Delete"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+                <CheckBox
+                    android:id="@+id/ck_SAll"
+                    android:layout_width="126dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="28dp"
+                    android:text="Select All"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView"
+                    app:layout_constraintVertical_bias="0.363" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

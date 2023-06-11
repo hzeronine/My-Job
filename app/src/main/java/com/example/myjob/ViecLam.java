@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import androidx.core.content.ContextCompat;
 
 public class ViecLam {
+    private boolean isSelected;
     private String tieuDe;
 
     private int hinhAnh;
@@ -14,14 +15,18 @@ public class ViecLam {
 
     private String viTri;
 
-    public ViecLam(String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
+    private String ID;
+
+    public ViecLam(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
     {
+        this.ID = ID;
         this.tieuDe = tieuDe;
         this.tenCty = tenCty;
         this.mucLuong = mucLuong;
         this.viTri = viTri;
         this.thoiHan = thoiHan;
         this.hinhAnh = hinhAnh;
+        this.isSelected = false;
     }
     public String getTieuDe() {
         return tieuDe;
@@ -40,10 +45,24 @@ public class ViecLam {
     }
 
     public String getThoiHan() {
-        return "Còn " + thoiHan + " để ứng tuyển";
+        return "Còn " + thoiHan + " ngày để ứng tuyển";
     }
     public String getViTri() {
         return viTri;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public void setViTri(String viTri) {
@@ -69,5 +88,6 @@ public class ViecLam {
     public void setThoiHan(String thoiHan) {
         this.thoiHan = thoiHan;
     }
+
 
 }

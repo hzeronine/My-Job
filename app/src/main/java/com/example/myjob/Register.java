@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     //Toast.makeText(Register.this, "Create Account success.", Toast.LENGTH_SHORT).show();
-                                    Adddatabase(email, password, nameDisplay);
+                                        Adddatabase(email, password, nameDisplay);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(Register.this, "Create Account fail.", Toast.LENGTH_SHORT).show();
@@ -123,14 +123,14 @@ public class Register extends AppCompatActivity {
                             Map<String, Object> DataUser = new HashMap<>();
                             DataUser.put("email", email);
                             DataUser.put("name", nameDisplay);
-                            DataUser.put("image", "user_image/nonAvatar/nonAvatar.jpg");
+                            DataUser.put("image", "user_image/nonAvatar/nonAvatar.jpg"); //
 
                             db.collection("Users").document(user.getUid())
                                     .set(DataUser)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            Intent intent = new Intent(getApplicationContext(), HomeJob.class);
                                             startActivity(intent);
                                             finish();
                                             Toast.makeText(Register.this, "add data succes.", Toast.LENGTH_SHORT).show();

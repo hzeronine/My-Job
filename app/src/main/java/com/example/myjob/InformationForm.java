@@ -55,7 +55,7 @@ public class InformationForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_form);
-        init();
+        getID();
         setData();
         setEvent();
         //if(progressDialog.isShowing())
@@ -149,7 +149,7 @@ public class InformationForm extends AppCompatActivity {
         });
     }
 
-    private void init() {
+    private void getID() {
         image_avatar = findViewById(R.id.image_infor_avatar);
         btn_infor_logout = findViewById(R.id.btn_infor_logout);
         btn_infor_changePassword = findViewById(R.id.btn_infor_changePassword);
