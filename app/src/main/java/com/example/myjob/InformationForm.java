@@ -147,6 +147,38 @@ public class InformationForm extends AppCompatActivity {
                 finish();
             }
         });
+        FL_infor_homeJobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        FL_infor_saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SavedActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        FL_infor_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        FL_infor_jobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void getID() {

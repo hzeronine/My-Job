@@ -18,9 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -29,8 +34,10 @@ public class DangBai extends AppCompatActivity {
             edt_salary, edt_position, edt_description;
     Button btn_upload;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user;
+    FirebaseFirestore db;
+
+    boolean checkJID;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,9 +53,13 @@ public class DangBai extends AppCompatActivity {
         edt_position = findViewById(R.id.edt_UL_position);
         edt_description = findViewById(R.id.edt_UL_description);
         btn_upload = findViewById(R.id.btn_UL_upload);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setdata();
             }
         });
@@ -64,12 +75,27 @@ public class DangBai extends AppCompatActivity {
         salary = String.valueOf(edt_salary.getText());
         position = String.valueOf(edt_position.getText());
         description = String.valueOf(edt_description.getText());
-        String JID = random();
+
+        //
+
+        String JID = RandomStringGenerator.generateRandomString();
+        do{
+            db.collection("Jobs").document(JID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot doc = task.getResult();
+                    if(doc.exists())
+                        checkJID = true;
+                    else
+                        checkJID = false;
+                }
+            });
+        }while (checkJID);
+
         String logo_url = "jobs_logo/default/defaultLogo.png";
-        String PID = LastFour(user.getUid()) + "_" + JID;
+        String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;
         // Sign in success, update UI with the signed-in user's information
         //Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
-        user = FirebaseAuth.getInstance().getCurrentUser();
         Map<String, Object> Datajobs = new HashMap<>();
         Datajobs.put("Company_Name", companyname);
         Datajobs.put("Logo_URL", logo_url);
@@ -79,23 +105,21 @@ public class DangBai extends AppCompatActivity {
         Datajobs.put("Exp",experience);
         Datajobs.put("Salary",salary);
         Datajobs.put("Description",description);
+
         Map<String,Object> Datapost = new HashMap<>();
-        Datapost.put("Title","");
-        Datapost.put("UID_Posted","");
-        Datapost.put("Number_Care","");
-        Datapost.put("JID_need","");
-        Datapost.put("Time","");
-        Datapost.put("CV_ID_Uploaded","");
+        Datapost.put("Title",title);
+        Datapost.put("UID_Posted",user.getUid());
+        Datapost.put("Number_Care",0);
+        Datapost.put("JID_need",JID);
+        Datapost.put("Time",RandomStringGenerator.getCurrentDateTime());
+        Datapost.put("CV_ID_Uploaded", Arrays.asList(""));
 
 
-        db.collection("Users").document(user.getUid())
+        db.collection("Jobs").document(JID)
                 .set(Datajobs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
                         Toast.makeText(DangBai.this, "add data succes.", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -104,6 +128,20 @@ public class DangBai extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         e.printStackTrace();
                         Toast.makeText(DangBai.this, "add data failed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        db.collection("Post").document(PID)
+                .set(Datapost)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
                     }
                 });
 
