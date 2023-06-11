@@ -99,17 +99,6 @@ public class SavedActivity extends AppCompatActivity {
         list.add(new ViecLam("8","Kỹ sư phần mềm Java", "Công ty PQR", "20-25 triệu", "Đà Nẵng", "7", 6));
         list.add(new ViecLam("9","Chuyên viên kiểm toán", "Công ty STU", "Thỏa thuận", "Hà Nội", "30", 7));
         list.add(new ViecLam("10","Nhân viên hành chính", "Công ty DEF", "Thỏa thuận", "Hà Nội", "29", 8));
-        list.add(new ViecLam("11","Chuyên viên quản lý dự án", "Công ty LMN", "Tới 30 triệu", "TP.HCM", "5", 9));
-        list.add(new ViecLam("12","Kế toán trưởng", "Công ty XYZ", "25-30 triệu", "Hà Nội", "8", 10));
-        list.add(new ViecLam("13","Nhân viên văn phòng", "Công ty HIJ", "Thỏa thuận", "Hải Phòng", "12", 11));
-        list.add(new ViecLam("14","Chuyên viên tài chính", "Công ty ABC", "20-25 triệu", "Hà Nội", "9", 12));
-        list.add(new ViecLam("15","Nhân viên kinh doanh phát triển thị trường", "Công ty XYZ", "Thỏa thuận", "TP.HCM", "10", 13));
-        list.add(new ViecLam("16","Nhân viên kiểm tra chất lượng", "Công ty PQR", "15-20 triệu", "Đà Nẵng", "6", 14));
-        list.add(new ViecLam("17","Marketing manager", "Công ty LMN", "Tới 40 triệu", "Hà Nội", "15", 15));
-        list.add(new ViecLam("18","Nhân viên thu mua", "Công ty GHI", "Thỏa thuận", "Hải Phòng", "10", 16));
-        list.add(new ViecLam("19","Chuyên viên tư vấn tài chính", "Ngân hàng JKL", "20-25 triệu", "TP.HCM", "8", 17));
-        list.add(new ViecLam("20","Kỹ sư phần mềm .NET", "Công ty MNO", "Thỏa thuận", "Hà Nội", "7", 18));
-
         return list;
     }
 
