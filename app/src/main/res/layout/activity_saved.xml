@@ -186,7 +186,8 @@
                     android:scaleType="fitCenter"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/searchView"
-                    app:srcCompat="@drawable/img_delete" />
+                    app:srcCompat="@drawable/img_delete"
+                    tools:srcCompat="@drawable/img_delete" />
 
                 <TextView
                     android:id="@+id/textView5"
