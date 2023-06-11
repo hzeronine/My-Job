@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -147,7 +148,7 @@ public class HomeJob extends AppCompatActivity {
                 });
     }
 
-    private void ViewDataJobs() {
+    public void ViewDataJobs() {
         database_jobs.collection("Jobs")
         .get()
         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -181,11 +182,6 @@ public class HomeJob extends AppCompatActivity {
                                         salary = documentSnapshot.getData().get("salary").toString();
                                         date_submitted = documentSnapshot.getData().get("date_submitted").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
-                                            //Set dữ liệu vào RecyclerView
-//                                            if(career.contains("Công nghệ")) {
-//                                                // Thêm dữ liệu vào RecyclerView
-//                                                list_home.add(new Test_Home(career, companyName, city, salary, date_submitted, R.drawable.img_1));
-//                                            }
 
                                             list_home.add(new Test_Home(career,companyName,city,salary,date_submitted,R.drawable.img_1));
 
@@ -207,7 +203,7 @@ public class HomeJob extends AppCompatActivity {
                                             });
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
-                                            recyclerViewList.add(recyclerView);
+                                            //recyclerViewList.add(recyclerView);
 
 
 
@@ -299,21 +295,21 @@ public class HomeJob extends AppCompatActivity {
                                                     list_home.add(new Test_Home(career, companyName, city, salary, date_submitted, R.drawable.img_1));
                                                 }
                                                     // Sắp xếp danh sách theo thời gian gần nhất
-                                                    Collections.sort(list_home, new Comparator<Test_Home>() {
-                                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-                                                        @Override
-                                                        public int compare(Test_Home item1, Test_Home item2) {
-                                                            try {
-                                                                Date date1 = dateFormat.parse(item1.getDate());
-                                                                Date date2 = dateFormat.parse(item2.getDate());
-                                                                // Sử dụng compareTo để so sánh thời gian
-                                                                return date2.compareTo(date1);
-                                                            } catch (ParseException e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                            return 0;
-                                                        }
-                                                    });
+//                                                    Collections.sort(list_home, new Comparator<Test_Home>() {
+//                                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+//                                                        @Override
+//                                                        public int compare(Test_Home item1, Test_Home item2) {
+//                                                            try {
+//                                                                Date date1 = dateFormat.parse(item1.getDate());
+//                                                                Date date2 = dateFormat.parse(item2.getDate());
+//                                                                // Sử dụng compareTo để so sánh thời gian
+//                                                                return date2.compareTo(date1);
+//                                                            } catch (ParseException e) {
+//                                                                e.printStackTrace();
+//                                                            }
+//                                                            return 0;
+//                                                        }
+//                                                    });
 
                                                     homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                                     recyclerView.setAdapter(homeAdapter);

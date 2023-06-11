@@ -20,6 +20,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     Context context;
     ArrayList<Test_Home> test_homes;
     RecyclerView recyclerView;
+    int hind = 0;
 
     public HomeAdapter(Context context, ArrayList<Test_Home> test_homes)
     {
@@ -56,6 +57,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.img_icon.setImageResource(test_home.getHinhAnh());
         holder.btn_imgSave.setImageResource(R.drawable.icon_save);
         holder.txt_date.setText(test_home.getDate());
+//        if (hind == 0) {
+//            holder.btn_imgSave.setImageResource(R.drawable.icon_save);
+//        }
+        holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
+            int clickCount = 0;
+
+            @Override
+            public void onClick(View v) {
+                hind = 1;
+                if (clickCount == 0) {
+                    holder.btn_imgSave.setImageResource(R.drawable.icon_tick);
+                    clickCount = 1;
+                } else {
+                    holder.btn_imgSave.setImageResource(R.drawable.icon_save);
+                    clickCount = 0;
+                }
+            }
+        });
     }
 //
     @Override
