@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,7 +45,13 @@ public class DangBai extends AppCompatActivity {
         edt_salary = findViewById(R.id.edt_UL_salary);
         edt_position = findViewById(R.id.edt_UL_position);
         edt_description = findViewById(R.id.edt_UL_description);
-        setdata();
+        btn_upload = findViewById(R.id.btn_UL_upload);
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setdata();
+            }
+        });
     }
 
     void setdata() {
@@ -61,15 +68,28 @@ public class DangBai extends AppCompatActivity {
         String logo_url = "jobs_logo/default/defaultLogo.png";
         String PID = LastFour(user.getUid()) + "_" + JID;
         // Sign in success, update UI with the signed-in user's information
-        Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        Map<String, Object> DataUser = new HashMap<>();
-        DataUser.put("email", "1");
-        DataUser.put("name", "1");
-        DataUser.put("image", "user_image/nonAvatar/nonAvatar.jpg");
+        Map<String, Object> Datajobs = new HashMap<>();
+        Datajobs.put("Company_Name", companyname);
+        Datajobs.put("Logo_URL", logo_url);
+        Datajobs.put("City", workaddress);
+        Datajobs.put("Specialized",specialized);
+        Datajobs.put("Career",position);
+        Datajobs.put("Exp",experience);
+        Datajobs.put("Salary",salary);
+        Datajobs.put("Description",description);
+        Map<String,Object> Datapost = new HashMap<>();
+        Datapost.put("Title","");
+        Datapost.put("UID_Posted","");
+        Datapost.put("Number_Care","");
+        Datapost.put("JID_need","");
+        Datapost.put("Time","");
+        Datapost.put("CV_ID_Uploaded","");
+
 
         db.collection("Users").document(user.getUid())
-                .set(DataUser)
+                .set(Datajobs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
