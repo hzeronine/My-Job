@@ -11,7 +11,6 @@
     android:padding="5dp"
     android:persistentDrawingCache="none">
 
-
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
