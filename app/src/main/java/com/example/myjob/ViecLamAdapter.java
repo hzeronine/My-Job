@@ -29,7 +29,9 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     ArrayList<ViecLam> listViecLam;
     ArrayList<ViecLam> filteredList;
 
+
     private boolean isAllSelected;
+    boolean isFilterApplied = false;
 
 
 
@@ -98,9 +100,19 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         }
     }
 
+//    @Override
+//    public int getItemCount() {
+//        return listViecLam.size(); // trả item tại vị trí postion
+//    }
     @Override
     public int getItemCount() {
-        return listViecLam.size(); // trả item tại vị trí postion
+        if (isFilterApplied) {
+            // Nếu bộ lọc tìm kiếm đã được áp dụng, sử dụng filteredItems làm danh sách dữ liệu
+            return filteredList.size();
+        } else {
+            // Nếu bộ lọc tìm kiếm chưa được áp dụng, sử dụng items làm danh sách dữ liệu
+            return listViecLam.size();
+        }
     }
     public void removeItem(int position) {
         listViecLam.remove(position);
@@ -113,15 +125,14 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         notifyDataSetChanged();
     }
     public void deselectAll() {
-        isAllSelected = false;
-        for (ViecLam item : listViecLam) {
-            item.setSelected(false);
+        for(ViecLam item: listViecLam) {
+            isAllSelected = false;
         }
         notifyDataSetChanged();
     }
     static class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox ck_Delete;
-        LinearLayout rowItem;
+        ConstraintLayout rowItem;
         ImageView img_avt;
         TextView txt_TieuDe;
         TextView txt_Ten;
@@ -146,7 +157,6 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             img_ViTri = itemView.findViewById(R.id.imageView_ViTri);
             rowItem = itemView.findViewById(R.id.rowItem);
             ck_Delete = itemView.findViewById(R.id.ck_Delete);
-
         }
     }
     

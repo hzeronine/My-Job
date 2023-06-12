@@ -23,6 +23,7 @@ public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<ViecLam> listViecLam;
     ArrayList<ViecLam> filteredList = new ArrayList<>();
+    boolean isFilterApplied = false;
     ViecLamAdapter viecLamAdapter;
     SearchView searchView;
 
@@ -39,12 +40,15 @@ public class SavedActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-
-                return true;
+                if (newText.isEmpty()) { //Kiểm tra nếu văn bản lọc mới rỗng
+                    filterList("");     //Chỉnh lại danh sách dữ liệu để trở về giá trị ban đầu
+                    return false;
+                } else {
+                    filterList(newText); //Lọc danh sách dữ liệu theo văn bản lọc mới
+                    return true;
+                }
             }
         });
 
@@ -103,6 +107,7 @@ public class SavedActivity extends AppCompatActivity {
     }
 
     private void filterList(String text) {
+        filteredList.clear();
         for (ViecLam viecLam : listViecLam) {
             if (viecLam.getTieuDe().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(viecLam);
