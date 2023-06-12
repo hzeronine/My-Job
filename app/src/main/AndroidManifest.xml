@@ -16,7 +16,7 @@
             android:name=".JobsList"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".JobsPosted"
             android:exported="false" />
         <activity
             android:name=".InformationForm"
@@ -43,7 +43,7 @@
             android:name=".HomeJob"
             android:exported="false" />
         <activity
-            android:name=".JobsPosted"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
