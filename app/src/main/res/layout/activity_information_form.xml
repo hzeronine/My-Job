@@ -108,13 +108,13 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <FrameLayout
-                android:id="@+id/btn_infor_homejob"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_infor_homejob"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -132,12 +132,12 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_saved"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_infor_saved"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -154,12 +154,12 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_post"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_infor_post"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -176,12 +176,12 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_Jobs"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_infor_Jobs"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -198,12 +198,12 @@
             </FrameLayout>
 
             <FrameLayout
-                android:id="@+id/btn_infor_Account"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_infor_Account"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"

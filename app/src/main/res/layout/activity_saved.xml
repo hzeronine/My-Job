@@ -36,6 +36,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:background="@drawable/search_view_saved"
                     app:iconifiedByDefault="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +75,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
+                                    android:id="@+id/btn_Home"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
@@ -96,6 +98,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
+                                    android:id="@+id/btn_Saved"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -117,6 +120,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
+                                    android:id="@+id/btn_NewPost"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -138,6 +142,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
+                                    android:id="@+id/btn_Jobs"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -159,6 +164,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
+                                    android:id="@+id/btn_Account"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
