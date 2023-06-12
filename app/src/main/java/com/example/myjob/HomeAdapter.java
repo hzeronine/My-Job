@@ -2,7 +2,6 @@ package com.example.myjob;
 
 import android.content.Context;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +17,14 @@ import java.util.ArrayList;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     Context context;
-    ArrayList<Test_Home> test_homes;
+    ArrayList<ConstructorHome> constructor_homes;
     RecyclerView recyclerView;
     int hind = 0;
 
-    public HomeAdapter(Context context, ArrayList<Test_Home> test_homes)
+    public HomeAdapter(Context context, ArrayList<ConstructorHome> constructor_homes)
     {
         this.context = context;
-        this.test_homes = test_homes;
+        this.constructor_homes = constructor_homes;
     }
 
     @NonNull
@@ -39,34 +38,34 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Gán dữ liêu
-        Test_Home test_home = test_homes.get(position);
+        ConstructorHome constructor_home = constructor_homes.get(position);
 
 
         int maxLength = 40; // Số ký tự tối đa bạn muốn hiển thị
 
-        String originalText = test_home.getTieuDe();
+        String originalText = constructor_home.getSpecialized();
         if (originalText.length() > maxLength) {
             String trimmedText = originalText.substring(0, maxLength) + "...";
             holder.txt_tieuDe.setText(trimmedText);
         } else {
-            holder.txt_tieuDe.setText(test_home.getTieuDe());
+            holder.txt_tieuDe.setText(constructor_home.getSpecialized());
         }
-        holder.txt_company.setText(test_home.getCompany());
-        holder.txt_diaChi.setText(test_home.getDiaChi());
-        holder.txt_luong.setText(test_home.getLuong());
-        holder.img_icon.setImageResource(test_home.getHinhAnh());
+        holder.txt_company.setText(constructor_home.getCompany_Name());
+        holder.txt_diaChi.setText(constructor_home.getCity());
+        holder.txt_luong.setText(constructor_home.getSalary());
+        holder.img_icon.setImageResource(constructor_home.getLogo_URL());
         //holder.btn_imgSave.setImageResource(R.drawable.icon_save);
-        holder.txt_date.setText(test_home.getDate());
-        holder.btn_imgSave.setImageResource(test_home.isChecked() ? R.drawable.icon_tick : R.drawable.icon_save);
+        holder.txt_date.setText(constructor_home.getDate());
+        holder.btn_imgSave.setImageResource(constructor_home.isChecked() ? R.drawable.icon_tick : R.drawable.icon_save);
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(test_home.isChecked()) {
+                if(constructor_home.isChecked()) {
                     holder.btn_imgSave.setImageResource(R.drawable.icon_save);
-                    test_home.setChecked(false);
+                    constructor_home.setChecked(false);
                 } else {
                     holder.btn_imgSave.setImageResource(R.drawable.icon_tick);
-                    test_home.setChecked(true);
+                    constructor_home.setChecked(true);
                 }
             }
         });
@@ -74,7 +73,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 //
     @Override
     public int getItemCount() {
-        return test_homes.size(); // trả item tại vị trí postion
+        return constructor_homes.size(); // trả item tại vị trí postion
     }
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img_icon;
@@ -105,7 +104,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     }
     public void clearRecyclerView() {
-        test_homes.clear();
+        constructor_homes.clear();
         notifyDataSetChanged();
     }
 }

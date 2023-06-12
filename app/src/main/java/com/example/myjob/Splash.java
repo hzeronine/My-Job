@@ -19,7 +19,7 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(Splash.this, HomeJob.class);
+                Intent mainIntent = new Intent(Splash.this,HomeJob.class);
                 startActivity(mainIntent);
                 finish(); // Đóng màn hình splash sau khi chuyển đến activity chính
             }
