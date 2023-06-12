@@ -44,7 +44,7 @@ public class InformationForm extends AppCompatActivity {
     CircleImageView image_avatar;
     Button btn_infor_logout, btn_infor_changePassword, btn_infor_uploadCV;
     TextView txt_infor_name;
-    FrameLayout FL_infor_homeJobs, FL_infor_saved, FL_infor_post, FL_infor_jobs, FL_infor_account;
+    ImageView FL_infor_homeJobs, FL_infor_saved, FL_infor_post, FL_infor_jobs, FL_infor_account;
     FirebaseStorage storage;
     StorageReference storageRef;
     FirebaseFirestore db;
@@ -168,7 +168,6 @@ public class InformationForm extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DangBai.class);
                 startActivity(intent);
-                finish();
             }
         });
         FL_infor_jobs.setOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.text.TextWatcher;
@@ -86,6 +87,44 @@ public class SavedActivity extends AppCompatActivity {
                viecLamAdapter.selectAll();
             } else {
                 viecLamAdapter.deselectAll();
+            }
+        });
+
+        ImageButton btn_Home = findViewById(R.id.btn_Home);
+        btn_Home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost);
+        btn_NewPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+            }
+        });
+
+//        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs);
+//        btn_Jobs.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
+
+        ImageButton btn_Account = findViewById(R.id.btn_Account);
+        btn_Account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), InformationForm.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

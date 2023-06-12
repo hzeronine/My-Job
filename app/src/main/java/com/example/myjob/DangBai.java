@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,7 @@ public class DangBai extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user;
     FirebaseFirestore db;
+    ImageButton btn_Back;
 
     boolean checkJID;
 
@@ -53,6 +55,7 @@ public class DangBai extends AppCompatActivity {
         edt_position = findViewById(R.id.edt_UL_position);
         edt_description = findViewById(R.id.edt_UL_description);
         btn_upload = findViewById(R.id.btn_UL_upload);
+        btn_Back = findViewById(R.id.btn_back_JobPosted);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
@@ -61,6 +64,12 @@ public class DangBai extends AppCompatActivity {
             public void onClick(View v) {
 
                 setdata();
+            }
+        });
+        btn_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
