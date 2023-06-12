@@ -212,6 +212,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -234,6 +235,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_Saved"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -255,6 +257,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_newpost"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"

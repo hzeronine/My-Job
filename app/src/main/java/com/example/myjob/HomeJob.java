@@ -7,11 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +55,14 @@ public class HomeJob extends AppCompatActivity {
     TextView textView9;
     ArrayList<String> listID;
 
+    ImageButton btn_newpost, btn_home;
+
+//    ImageButton btn_Home = findViewById(R.id.btn_Home);
+//    ImageButton btn_Save = findViewById(R.id.btn_Saved);
+//    ImageButton btn_Add = findViewById(R.);
+//    ImageButton btn_Jobs;
+//    ImageButton btn_account;
+
     static HashMap<String, String> dictionary_Time = new HashMap<>();
     List<RecyclerView> recyclerViewList = new ArrayList<>();
 
@@ -71,6 +81,8 @@ public class HomeJob extends AppCompatActivity {
         textView9 = findViewById(R.id.textView9);
         btn_it = findViewById(R.id.btn_IT);
         btn_congNghe = findViewById(R.id.btn_congNghe);
+        btn_newpost = findViewById(R.id.btn_newpost);
+        btn_home = findViewById(R.id.btn_home);
         listID = new ArrayList<>();
 
         //hiii
@@ -85,8 +97,8 @@ public class HomeJob extends AppCompatActivity {
 //        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
 //        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
 
-        homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
-        recyclerView.setAdapter(homeAdapter);
+//        homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
+//        recyclerView.setAdapter(homeAdapter);
 
 
 
@@ -130,6 +142,24 @@ public class HomeJob extends AppCompatActivity {
             }
         });
 
+        btn_newpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void ClickAddAllJobs() {
@@ -164,7 +194,7 @@ public class HomeJob extends AppCompatActivity {
                 });
     }
     public void getDate() {
-        database_post.enableNetwork();
+        //database_post.enableNetwork();
         database_post.collection("Post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -231,7 +261,7 @@ public class HomeJob extends AppCompatActivity {
                                     String career;
                                     String exp;
                                     String salary;
-                                    String date_submitted = null;
+                                    String date_submitted = "";
                                     String description;
                                     String specialized;
                                     String logo_URL;
