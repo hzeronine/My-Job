@@ -170,14 +170,14 @@ public class InformationForm extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        FL_infor_jobs.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        FL_infor_jobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void getID() {

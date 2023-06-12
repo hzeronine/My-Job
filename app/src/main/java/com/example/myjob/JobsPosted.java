@@ -94,7 +94,6 @@ public class JobsPosted extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), DangBai.class);
                 startActivity(intent);
-                finish();
             }
         });
 
