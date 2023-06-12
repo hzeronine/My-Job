@@ -73,7 +73,7 @@ public class HomeJob extends AppCompatActivity {
         btn_congNghe = findViewById(R.id.btn_congNghe);
         listID = new ArrayList<>();
 
-        //
+        //hiii
         list_home = new ArrayList<>();
         //dictionary_Time.put("pjdm_90", "11/06/2023 00:29");
         getDate();
