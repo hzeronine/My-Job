@@ -57,7 +57,8 @@ public class HomeJob extends AppCompatActivity {
 
     DocumentReference docRef;
     TextView textView9;
-    ArrayList<String> listID;
+    ArrayList<String> listID_jobs;
+    ArrayList<String> listID_posts;
     SearchView searchViewHome;
     ImageButton btn_newpost, btn_home, btn_saved, btn_jobs, btn_account;
 
@@ -97,23 +98,14 @@ public class HomeJob extends AppCompatActivity {
         btn_account = findViewById(R.id.btn_account);
         search_visibility = findViewById(R.id.seach_visibility);
         recyclerViewHome = findViewById(R.id.recycView2);
-        listID = new ArrayList<>();
-
-        //hiii
+        listID_jobs = new ArrayList<>();
+        listID_posts = new ArrayList<>();
         list_home = new ArrayList<>();
-        //dictionary_Time.put("pjdm_90", "11/06/2023 00:29");
+
         Menu();
         getDate();
         ViewDataJobs();
-        //ViewDataJobs(dictionary_Time);
 
-//        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
-//        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
-//        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
-//        list_home.add(new ConstructorHome("career", "companyName", "city", "salary", "date_submitted", R.drawable.img_1,false));
-
-//        homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
-//        recyclerView.setAdapter(homeAdapter);
         searchViewHome.clearFocus();
         searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -143,99 +135,8 @@ public class HomeJob extends AppCompatActivity {
         });
 
 
-
-
-
-
-        btn_newst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClickAddAllJobs();
-            }
-        });
-
-        btn_congNghe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filter = "công nghệ";
-                ClickViewDataJobs(filter);
-            }
-        });
-
-        btn_it.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filter = "it";
-                ClickViewDataJobs(filter);
-            }
-        });
-        btn_marketing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filter = "marketing";
-                ClickViewDataJobs(filter);
-            }
-        });
-
-        btn_phucVu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filter = "phục vụ";
-                ClickViewDataJobs(filter);
-            }
-        });
-
-        btn_newpost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DangBai.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        btn_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
     }
 
-    private void ClickAddAllJobs() {
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        Map<String, Object> DataJobs = new HashMap<>();
-
-        DataJobs.put("company_name", "Gear");
-        DataJobs.put("city", "Da Nang");
-        DataJobs.put("career", "Part-time");
-        DataJobs.put("exp", "2 years");
-        DataJobs.put("salary", "3000$/mo");
-        DataJobs.put("description", "Chuyên viên tư vấn thiết kế đồ họa chuyên nghiệp Xspace");
-        DataJobs.put("date_submitted", getCurrentDateTime());
-        database_jobs.collection("Jobs").document(generateRandomString())
-                .set(DataJobs)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-//                        Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-//                        startActivity(intent);
-//                        finish();
-                        Toast.makeText(HomeJob.this, "add data succes.", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(HomeJob.this, "add data failed.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
     public void getDate() {
         //database_post.enableNetwork();
         database_post.collection("Post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -243,12 +144,14 @@ public class HomeJob extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        listID.add(document.getId().toString());
+                        listID_posts.add(document.getId().toString());
                     }
 
                     //Lấy dữ liệu từ Post
-                    for (int i = 0; i < listID.size(); i++) {
-                        database_jobs.collection("Post").document(listID.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    for (int i = 0; i < listID_posts.size(); i++) {
+                        database_post.collection("Post").document(listID_posts.get(i))
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String datetime;
                             String JID_need;
                             @Override
@@ -262,8 +165,11 @@ public class HomeJob extends AppCompatActivity {
 //                                    if(JID_need != "" && datetime != "") {
 //                                        //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
 //                                        list_home.add(new ConstructorHome(JID_need, "city", "career", "description", "exp", "salary", "specialized", datetime, R.drawable.img_1, false));
+//                                        //homeAdapter.clearRecyclerView();
+//
 //                                        homeAdapter = new HomeAdapter(getApplicationContext(), list_home);
-//                                        recyclerView.setAdapter(homeAdapter);
+//
+//                                        recyclerViewHome.setAdapter(homeAdapter);
 //                                    }
                                 }
                             }
@@ -288,13 +194,13 @@ public class HomeJob extends AppCompatActivity {
                 //Lấy từng ID bỏ vào list
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        listID.add(document.getId().toString());
+                        listID_jobs.add(document.getId().toString());
                     }
 
                     //Lấy dữ liệu từ jobs
-                    for(int i=0; i < listID.size(); i++) {
-                        String id_Jobs = listID.get(i);
-                        database_jobs.collection("Jobs").document(listID.get(i))
+                    for(int i=0; i < listID_jobs.size(); i++) {
+                        String id_Jobs = listID_jobs.get(i).toString();
+                        database_jobs.collection("Jobs").document(listID_jobs.get(i))
                             .get()
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -304,7 +210,7 @@ public class HomeJob extends AppCompatActivity {
                                     String career;
                                     String exp;
                                     String salary;
-                                    String date_submitted = "";
+                                    String date_submitted = "chưa lấy được time";
                                     String description;
                                     String specialized;
                                     String logo_URL;
@@ -325,28 +231,28 @@ public class HomeJob extends AppCompatActivity {
 //                                            date_submitted = dictionary_DateTime.values().toString();
 //
 //                                        }
-                                        date_submitted = dictionary_Time.get(id_Jobs);
+                                        date_submitted = dictionary_Time.get(id_Jobs.toString());
                                         //date_submitted = documentSnapshot.getData().get("Logo_URL").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
                                             //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
                                             list_home.add(new ConstructorHome(companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,false));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
-                                            Collections.sort(list_home, new Comparator<ConstructorHome>() {
-                                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-                                                @Override
-                                                public int compare(ConstructorHome item1, ConstructorHome item2) {
-                                                    try {
-                                                        Date date1 = dateFormat.parse(item1.getDate());
-                                                        Date date2 = dateFormat.parse(item2.getDate());
-                                                        // Sử dụng compareTo để so sánh thời gian
-                                                        return date2.compareTo(date1);
-                                                    } catch (ParseException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                    return 0;
-                                                }
-                                            });
+//                                            Collections.sort(list_home, new Comparator<ConstructorHome>() {
+//                                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+//                                                @Override
+//                                                public int compare(ConstructorHome item1, ConstructorHome item2) {
+//                                                    try {
+//                                                        Date date1 = dateFormat.parse(item1.getDate());
+//                                                        Date date2 = dateFormat.parse(item2.getDate());
+//                                                        // Sử dụng compareTo để so sánh thời gian
+//                                                        return date2.compareTo(date1);
+//                                                    } catch (ParseException e) {
+//                                                        e.printStackTrace();
+//                                                    }
+//                                                    return 0;
+//                                                }
+//                                            });
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
                                             recyclerViewHome.setAdapter(homeAdapter);
@@ -397,88 +303,6 @@ public class HomeJob extends AppCompatActivity {
 
         String dateTime = String.format("%02d/%02d/%04d %02d:%02d", day, month, year, hour, minute);
         return dateTime;
-    }
-
-    private void ClickViewDataJobs(String filter) {
-        database_jobs.collection("Jobs")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Lấy từng ID bỏ vào list
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                listID.add(document.getId().toString());
-                            }
-                            //Lấy dữ liệu từ jobs
-                            for(int i=0; i < listID.size(); i++) {
-                                //docRef = database_jobs.collection("Jobs").document(listID.get(i));
-                                database_jobs.collection("Jobs").document(listID.get(i))
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                String companyName;
-                                                String city;
-                                                String career;
-                                                String exp;
-                                                String salary;
-                                                String date_submitted;
-                                                if(task.isSuccessful()) {
-                                                    DocumentSnapshot documentSnapshot = task.getResult();
-                                                    companyName = documentSnapshot.getData().get("company_name").toString();
-                                                    city = documentSnapshot.getData().get("city").toString();
-                                                    career = documentSnapshot.getData().get("career").toString();
-                                                    exp = documentSnapshot.getData().get("exp").toString();
-                                                    salary = documentSnapshot.getData().get("salary").toString();
-                                                    date_submitted = documentSnapshot.getData().get("date_submitted").toString();
-                                                    if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
-
-                                                        //Set dữ liệu vào RecyclerView
-                                                if(career.toLowerCase().contains(filter)) {
-                                                    //Clear RecyclerView trước khi add mới
-                                                    homeAdapter.clearRecyclerView();
-                                                    // Thêm dữ liệu vào RecyclerView
-                                                    list_home.add(new ConstructorHome(companyName,city,career,"description",exp, salary,"specialized","date",R.drawable.img_1,true));
-                                                }
-                                                    // Sắp xếp danh sách theo thời gian gần nhất
-//                                                    Collections.sort(list_home, new Comparator<Test_Home>() {
-//                                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-//                                                        @Override
-//                                                        public int compare(Test_Home item1, Test_Home item2) {
-//                                                            try {
-//                                                                Date date1 = dateFormat.parse(item1.getDate());
-//                                                                Date date2 = dateFormat.parse(item2.getDate());
-//                                                                // Sử dụng compareTo để so sánh thời gian
-//                                                                return date2.compareTo(date1);
-//                                                            } catch (ParseException e) {
-//                                                                e.printStackTrace();
-//                                                            }
-//                                                            return 0;
-//                                                        }
-//                                                    });
-
-                                                    homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
-                                                    recyclerView.setAdapter(homeAdapter);
-                                                    recyclerViewHome.setAdapter(homeAdapter);
-                                                    }
-                                                }
-                                            }
-                                        });
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-    public String getLastSevenCharacters(String input) {
-        int index = input.lastIndexOf("_");
-        if (index != -1 && index >= input.length() - 8) {
-            return input.substring(index + 1);
-        } else {
-            return input;
-        }
     }
 
     private void filterList(String text) {
