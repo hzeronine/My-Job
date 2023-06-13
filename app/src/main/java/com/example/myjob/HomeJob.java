@@ -5,6 +5,7 @@ import static com.example.myjob.RandomStringGenerator.generateRandomString;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,25 +46,29 @@ import java.util.Locale;
 import java.util.Map;
 
 public class HomeJob extends AppCompatActivity {
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerViewHome;
     ArrayList<ConstructorHome> list_home;
     HomeAdapter homeAdapter;
+    HomeAdapter homeAdapterFilter;
     FirebaseUser user;
     FirebaseFirestore database_jobs;
     FirebaseFirestore database_post;
     Button btn_newst, btn_congNghe, btn_it, btn_marketing, btn_phucVu;
+
     DocumentReference docRef;
     TextView textView9;
     ArrayList<String> listID;
+    SearchView searchViewHome;
+    ImageButton btn_newpost, btn_home, btn_saved, btn_jobs, btn_account;
 
-    ImageButton btn_newpost, btn_home;
+    FrameLayout search_visibility;
 
 //    ImageButton btn_Home = findViewById(R.id.btn_Home);
 //    ImageButton btn_Save = findViewById(R.id.btn_Saved);
 //    ImageButton btn_Add = findViewById(R.);
 //    ImageButton btn_Jobs;
 //    ImageButton btn_account;
-
+    static ArrayList<ConstructorHome> filteredList = new ArrayList<>();
     static HashMap<String, String> dictionary_Time = new HashMap<>();
     List<RecyclerView> recyclerViewList = new ArrayList<>();
 
@@ -83,11 +89,20 @@ public class HomeJob extends AppCompatActivity {
         btn_congNghe = findViewById(R.id.btn_congNghe);
         btn_newpost = findViewById(R.id.btn_newpost);
         btn_home = findViewById(R.id.btn_home);
+        searchViewHome = findViewById(R.id.searchViewHome);
+        btn_saved = findViewById(R.id.btn_Saved);
+        btn_home = findViewById(R.id.btn_home);
+        btn_newpost = findViewById(R.id.btn_newpost);
+        btn_jobs = findViewById(R.id.btn_jobs);
+        btn_account = findViewById(R.id.btn_account);
+        search_visibility = findViewById(R.id.seach_visibility);
+        recyclerViewHome = findViewById(R.id.recycView2);
         listID = new ArrayList<>();
 
         //hiii
         list_home = new ArrayList<>();
         //dictionary_Time.put("pjdm_90", "11/06/2023 00:29");
+        Menu();
         getDate();
         ViewDataJobs();
         //ViewDataJobs(dictionary_Time);
@@ -99,6 +114,34 @@ public class HomeJob extends AppCompatActivity {
 
 //        homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
 //        recyclerView.setAdapter(homeAdapter);
+        searchViewHome.clearFocus();
+        searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) { //Kiểm tra nếu văn bản lọc mới rỗng
+                    search_visibility.setVisibility(View.GONE);
+                    filterList("");     //Chỉnh lại danh sách dữ liệu để trở về giá trị ban đầu
+                    return false;
+                } else {
+                    search_visibility.setVisibility(View.VISIBLE);
+                    searchViewHome.setVisibility(View.VISIBLE);
+                    filterList(newText); //Lọc danh sách dữ liệu theo văn bản lọc mới
+                    return true;
+                }
+            }
+        });
+        searchViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //search_visibility.setVisibility(View.VISIBLE);
+            }
+        });
+
 
 
 
@@ -266,8 +309,8 @@ public class HomeJob extends AppCompatActivity {
                                     String specialized;
                                     String logo_URL;
 
-                                    
-                                    
+
+
                                     if(task.isSuccessful()) {
                                         DocumentSnapshot documentSnapshot = task.getResult();
                                         companyName = documentSnapshot.getData().get("Company_Name").toString();
@@ -306,6 +349,7 @@ public class HomeJob extends AppCompatActivity {
                                             });
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
+                                            recyclerViewHome.setAdapter(homeAdapter);
                                             //recyclerViewList.add(recyclerView);
 
 
@@ -416,6 +460,7 @@ public class HomeJob extends AppCompatActivity {
 
                                                     homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                                     recyclerView.setAdapter(homeAdapter);
+                                                    recyclerViewHome.setAdapter(homeAdapter);
                                                     }
                                                 }
                                             }
@@ -434,5 +479,69 @@ public class HomeJob extends AppCompatActivity {
         } else {
             return input;
         }
+    }
+
+    private void filterList(String text) {
+        filteredList.clear();
+        String searchText = text.toLowerCase();
+        for (ConstructorHome job : list_home) {
+            String specialized = job.getSpecialized().toLowerCase();
+            if (specialized.contains(searchText)) {
+                filteredList.add(job);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            homeAdapter.clearRecyclerView();
+            recyclerView.setAdapter(homeAdapter);
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        } else {
+            homeAdapter.setFilteredList(filteredList);
+            //recycler_search_visibility = recyclerView;
+            recyclerView.setAdapter(homeAdapter);
+        }
+    }
+    public void Menu() {
+        btn_newpost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btn_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn_jobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), InformationForm.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn_saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SavedActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 }

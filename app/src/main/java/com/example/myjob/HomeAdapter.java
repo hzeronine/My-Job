@@ -18,6 +18,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     Context context;
     ArrayList<ConstructorHome> constructor_homes;
+
+    ArrayList<ConstructorHome> list_jobs;
     RecyclerView recyclerView;
     int hind = 0;
 
@@ -25,6 +27,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     {
         this.context = context;
         this.constructor_homes = constructor_homes;
+    }
+    public void setFilteredList(ArrayList<ConstructorHome> filteredList) {
+        this.constructor_homes = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -75,6 +81,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     public int getItemCount() {
         return constructor_homes.size(); // trả item tại vị trí postion
     }
+
+
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img_icon;
         TextView txt_diaChi;

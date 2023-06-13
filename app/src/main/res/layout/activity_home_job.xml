@@ -40,20 +40,36 @@
             android:layout_marginHorizontal="20dp" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextText"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/custom_inputbox"
-        android:drawableLeft="@drawable/search_logo"
-        android:drawablePadding="15dp"
-        android:ems="10"
-        android:hint="Search a job"
-        android:inputType="text"
-        android:paddingLeft="20dp"
-        android:textColor="#B5B5B5" />
+        app:iconifiedByDefault="false"
+        app:queryHint="Search Here..."
+        app:searchIcon="@drawable/search_logo">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <FrameLayout
+        android:id="@+id/seach_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_view_home" />
+
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -186,7 +202,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycView"
+            android:id="@+id/recycView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -279,6 +295,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_jobs"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
@@ -300,6 +317,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_account"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
