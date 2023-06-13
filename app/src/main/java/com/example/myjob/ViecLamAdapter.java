@@ -1,40 +1,23 @@
 package com.example.myjob;
 
 import android.content.Context;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Filter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.lang.invoke.ConstantCallSite;
 import java.util.ArrayList;
-
 
 public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHolder> {
     Context context;
     ArrayList<ViecLam> listViecLam;
     ArrayList<ViecLam> filteredList;
-
-
     private boolean isAllSelected;
     boolean isFilterApplied = false;
-
-
-
 
     public ArrayList<ViecLam> getSelectedItems() {
         ArrayList<ViecLam> selectedItems = new ArrayList<>();
@@ -99,11 +82,6 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             });
         }
     }
-
-//    @Override
-//    public int getItemCount() {
-//        return listViecLam.size(); // trả item tại vị trí postion
-//    }
     @Override
     public int getItemCount() {
         if (isFilterApplied) {
@@ -139,11 +117,8 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
         TextView txt_MucLuong;
         TextView txt_ViTri;
         TextView txt_ThoiHan;
-
         ImageView img_Luong;
-
         ImageView img_ViTri;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // Ánh xạ view
@@ -159,5 +134,4 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             ck_Delete = itemView.findViewById(R.id.ck_Delete);
         }
     }
-    
 }

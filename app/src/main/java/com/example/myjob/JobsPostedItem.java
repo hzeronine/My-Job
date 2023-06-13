@@ -1,5 +1,5 @@
 package com.example.myjob;
-public class ViecLam {
+public class JobsPostedItem {
     private boolean isSelected;
     private String tieuDe;
     private int hinhAnh;
@@ -8,7 +8,7 @@ public class ViecLam {
     private String thoiHan;
     private String viTri;
     private String ID;
-    public ViecLam(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
+    public JobsPostedItem(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan, int hinhAnh)
     {
         this.ID = ID;
         this.tieuDe = tieuDe;

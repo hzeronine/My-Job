@@ -173,7 +173,7 @@ public class InformationForm extends AppCompatActivity {
         FL_infor_jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
                 startActivity(intent);
                 finish();
             }

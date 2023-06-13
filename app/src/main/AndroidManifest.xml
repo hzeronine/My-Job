@@ -12,7 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyJob"
         tools:targetApi="31">
-
+        <activity
+            android:name=".JobsList"
+            android:exported="false" />
+        <activity
+            android:name=".JobsPosted"
+            android:exported="false" />
         <activity
             android:name=".InformationForm"
             android:exported="false" />
@@ -30,17 +35,16 @@
             android:exported="false" />
         <activity
             android:name=".Splash"
-
             android:exported="false" />
         <activity
             android:name=".SavedActivity"
             android:exported="false" />
         <activity
             android:name=".HomeJob"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
