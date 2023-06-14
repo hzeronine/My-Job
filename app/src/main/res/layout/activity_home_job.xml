@@ -129,7 +129,7 @@
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_congNghe"
+                        android:id="@+id/btn_fulltime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -139,12 +139,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Công nghệ"
+                        android:text="Full-time"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_IT"
+                        android:id="@+id/btn_parttime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -155,12 +155,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="IT"
+                        android:text="Part-time"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_makerting"
+                        android:id="@+id/btn_intern"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -170,12 +170,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Makerting"
+                        android:text="Intern"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_phucVu"
+                        android:id="@+id/btn_Casual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -185,7 +185,7 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Phục Vụ"
+                        android:text="Casual"
                         android:textColor="#747170"
                         android:textSize="10dp" />
                 </LinearLayout>
@@ -224,24 +224,23 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-
                 android:layout_weight="1">
 
                 <ImageButton
                     android:id="@+id/btn_home"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_home" />
+                    app:srcCompat="@drawable/ic_home" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Home" />
             </FrameLayout>
 
@@ -254,6 +253,7 @@
                     android:id="@+id/btn_Saved"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:paddingBottom="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
@@ -263,7 +263,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Saved" />
             </FrameLayout>
 
@@ -277,6 +277,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_add" />
@@ -285,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="New Post" />
             </FrameLayout>
 
@@ -299,6 +300,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_list" />
@@ -307,7 +309,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Jobs" />
             </FrameLayout>
 
@@ -321,6 +323,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_user" />
@@ -329,7 +332,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Account" />
             </FrameLayout>
         </LinearLayout>

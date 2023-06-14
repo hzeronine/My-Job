@@ -25,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,21 +87,9 @@ public class DangBai extends AppCompatActivity {
         position = String.valueOf(edt_position.getText());
         description = String.valueOf(edt_description.getText());
 
-        //
+        Calendar calendar = Calendar.getInstance();
+        String JID = String.valueOf(calendar.getTimeInMillis());
 
-        String JID = RandomStringGenerator.generateRandomString();
-        do{
-            db.collection("Jobs").document(JID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot doc = task.getResult();
-                    if(doc.exists())
-                        checkJID = true;
-                    else
-                        checkJID = false;
-                }
-            });
-        }while (checkJID);
 
         String logo_url = "jobs_logo/default/defaultLogo.png";
         String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;

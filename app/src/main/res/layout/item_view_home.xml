@@ -73,7 +73,7 @@
                     android:id="@+id/btn_imgsave"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.8"
                     android:background="#FFFFFF"
                     android:paddingHorizontal="15dp"
                     android:scaleType="fitCenter"

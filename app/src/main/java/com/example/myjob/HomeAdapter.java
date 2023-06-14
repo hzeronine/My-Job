@@ -62,7 +62,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.img_icon.setImageResource(constructor_home.getLogo_URL());
         //holder.btn_imgSave.setImageResource(R.drawable.icon_save);
         holder.txt_date.setText(constructor_home.getDate());
-        holder.btn_imgSave.setImageResource(constructor_home.isChecked() ? R.drawable.icon_tick : R.drawable.icon_save);
+        holder.btn_imgSave.setImageResource(constructor_home.isChecked() ? R.drawable.click_ic_save : R.drawable.icon_save);
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                     holder.btn_imgSave.setImageResource(R.drawable.icon_save);
                     constructor_home.setChecked(false);
                 } else {
-                    holder.btn_imgSave.setImageResource(R.drawable.icon_tick);
+                    holder.btn_imgSave.setImageResource(R.drawable.click_ic_save);
                     constructor_home.setChecked(true);
                 }
             }

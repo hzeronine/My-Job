@@ -18,6 +18,8 @@ public class SavedActivity extends AppCompatActivity {
     ViecLamAdapter viecLamAdapter;
     SearchView searchView;
 
+    ImageButton btn_imgSaved;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,8 @@ public class SavedActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
-
+        btn_imgSaved = findViewById(R.id.btn_Saved);
+        btn_imgSaved.setImageResource(R.drawable.click_ic_save);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
