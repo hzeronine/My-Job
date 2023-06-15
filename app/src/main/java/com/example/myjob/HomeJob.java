@@ -6,12 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -36,10 +40,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HomeJob extends AppCompatActivity {
     RecyclerView recyclerView, recyclerViewHome;
-    ArrayList<ConstructorHome> list_home;
+    ArrayList<BigData> list_home;
     HomeAdapter homeAdapter;
     FirebaseFirestore database_jobs;
     FirebaseFirestore database_post;
@@ -49,11 +54,18 @@ public class HomeJob extends AppCompatActivity {
     ArrayList<String> listID_posts;
     SearchView searchViewHome;
     ImageButton btn_newpost, btn_home, btn_saved, btn_jobs, btn_account;
+    Animation animation;
+    FrameLayout logo_splash_visibility;
 
     FrameLayout search_visibility;
-
-    static ArrayList<ConstructorHome> filteredList = new ArrayList<>();
-    static HashMap<String, String> dictionary_Time = new HashMap<>();
+    private int searchErrorCount = 0;
+    static ArrayList<BigData> filteredList = new ArrayList<>();
+    private HashMap<String, String> dictionary_Time = new HashMap<>();
+    private HashMap<String, String> dictionary_Title = new HashMap<>();
+    private HashMap<String, Integer> dictionary_NumberCare = new HashMap<>();
+    private HashMap<String, String> dictionary_JIDNeed = new HashMap<>();
+    private HashMap<String, String> dictionary_UID_Posted = new HashMap<>();
+    private HashMap<String, String> dictionary_ID_Posted = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,26 +94,39 @@ public class HomeJob extends AppCompatActivity {
         listID_posts = new ArrayList<>();
         list_home = new ArrayList<>();
         searchViewHome.clearFocus();
+        logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
 
+        SplashHome();
         btn_home.setImageResource(R.drawable.click_ic_home);
         Menu();
-        getDate();
-        ViewDataJobs();
-        //Search();
+        getDateAndJobs();
+        Search();
+        refreshDataView();
+
 
         btn_fulltime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterListbyCareer("full time");
                 filterListbyCareer("full-time");
+            }
+        });
+        btn_newst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeAdapter.clearRecyclerView();
+                getDateAndJobs();
             }
         });
 
 
     }
 
-    public void getDate() {
+    public void getDateAndJobs() {
         //database_post.enableNetwork();
+        //dictionary_Time.clear();
+        // Khởi tạo một Counter để đếm số công việc đã hoàn thành
+        AtomicInteger counter = new AtomicInteger(0);
         database_post.collection("Post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -112,27 +137,37 @@ public class HomeJob extends AppCompatActivity {
 
                     //Lấy dữ liệu từ Post
                     for (int i = 0; i < listID_posts.size(); i++) {
+                        String id_Post = listID_posts.get(i).toString();
                         database_post.collection("Post").document(listID_posts.get(i))
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             String datetime;
                             String JID_need;
+                            int number_care;
+                            String JID_post;
+                            String title;
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot documentSnapshot = task.getResult();
-                                    datetime = documentSnapshot.getData().get("Time").toString();
                                     JID_need = documentSnapshot.getData().get("JID_need").toString();
+                                    datetime = documentSnapshot.getData().get("Time").toString();
+                                    title = documentSnapshot.getData().get("Time").toString();
+                                    JID_post = documentSnapshot.getData().get("UID_Posted").toString();
+                                    number_care = documentSnapshot.getLong("Number_Care").intValue();
                                     dictionary_Time.put(JID_need,datetime);
+                                    dictionary_Title.put(JID_need,title);
+                                    dictionary_UID_Posted.put(JID_need,JID_post);
+                                    dictionary_NumberCare.put(JID_need,number_care);
+                                    dictionary_JIDNeed.put(JID_need,JID_need);
+                                    dictionary_ID_Posted.put(JID_need, id_Post);
                                     //Toast.makeText(HomeJob.this, JID_need, Toast.LENGTH_SHORT).show();
-//                                    if(JID_need != "" && datetime != "") {
-//                                        //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
-//                                        list_home.add(new ConstructorHome(JID_need, "city", "career", "description", "exp", "salary", "specialized", datetime, R.drawable.img_1, false));
-//                                        //homeAdapter.clearRecyclerView();
-//
-//                                        homeAdapter = new HomeAdapter(getApplicationContext(), list_home);
-//
-//                                        recyclerViewHome.setAdapter(homeAdapter);
+                                    // Tăng counter lên 1
+                                    if (counter.incrementAndGet() == listID_posts.size()) {
+                                        // Nếu counter đạt giá trị của listID_posts, tức là tất cả công việc đã hoàn thành
+                                        // Gọi phương thức ViewDataJobs
+                                        ViewDataJobs();
+                                    }
 //                                    }
                                 }
                             }
@@ -144,6 +179,7 @@ public class HomeJob extends AppCompatActivity {
             }
         });
         //database_post.disableNetwork();
+
 
 
     }
@@ -168,6 +204,7 @@ public class HomeJob extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    String id = id_Jobs;
                                     String companyName;
                                     String city;
                                     String career;
@@ -178,8 +215,14 @@ public class HomeJob extends AppCompatActivity {
                                     String specialized;
                                     String logo_URL;
 
+                                    String JID_need;
+                                    int numberCare = 10;
+                                    String UID_post;
+                                    String title;
+
                                     if(task.isSuccessful()) {
                                         DocumentSnapshot documentSnapshot = task.getResult();
+
                                         companyName = documentSnapshot.getData().get("Company_Name").toString();
                                         city = documentSnapshot.getData().get("City").toString();
                                         career = documentSnapshot.getData().get("Career").toString();
@@ -193,27 +236,36 @@ public class HomeJob extends AppCompatActivity {
 //
 //                                        }
                                         date_submitted = dictionary_Time.get(id_Jobs.toString());
+                                        JID_need = dictionary_JIDNeed.get(id_Jobs);
+                                        UID_post = dictionary_UID_Posted.get(id_Jobs);
+                                        title = dictionary_Title.get(id_Jobs);
+                                        numberCare = dictionary_NumberCare.get(id_Jobs);
+                                        String ID_post = dictionary_ID_Posted.get(id_Jobs);
+                                       // Toast.makeText(HomeJob.this, numberCare, Toast.LENGTH_SHORT).show();
+
+                                        //numberCare = Integer.parseInt(dictionary_JIDNeed.get(id_Jobs));
+                                        //Toast.makeText(HomeJob.this, id_Jobs, Toast.LENGTH_SHORT).show();
                                         //date_submitted = documentSnapshot.getData().get("Logo_URL").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
                                             //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
-                                            list_home.add(new ConstructorHome(companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,false));
+                                            list_home.add(new BigData(JID_need,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,false));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
-//                                            Collections.sort(list_home, new Comparator<ConstructorHome>() {
-//                                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-//                                                @Override
-//                                                public int compare(ConstructorHome item1, ConstructorHome item2) {
-//                                                    try {
-//                                                        Date date1 = dateFormat.parse(item1.getDate());
-//                                                        Date date2 = dateFormat.parse(item2.getDate());
-//                                                        // Sử dụng compareTo để so sánh thời gian
-//                                                        return date2.compareTo(date1);
-//                                                    } catch (ParseException e) {
-//                                                        e.printStackTrace();
-//                                                    }
-//                                                    return 0;
-//                                                }
-//                                            });
+                                            Collections.sort(list_home, new Comparator<BigData>() {
+                                                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+                                                @Override
+                                                public int compare(BigData item1, BigData item2) {
+                                                    try {
+                                                        Date date1 = dateFormat.parse(item1.getDate());
+                                                        Date date2 = dateFormat.parse(item2.getDate());
+                                                        // Sử dụng compareTo để so sánh thời gian
+                                                        return date2.compareTo(date1);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    return 0;
+                                                }
+                                            });
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
                                             recyclerViewHome.setAdapter(homeAdapter);
@@ -264,12 +316,11 @@ public class HomeJob extends AppCompatActivity {
             }
         });
     }
-
-
     private void filterList(String text) {
+
         filteredList.clear();
         String searchText = text.toLowerCase();
-        for (ConstructorHome job : list_home) {
+        for (BigData job : list_home) {
             String specialized = job.getSpecialized().toLowerCase();
             String career = job.getCareer().toLowerCase();
             if (specialized.contains(searchText) || career.contains(searchText)) {
@@ -278,18 +329,24 @@ public class HomeJob extends AppCompatActivity {
         }
         if (filteredList.isEmpty()) {
             homeAdapter.clearRecyclerView();
-            recyclerView.setAdapter(homeAdapter);
-            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+            //recyclerView.setAdapter(homeAdapter);
+
+
         } else {
             homeAdapter.setFilteredList(filteredList);
             //recycler_search_visibility = recyclerView;
             recyclerView.setAdapter(homeAdapter);
         }
+
+        if (filteredList.isEmpty() && searchErrorCount == 0) {
+            Toast.makeText(this, "Can't find the job you're looking for, please try searching again!", Toast.LENGTH_SHORT).show();
+            searchErrorCount++;
+        }
     }
     private void filterListbyCareer(String text) {
         filteredList.clear();
         String searchText = text.toLowerCase();
-        for (ConstructorHome job : list_home) {
+        for (BigData job : list_home) {
             String career = job.getCareer().toLowerCase();
             if (career.contains(searchText)) {
                 filteredList.add(job);
@@ -298,7 +355,7 @@ public class HomeJob extends AppCompatActivity {
         if (filteredList.isEmpty()) {
             homeAdapter.clearRecyclerView();
             recyclerViewHome.setAdapter(homeAdapter);
-            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Can't find the job you're looking for at the moment", Toast.LENGTH_SHORT).show();
         } else {
             homeAdapter.setFilteredList(filteredList);
             //recycler_search_visibility = recyclerView;
@@ -350,7 +407,6 @@ public class HomeJob extends AppCompatActivity {
 
     }
     private void Search() {
-
         searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -378,5 +434,91 @@ public class HomeJob extends AppCompatActivity {
         } else {
             textView.setText(text);
         }
+    }
+
+    private void Filter(String text) {
+        filteredList.clear();
+        String searchText = text.toLowerCase();
+        for (BigData job : list_home) {
+            String specialized = job.getSpecialized().toLowerCase();
+            String career = job.getCareer().toLowerCase();
+            if (specialized.contains(searchText) || career.contains(searchText)) {
+                filteredList.add(job);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            homeAdapter.clearRecyclerView();
+            recyclerView.setAdapter(homeAdapter);
+            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        } else {
+            homeAdapter.setFilteredList(filteredList);
+            //recycler_search_visibility = recyclerView;
+            recyclerView.setAdapter(homeAdapter);
+        }
+    }
+    public void onBackPressed() {
+        // Kiểm tra nếu RecyclerView không hiển thị
+        if (search_visibility.getVisibility() == View.VISIBLE) {
+            // Hiển thị lại RecyclerView
+            search_visibility.setVisibility(View.GONE);
+            getDateAndJobs();
+            // Nếu cần, cập nhật dữ liệu trong RecyclerView
+            // recyclerView.setAdapter(homeAdapter);
+        } else {
+            // Thực hiện hành động mặc định khi nhấn nút "Back"
+            super.onBackPressed();
+        }
+    }
+    public void refreshDataView() {
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+//                getDateAndJobs(); // Lấy dữ liệu mới
+                swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
+            }
+        });
+    }
+
+    public void delay3s(final Runnable task) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                task.run();
+            }
+        }, 2000);
+    }
+
+    private void SplashHome() {
+        logo_splash_visibility.setVisibility(View.VISIBLE);
+        delay3s(new Runnable() {
+            @Override
+            public void run() {
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // Phương thức này được gọi khi hiệu ứng bắt đầu
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        // Phương thức này được gọi khi hiệu ứng kết thúc
+                        logo_splash_visibility.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        // Phương thức này được gọi khi hiệu ứng lặp lại (nếu có)
+                    }
+                });
+
+                logo_splash_visibility.startAnimation(animation);
+            }
+        });
     }
 }

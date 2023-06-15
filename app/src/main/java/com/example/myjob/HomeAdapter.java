@@ -1,5 +1,7 @@
 package com.example.myjob;
 
+import static com.example.myjob.RandomStringGenerator.generateRandomString;
+
 import android.content.Context;
 
 import android.view.LayoutInflater;
@@ -9,27 +11,41 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     Context context;
-    ArrayList<ConstructorHome> constructor_homes;
+    ArrayList<BigData> bigData;
+    ArrayList<List> list;
+    FirebaseUser user;
 
-    ArrayList<ConstructorHome> list_jobs;
-    RecyclerView recyclerView;
-    int hind = 0;
-
-    public HomeAdapter(Context context, ArrayList<ConstructorHome> constructor_homes)
+    int numberCare = 0;
+    FirebaseFirestore database_saved = FirebaseFirestore.getInstance();;
+    public HomeAdapter(Context context, ArrayList<BigData> bigData)
     {
         this.context = context;
-        this.constructor_homes = constructor_homes;
+        this.bigData = bigData;
+
+
     }
-    public void setFilteredList(ArrayList<ConstructorHome> filteredList) {
-        this.constructor_homes = filteredList;
+    public void setFilteredList(ArrayList<BigData> filteredList) {
+        this.bigData = filteredList;
         notifyDataSetChanged();
     }
 
@@ -44,7 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Gán dữ liêu
-        ConstructorHome constructor_home = constructor_homes.get(position);
+        BigData constructor_home = bigData.get(position);
 
 
         int maxLength = 40; // Số ký tự tối đa bạn muốn hiển thị
@@ -66,20 +82,136 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String ID_saved = "";
+                int numberCare = constructor_home.getNumberCare();
                 if(constructor_home.isChecked()) {
+                    // Xóa khỏi mục Saved
                     holder.btn_imgSave.setImageResource(R.drawable.icon_save);
                     constructor_home.setChecked(false);
+                    String id = constructor_home.getId();
+                    database_saved.collection("Saved").document(constructor_home.getId()).delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Xóa thành công
+                                    Toast.makeText(context, "Unsaved your post", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Xóa thất bại
+                                    Toast.makeText(context, "Unsaved your post fail " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                    // Giảm lượt tương tác
+
+                    numberCare = numberCare;
+                    //int count = Integer.valueOf(numberCare);
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("Number_Care", numberCare);
+
+                    // Cập nhật dữ liệu vào trường cụ thể trong tài liệu
+                    String collectionName = "Post"; // Tên của bộ sưu tập chứa tài liệu
+                    String documentId = constructor_home.getUID_posted(); // ID của tài liệu cần cập nhật
+                    database_saved.collection(collectionName)
+                            .document(documentId)
+                            .update(updateData)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Cập nhật thành công
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Xử lý khi cập nhật thất bại
+                                }
+                            });
+
                 } else {
+                    ID_saved = generateRandomString();
+                    constructor_home.setId(ID_saved);
                     holder.btn_imgSave.setImageResource(R.drawable.click_ic_save);
                     constructor_home.setChecked(true);
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+//                    // Set vào Saved khi ấn Save
+                    Calendar calendar = Calendar.getInstance();
+                    String JID = String.valueOf(calendar.getTimeInMillis());
+                    String logo_url = "jobs_logo/default/defaultLogo.png";
+//                    String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;
+                    // Sign in success, update UI with the signed-in user's information
+                    //Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
+                    Map<String, Object> MapDataSaved = new HashMap<>();
+                    MapDataSaved.put("ID_Saved", ID_saved);
+                    MapDataSaved.put("Company_Name", constructor_home.getCompany_Name());
+                    MapDataSaved.put("Logo_URL", logo_url);
+                    MapDataSaved.put("City", constructor_home.getCity());
+                    MapDataSaved.put("Specialized",constructor_home.getSpecialized());
+                    MapDataSaved.put("Career",constructor_home.getCareer());
+                    MapDataSaved.put("Exp",constructor_home.getExp());
+                    MapDataSaved.put("Salary",constructor_home.getSalary());
+                    MapDataSaved.put("Description",constructor_home.getDescription());
+//                    MapDataSaved.put("UID_Posted",user.getUid());
+                    MapDataSaved.put("JID_need",JID);
+                    MapDataSaved.put("Time",RandomStringGenerator.getCurrentDateTime());
+
+
+
+                    database_saved.collection("Saved").document(ID_saved)
+                            .set(MapDataSaved)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(context, "Saved the post successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(context, "Save post failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+
+
+                    numberCare = numberCare +1;
+                    //int count = Integer.valueOf(numberCare);
+                    Map<String, Object> updateData = new HashMap<>();
+                    updateData.put("Number_Care", numberCare);
+
+                    // Cập nhật dữ liệu vào trường cụ thể trong tài liệu
+                    String collectionName = "Post"; // Tên của bộ sưu tập chứa tài liệu
+                    String documentId = constructor_home.getUID_posted(); // ID của tài liệu cần cập nhật
+                    database_saved.collection(collectionName)
+                            .document(documentId)
+                            .update(updateData)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Cập nhật thành công
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Xử lý khi cập nhật thất bại
+                                }
+                            });
                 }
             }
         });
+
+
+
     }
 //
     @Override
     public int getItemCount() {
-        return constructor_homes.size(); // trả item tại vị trí postion
+        return bigData.size(); // trả item tại vị trí postion
     }
 
 
@@ -113,7 +245,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
     }
     public void clearRecyclerView() {
-        constructor_homes.clear();
+        bigData.clear();
         notifyDataSetChanged();
+    }
+
+    void setdata() {
+
+
     }
 }

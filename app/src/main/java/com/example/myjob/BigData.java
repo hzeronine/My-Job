@@ -1,7 +1,15 @@
 package com.example.myjob;
 
-public class ConstructorHome {
+public class BigData {
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    private String id;
     private String company_Name;
     private String city;
     private String career;
@@ -10,9 +18,46 @@ public class ConstructorHome {
     private String salary;
     private String specialized;
     private String date;
+
+    public String getJID_need() {
+        return JID_need;
+    }
+
+    public void setJID_need(String JID_need) {
+        this.JID_need = JID_need;
+    }
+
+    public int getNumberCare() {
+        return numberCare;
+    }
+
+    public void setNumberCare(int numberCare) {
+        this.numberCare = numberCare;
+    }
+
+    public String getTitile() {
+        return titile;
+    }
+
+    public void setTitile(String titile) {
+        this.titile = titile;
+    }
+
+    public String getUID_posted() {
+        return UID_posted;
+    }
+
+    public void setUID_posted(String UID_posted) {
+        this.UID_posted = UID_posted;
+    }
+
+    private String JID_need;
+    private int numberCare;
+    private String titile;
+    private String UID_posted;
     private int logo_URL;
 
-    public ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked) {
+    public BigData(String JID_need, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked) {
         this.company_Name = company_Name;
         this.city = city;
         this.career = career;
@@ -23,6 +68,10 @@ public class ConstructorHome {
         this.date = date;
         this.logo_URL = logo_URL;
         this.checked = checked;
+        this.JID_need = JID_need;
+        this.numberCare= numberCare;
+        this.titile = titile;
+        this.UID_posted = UID_posted;
     }
 
     boolean checked;

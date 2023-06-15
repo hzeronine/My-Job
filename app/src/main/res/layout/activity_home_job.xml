@@ -7,6 +7,19 @@
     android:orientation="vertical"
     tools:context=".HomeJob">
 
+    <FrameLayout
+        android:id="@+id/logo_splash_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/logomyjob___copy" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
@@ -200,17 +213,26 @@
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_view_home" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                tools:listitem="@layout/item_view_home" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <LinearLayout
             android:id="@+id/linearLayout2"
