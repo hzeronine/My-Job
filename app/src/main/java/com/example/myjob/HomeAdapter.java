@@ -89,7 +89,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                     holder.btn_imgSave.setImageResource(R.drawable.icon_save);
                     constructor_home.setChecked(false);
                     String id = constructor_home.getId();
-                    database_saved.collection("Saved").document(constructor_home.getId()).delete()
+                    database_saved.collection("Saved").document("xzty_66")
+                            .delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
