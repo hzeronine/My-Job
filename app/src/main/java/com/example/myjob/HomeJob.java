@@ -71,6 +71,34 @@ public class HomeJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_job);
         //Ánh xạ ID
+        setID();
+
+        SplashHome();
+        btn_home.setImageResource(R.drawable.click_ic_home);
+        Menu();
+        getDateAndJobs();
+        Search();
+        refreshDataView();
+
+
+        btn_fulltime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterListbyCareer("full-time");
+            }
+        });
+        btn_newst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeAdapter.clearRecyclerView();
+                getDateAndJobs();
+            }
+        });
+
+
+    }
+
+    private void setID() {
         recyclerView = findViewById(R.id.recycView);
         btn_intern = findViewById(R.id.btn_intern);
         btn_casual = findViewById(R.id.btn_Casual);
@@ -96,30 +124,6 @@ public class HomeJob extends AppCompatActivity {
         searchViewHome.clearFocus();
         logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-
-        SplashHome();
-        btn_home.setImageResource(R.drawable.click_ic_home);
-        Menu();
-        getDateAndJobs();
-        Search();
-        refreshDataView();
-
-
-        btn_fulltime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterListbyCareer("full-time");
-            }
-        });
-        btn_newst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                homeAdapter.clearRecyclerView();
-                getDateAndJobs();
-            }
-        });
-
-
     }
 
     public void getDateAndJobs() {
