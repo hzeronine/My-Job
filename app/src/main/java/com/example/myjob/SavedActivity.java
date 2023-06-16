@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,15 +21,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class SavedActivity extends AppCompatActivity {
@@ -131,7 +120,7 @@ public class SavedActivity extends AppCompatActivity {
                 viecLamAdapter.deselectAll();
             }
         });
-        ImageButton btn_Home = findViewById(R.id.btn_Home_JL);
+        ImageButton btn_Home = findViewById(R.id.btn_Home);
         btn_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +130,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost_JL);
+        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost);
         btn_NewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +139,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_JL);
+        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_List);
         btn_Jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +149,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_Account = findViewById(R.id.btn_Account_JL);
+        ImageButton btn_Account = findViewById(R.id.btn_Account);
         btn_Account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
