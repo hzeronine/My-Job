@@ -34,9 +34,6 @@
             android:name=".DangBai"
             android:exported="false" />
         <activity
-            android:name=".Splash"
-            android:exported="false" />
-        <activity
             android:name=".SavedActivity"
             android:exported="false" />
         <activity
