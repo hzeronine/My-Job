@@ -74,7 +74,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/btn_Home"
+                                    android:id="@+id/btn_Home_JL"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="center"
@@ -97,7 +97,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/btn_Saved"
+                                    android:id="@+id/btn_Saved_JL"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -119,7 +119,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/btn_NewPost"
+                                    android:id="@+id/btn_NewPost_JL"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -141,7 +141,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/btn_Jobs"
+                                    android:id="@+id/btn_Jobs_JL"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
@@ -163,7 +163,7 @@
                             android:layout_weight="1">
 
                                 <ImageButton
-                                    android:id="@+id/btn_Account"
+                                    android:id="@+id/btn_Account_JL"
                                     android:layout_width="match_parent"
                                     android:layout_height="50dp"
                                     android:layout_weight="1"
