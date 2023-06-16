@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -33,6 +35,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -41,15 +44,16 @@ public class SavedActivity extends AppCompatActivity {
     ArrayList<ViecLam> listViecLam;
     ArrayList<ViecLam> filteredList = new ArrayList<>();
     ViecLamAdapter viecLamAdapter;
-
     HomeAdapter homeAdapter;
     SearchView searchView;
-    FirebaseFirestore database_saved;
-    ImageButton btn_imgSaved;
+    FirebaseFirestore database_ref;
+    FirebaseUser user;
+    ImageButton btnDelete;
+    CheckBox ck_SAll;
+    ImageButton btn_imgSaved, btn_Account, btn_Home, btn_NewPost, btn_Jobs;
     ArrayList<String> listID_saved;
     ArrayList<String> listID_posts;
     ArrayList<BigData> list_home;
-    FirebaseFirestore database_post;
     private HashMap<String, String> dictionary_Time = new HashMap<>();
     private HashMap<String, String> dictionary_Title = new HashMap<>();
     private HashMap<String, Integer> dictionary_NumberCare = new HashMap<>();
@@ -61,21 +65,21 @@ public class SavedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
 
-        // Ánh xạ ID
-        list_home = new ArrayList<>();
-        listID_saved = new ArrayList<>();
-        listID_posts = new ArrayList<>();
-        database_saved = FirebaseFirestore.getInstance();
-        database_post = FirebaseFirestore.getInstance();
-
-        recyclerView = findViewById(R.id.recyclerview);
-        searchView = findViewById(R.id.searchView);
-        searchView.clearFocus();
-        btn_imgSaved = findViewById(R.id.btn_Saved);
-        btn_imgSaved.setImageResource(R.drawable.click_ic_save);
+        setID();
+        getDataPosted();
+//        ViewDataSaved();
+        Toast.makeText(getApplicationContext(),listID_posts.get(0),Toast.LENGTH_SHORT).show();
+//        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
+//        viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
+//        recyclerView.setAdapter(viecLamAdapter);
 
 
-        ViewDataSaved();
+
+        setEventActivity();
+        setEventMenu();
+    }
+
+    private void setEventActivity() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -92,15 +96,6 @@ public class SavedActivity extends AppCompatActivity {
                 }
             }
         });
-
-        getDataPosted();
-
-//        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
-//        viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
-//        recyclerView.setAdapter(viecLamAdapter);
-
-        ImageButton btnDelete = findViewById(R.id.btn_Delete);
-
         btnDelete.setOnClickListener(v -> {
             if(filteredList.isEmpty()) {
                 ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
@@ -123,15 +118,16 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        CheckBox ck_SAll = findViewById(R.id.ck_SAll);
         ck_SAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-               viecLamAdapter.selectAll();
+                viecLamAdapter.selectAll();
             } else {
                 viecLamAdapter.deselectAll();
             }
         });
-        ImageButton btn_Home = findViewById(R.id.btn_Home_JL);
+    }
+
+    private void setEventMenu() {
         btn_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +137,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost_JL);
+
         btn_NewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,17 +146,16 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_JL);
         btn_Jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobsList.class);
+                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        ImageButton btn_Account = findViewById(R.id.btn_Account_JL);
+
         btn_Account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,6 +164,28 @@ public class SavedActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setID() {
+        // Ánh xạ ID
+        list_home = new ArrayList<>();
+        listID_saved = new ArrayList<>();
+        listID_posts = new ArrayList<>();
+        database_ref = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        recyclerView = findViewById(R.id.recyclerview);
+        searchView = findViewById(R.id.searchView);
+        searchView.clearFocus();
+        btn_imgSaved = findViewById(R.id.btn_Saved);
+        btn_imgSaved.setImageResource(R.drawable.click_ic_save);
+        btnDelete = findViewById(R.id.btn_Delete);
+        ck_SAll = findViewById(R.id.ck_SAll);
+        btn_Account = findViewById(R.id.btn_Account);
+        btn_Home = findViewById(R.id.btn_Home);
+        btn_NewPost = findViewById(R.id.btn_NewPost);
+        btn_Jobs = findViewById(R.id.btn_Jobs);
+
     }
 
     //Đưa data vào đây nè Huy
@@ -203,7 +220,7 @@ public class SavedActivity extends AppCompatActivity {
 
     public void ViewDataSaved() {
 
-        database_saved.collection("Saved")
+        database_ref.collection("Saved")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -217,7 +234,7 @@ public class SavedActivity extends AppCompatActivity {
                             //Lấy dữ liệu từ jobs
                             for(int i=0; i < listID_saved.size(); i++) {
                                 String id_Jobs = listID_saved.get(i).toString();
-                                database_saved.collection("Saved").document(listID_saved.get(i))
+                                database_ref.collection("Saved").document(listID_saved.get(i))
                                         .get()
                                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
@@ -306,61 +323,16 @@ public class SavedActivity extends AppCompatActivity {
     }
 
     public void getDataPosted() {
-        //database_post.enableNetwork();
-        //dictionary_Time.clear();
-        // Khởi tạo một Counter để đếm số công việc đã hoàn thành
-        AtomicInteger counter = new AtomicInteger(0);
-        database_post.collection("Post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        listID_posts.add(document.getId().toString());
+        database_ref.collection("Saved").document(user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            listID_saved = (ArrayList<String>) documentSnapshot.getData().get("Post_Saved");
+                        }
                     }
-
-                    //Lấy dữ liệu từ Post
-                    for (int i = 0; i < listID_posts.size(); i++) {
-                        String id_Post = listID_posts.get(i).toString();
-                        database_post.collection("Post").document(listID_posts.get(i))
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    String datetime;
-                                    String JID_need;
-                                    int number_care;
-                                    String JID_post;
-                                    String title;
-
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot documentSnapshot = task.getResult();
-                                            JID_need = documentSnapshot.getData().get("JID_need").toString();
-                                            datetime = documentSnapshot.getData().get("Time").toString();
-                                            title = documentSnapshot.getData().get("Time").toString();
-                                            JID_post = documentSnapshot.getData().get("UID_Posted").toString();
-                                            number_care = documentSnapshot.getLong("Number_Care").intValue();
-                                            dictionary_Time.put(JID_need, datetime);
-                                            dictionary_Title.put(JID_need, title);
-                                            dictionary_UID_Posted.put(JID_need, JID_post);
-                                            dictionary_NumberCare.put(JID_need, number_care);
-                                            dictionary_JIDNeed.put(JID_need, JID_need);
-                                            dictionary_ID_Posted.put(JID_need, id_Post);
-                                            //Toast.makeText(HomeJob.this, JID_need, Toast.LENGTH_SHORT).show();
-                                            // Tăng counter lên 1
-                                            if (counter.incrementAndGet() == listID_posts.size()) {
-                                                // Nếu counter đạt giá trị của listID_posts, tức là tất cả công việc đã hoàn thành
-                                                // Gọi phương thức ViewDataJobs
-
-                                            }
-//                                    }
-                                        }
-                                    }
-
-                                });
-
-                    }
-                }
-            }
-        });
+                });
     }
 }

@@ -111,7 +111,7 @@ public class HomeJob extends AppCompatActivity {
         btn_newpost = findViewById(R.id.btn_newpost);
         btn_home = findViewById(R.id.btn_home);
         searchViewHome = findViewById(R.id.searchViewHome);
-        btn_saved = findViewById(R.id.btn_Saved);
+        btn_saved = findViewById(R.id.btn_Saved_JL);
         btn_home = findViewById(R.id.btn_home);
         btn_newpost = findViewById(R.id.btn_newpost);
         btn_jobs = findViewById(R.id.btn_jobs);
