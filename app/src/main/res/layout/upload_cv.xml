@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="85dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:background="#FF9800"
+        android:soundEffectsEnabled="false"
+        android:textAlignment="viewEnd"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="105dp" />
+
+    <LinearLayout
+        android:layout_width="647dp"
+        android:layout_height="88dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-4dp">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:textAlignment="viewEnd"
+            app:srcCompat="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="179dp"
+            android:layout_height="match_parent"
+            android:text="Upload CV"
+            android:textAlignment="viewEnd"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="265dp"
+        android:layout_height="54dp"
+        android:autoText="true"
+        android:backgroundTint="#8BC34A"
+        android:buttonTint="#A0F63D"
+        android:checked="true"
+        android:text="Chọn tất cả"
+        android:textAlignment="viewEnd"
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <LinearLayout
+        android:layout_width="642dp"
+        android:layout_height="207dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="333dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="83dp"
+            android:layout_height="88dp"
+            android:textAlignment="viewEnd"
+            app:srcCompat="@drawable/icon_add" />
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="307dp"
+            android:layout_height="58dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="CV_VoNguyenThanhQuang.pdf"
+            android:textAlignment="viewEnd" />
+
+        <CheckBox
+            android:id="@+id/checkBox_CV"
+            android:layout_width="98dp"
+            android:layout_height="82dp"
+            android:checked="true"
+            android:focusable="auto"
+            android:isScrollContainer="true"
+            android:keepScreenOn="true"
+            android:textAlignment="viewEnd"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnXoa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4CAF50"
+        android:text="Xóa"
+        app:iconPadding="11dp"
+        app:strokeColor="#4CAF50"
+        tools:layout_editor_absoluteX="543dp"
+        tools:layout_editor_absoluteY="114dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

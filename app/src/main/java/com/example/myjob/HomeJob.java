@@ -152,7 +152,7 @@ public class HomeJob extends AppCompatActivity {
 
                     //Lấy dữ liệu từ Post
                     for (int i = 0; i < listID_posts.size(); i++) {
-                        String id_Post = listID_posts.get(i).toString();
+                        String id_Post = listID_jobs.get(i).toString();
                         database_post.collection("Post").document(listID_posts.get(i))
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

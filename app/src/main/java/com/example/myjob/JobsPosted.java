@@ -23,7 +23,7 @@ public class JobsPosted extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_posted);
         recyclerView = findViewById(R.id.recyclerview_JP);
-        searchView = findViewById(R.id.searchView_JP);
+        searchView = findViewById(R.id.searchView_JL);
         searchView.clearFocus();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
