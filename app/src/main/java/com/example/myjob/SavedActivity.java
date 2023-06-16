@@ -9,16 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,17 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 
 public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -51,8 +43,8 @@ public class SavedActivity extends AppCompatActivity {
     ImageButton btnDelete;
     CheckBox ck_SAll;
     ImageButton btn_imgSaved, btn_Account, btn_Home, btn_NewPost, btn_Jobs;
-    ArrayList<String> listID_saved;
-    ArrayList<String> listID_posts;
+    public List<String> listID_saved;
+    public ArrayList<String> listID_posts;
     ArrayList<BigData> list_home;
     private HashMap<String, String> dictionary_Time = new HashMap<>();
     private HashMap<String, String> dictionary_Title = new HashMap<>();
@@ -67,8 +59,11 @@ public class SavedActivity extends AppCompatActivity {
 
         setID();
         getDataPosted();
-//        ViewDataSaved();
-        Toast.makeText(getApplicationContext(),listID_posts.get(0),Toast.LENGTH_SHORT).show();
+        //listID_saved.add("Asd");
+        for(String c : listID_saved)
+            Toast.makeText(this, c, Toast.LENGTH_SHORT).show();
+
+        //ViewDataSaved();
 //        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
 //        viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
 //        recyclerView.setAdapter(viecLamAdapter);
@@ -177,7 +172,7 @@ public class SavedActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
-        btn_imgSaved = findViewById(R.id.btn_Saved);
+        btn_imgSaved = findViewById(R.id.btn_Saved_SF);
         btn_imgSaved.setImageResource(R.drawable.click_ic_save);
         btnDelete = findViewById(R.id.btn_Delete);
         ck_SAll = findViewById(R.id.ck_SAll);
@@ -219,107 +214,24 @@ public class SavedActivity extends AppCompatActivity {
     }
 
     public void ViewDataSaved() {
+        if(listID_saved.size() == 0){
+            //Toast.makeText(SavedActivity.this, listID_saved.get(0), Toast.LENGTH_SHORT).show();
 
-        database_ref.collection("Saved")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //Lấy từng ID bỏ vào list
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                listID_saved.add(document.getId().toString());
-                            }
+            return;
+        }
 
-                            //Lấy dữ liệu từ jobs
-                            for(int i=0; i < listID_saved.size(); i++) {
-                                String id_Jobs = listID_saved.get(i).toString();
-                                database_ref.collection("Saved").document(listID_saved.get(i))
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                String id = id_Jobs;
-                                                String companyName;
-                                                String city;
-                                                String career;
-                                                String exp;
-                                                String salary;
-                                                String date_submitted = "null";
-                                                String description;
-                                                String specialized;
-                                                String logo_URL;
-
-                                                String JID_need;
-                                                int numberCare = 10;
-                                                String UID_post;
-                                                String title;
-
-                                                if(task.isSuccessful()) {
-                                                    DocumentSnapshot documentSnapshot = task.getResult();
-
-                                                    companyName = documentSnapshot.getData().get("Company_Name").toString();
-                                                    city = documentSnapshot.getData().get("City").toString();
-                                                    career = documentSnapshot.getData().get("Career").toString();
-                                                    exp = documentSnapshot.getData().get("Exp").toString();
-                                                    salary = documentSnapshot.getData().get("Salary").toString();
-                                                    description = documentSnapshot.getData().get("Description").toString();
-                                                    specialized = documentSnapshot.getData().get("Specialized").toString();
-                                                    logo_URL = documentSnapshot.getData().get("Logo_URL").toString();
-//                                        if((dictionary_DateTime.containsKey(id_Jobs))) {
-//                                            date_submitted = dictionary_DateTime.values().toString();
-//
-//                                        }
-                                                    // Toast.makeText(HomeJob.this, numberCare, Toast.LENGTH_SHORT).show();
-
-                                                    //numberCare = Integer.parseInt(dictionary_JIDNeed.get(id_Jobs));
-                                                    //Toast.makeText(HomeJob.this, id_Jobs, Toast.LENGTH_SHORT).show();
-                                                    //date_submitted = documentSnapshot.getData().get("Logo_URL").toString();
-                                                    date_submitted = dictionary_Time.get(id_Jobs.toString());
-                                                    JID_need = dictionary_JIDNeed.get(id_Jobs);
-                                                    UID_post = dictionary_UID_Posted.get(id_Jobs);
-                                                    title = dictionary_Title.get(id_Jobs);
-                                                    //numberCare = dictionary_NumberCare.get(id_Jobs);
-                                                    String ID_post = dictionary_ID_Posted.get(id_Jobs);
-
-                                                    if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
-                                                        //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
-                                                        list_home.add(new BigData(JID_need,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,true));
-                                                        //Toast.makeText(SavedActivity.this, JID_need, Toast.LENGTH_SHORT).show();
-
-                                                        //listViecLam.add(new ViecLam("10","Nhân viên hành chính", "Công ty DEF", "Thỏa thuận", "Hà Nội", "29", 8));
-                                                        // Sắp xếp danh sách theo thời gian gần nhất
-//                                                        Collections.sort(list_home, new Comparator<BigData>() {
-//                                                            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-//                                                            @Override
-//                                                            public int compare(BigData item1, BigData item2) {
-//                                                                try {
-//                                                                    Date date1 = dateFormat.parse(item1.getDate());
-//                                                                    Date date2 = dateFormat.parse(item2.getDate());
-//                                                                    // Sử dụng compareTo để so sánh thời gian
-//                                                                    return date2.compareTo(date1);
-//                                                                } catch (ParseException e) {
-//                                                                    e.printStackTrace();
-//                                                                }
-//                                                                return 0;
-//                                                            }
-//                                                        });
-                                                        homeAdapter = new HomeAdapter(getApplicationContext(), list_home);
-                                                        recyclerView.setAdapter(homeAdapter);
-//                                                        homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
-//                                                        recyclerView.setAdapter(homeAdapter);
-//                                                        recyclerViewHome.setAdapter(homeAdapter);
-//                                                        //recyclerViewList.add(recyclerView);
-                                                    }
-                                                }
-                                            }
-                                        });
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
+        for(int i = 0; i < listID_saved.size(); i++){
+            Toast.makeText(SavedActivity.this, listID_saved.get(i), Toast.LENGTH_SHORT).show();
+            database_ref.collection("Post").document(listID_saved.get(i))
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            Toast.makeText(SavedActivity.this, getTaskId(), Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+        }
     }
 
     public void getDataPosted() {
@@ -331,7 +243,22 @@ public class SavedActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
                             listID_saved = (ArrayList<String>) documentSnapshot.getData().get("Post_Saved");
+
+                            for(String c : (ArrayList<String>) documentSnapshot.getData().get("Post_Saved")){
+                                SavedActivity.this.listID_saved.add(c);
+                                Toast.makeText(SavedActivity.this, listID_saved.get(0), Toast.LENGTH_SHORT).show();
+                            }
+
+                            //Toast.makeText(getApplicationContext(),listID_saved.size(),Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
+
                         }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(),"Get Failure2",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -100,14 +100,14 @@ public class HomeJob extends AppCompatActivity {
 
     private void setID() {
         recyclerView = findViewById(R.id.recycView);
-        btn_intern = findViewById(R.id.btn_intern);
-        btn_casual = findViewById(R.id.btn_Casual);
+        //btn_intern = findViewById(R.id.btn_intern);
+       // btn_casual = findViewById(R.id.btn_Casual);
         btn_newst = findViewById(R.id.btn_newst);
         database_jobs = FirebaseFirestore.getInstance();
         database_post = FirebaseFirestore.getInstance();
         textView9 = findViewById(R.id.textView9);
-        btn_parttime = findViewById(R.id.btn_parttime);
-        btn_fulltime = findViewById(R.id.btn_fulltime);
+       // btn_parttime = findViewById(R.id.btn_parttime);
+        //btn_fulltime = findViewById(R.id.btn_fulltime);
         btn_newpost = findViewById(R.id.btn_newpost);
         btn_home = findViewById(R.id.btn_home);
         searchViewHome = findViewById(R.id.searchViewHome);
@@ -122,7 +122,7 @@ public class HomeJob extends AppCompatActivity {
         listID_posts = new ArrayList<>();
         list_home = new ArrayList<>();
         searchViewHome.clearFocus();
-        logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
+        //logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
     }
 
@@ -474,18 +474,18 @@ public class HomeJob extends AppCompatActivity {
         }
     }
     public void refreshDataView() {
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
-                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-                startActivity(intent);
-                finish();
-//                getDateAndJobs(); // Lấy dữ liệu mới
-                swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
-            }
-        });
+//        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
+//                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+//                startActivity(intent);
+//                finish();
+////                getDateAndJobs(); // Lấy dữ liệu mới
+//                swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
+//            }
+//        });
     }
 
     public void delay3s(final Runnable task) {
