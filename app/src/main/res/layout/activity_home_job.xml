@@ -17,9 +17,7 @@
             android:id="@+id/imageView7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/my_job_splash"
-            android:background="#FE7235"
-            />
+            app:srcCompat="@drawable/logomyjob___copy" />
     </FrameLayout>
 
     <TextView

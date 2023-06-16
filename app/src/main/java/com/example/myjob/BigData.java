@@ -19,12 +19,12 @@ public class BigData {
     private String specialized;
     private String date;
 
-    public String getJID_need() {
-        return JID_need;
+    public String getPID() {
+        return PID;
     }
 
-    public void setJID_need(String JID_need) {
-        this.JID_need = JID_need;
+    public void setPID(String PID) {
+        this.PID = PID;
     }
 
     public int getNumberCare() {
@@ -51,13 +51,13 @@ public class BigData {
         this.UID_posted = UID_posted;
     }
 
-    private String JID_need;
+    private String PID;
     private int numberCare;
     private String titile;
     private String UID_posted;
     private int logo_URL;
 
-    public BigData(String JID_need, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked) {
+    public BigData(String PID, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked) {
         this.company_Name = company_Name;
         this.city = city;
         this.career = career;
@@ -68,7 +68,7 @@ public class BigData {
         this.date = date;
         this.logo_URL = logo_URL;
         this.checked = checked;
-        this.JID_need = JID_need;
+        this.PID = PID;
         this.numberCare= numberCare;
         this.titile = titile;
         this.UID_posted = UID_posted;

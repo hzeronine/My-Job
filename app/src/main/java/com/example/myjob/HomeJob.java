@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,6 +41,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,10 +51,13 @@ public class HomeJob extends AppCompatActivity {
     HomeAdapter homeAdapter;
     FirebaseFirestore database_jobs;
     FirebaseFirestore database_post;
+    FirebaseFirestore database_saved;
+    FirebaseUser user;
     Button btn_fulltime, btn_parttime, btn_casual, btn_intern, btn_newst;
     TextView textView9;
     ArrayList<String> listID_jobs;
     ArrayList<String> listID_posts;
+    ArrayList<String> listID_saved;
     SearchView searchViewHome;
     ImageButton btn_newpost, btn_home, btn_saved, btn_jobs, btn_account;
     Animation animation;
@@ -66,6 +72,7 @@ public class HomeJob extends AppCompatActivity {
     private HashMap<String, String> dictionary_JIDNeed = new HashMap<>();
     private HashMap<String, String> dictionary_UID_Posted = new HashMap<>();
     private HashMap<String, String> dictionary_ID_Posted = new HashMap<>();
+    private HashMap<String, String> dictionary_ID_Saved = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +84,7 @@ public class HomeJob extends AppCompatActivity {
         btn_newst = findViewById(R.id.btn_newst);
         database_jobs = FirebaseFirestore.getInstance();
         database_post = FirebaseFirestore.getInstance();
+        database_saved = FirebaseFirestore.getInstance();
         textView9 = findViewById(R.id.textView9);
         btn_parttime = findViewById(R.id.btn_parttime);
         btn_fulltime = findViewById(R.id.btn_fulltime);
@@ -92,15 +100,20 @@ public class HomeJob extends AppCompatActivity {
         recyclerViewHome = findViewById(R.id.recycView2);
         listID_jobs = new ArrayList<>();
         listID_posts = new ArrayList<>();
+        listID_saved = new ArrayList<>();
         list_home = new ArrayList<>();
         searchViewHome.clearFocus();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
 
         SplashHome();
         btn_home.setImageResource(R.drawable.click_ic_home);
         Menu();
+
         getDateAndJobs();
+        //getDateAndJobs();
+
         Search();
         refreshDataView();
 
@@ -131,6 +144,8 @@ public class HomeJob extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    //
+                    getIDSaved();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         listID_posts.add(document.getId().toString());
                     }
@@ -166,7 +181,9 @@ public class HomeJob extends AppCompatActivity {
                                     if (counter.incrementAndGet() == listID_posts.size()) {
                                         // Nếu counter đạt giá trị của listID_posts, tức là tất cả công việc đã hoàn thành
                                         // Gọi phương thức ViewDataJobs
+
                                         ViewDataJobs();
+
                                     }
 //                                    }
                                 }
@@ -182,6 +199,28 @@ public class HomeJob extends AppCompatActivity {
 
 
 
+    }
+
+    public void getIDSaved() {
+            AtomicInteger counter = new AtomicInteger(0);
+            database_saved.collection("Saved").document(user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                DocumentSnapshot documentSnapshot = task.getResult();
+                                int i = 1;
+                                for (Object obj : (List<String>)documentSnapshot.getData().get("Post_Saved"))
+                                    listID_saved.add(obj.toString());
+                               // Toast.makeText(getApplicationContext(),String.valueOf(dictionary_ID_Saved.size()) ,Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
     }
     public void ViewDataJobs() {
 
@@ -241,6 +280,12 @@ public class HomeJob extends AppCompatActivity {
                                         title = dictionary_Title.get(id_Jobs);
                                         numberCare = dictionary_NumberCare.get(id_Jobs);
                                         String ID_post = dictionary_ID_Posted.get(id_Jobs);
+                                        String PID = dictionary_ID_Posted.get(id_Jobs);
+                                        boolean getSaved = listID_saved.contains(PID);
+                                        boolean saved = false;
+                                        if(getSaved) {
+                                            saved = true;
+                                        }
                                        // Toast.makeText(HomeJob.this, numberCare, Toast.LENGTH_SHORT).show();
 
                                         //numberCare = Integer.parseInt(dictionary_JIDNeed.get(id_Jobs));
@@ -248,7 +293,7 @@ public class HomeJob extends AppCompatActivity {
                                         //date_submitted = documentSnapshot.getData().get("Logo_URL").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
                                             //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
-                                            list_home.add(new BigData(JID_need,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,false));
+                                            list_home.add(new BigData(PID,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,saved));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
                                             Collections.sort(list_home, new Comparator<BigData>() {
@@ -478,7 +523,7 @@ public class HomeJob extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), HomeJob.class);
                 startActivity(intent);
                 finish();
-//                getDateAndJobs(); // Lấy dữ liệu mới
+                //getDateAndJobs(); // Lấy dữ liệu mới
                 swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
             }
         });

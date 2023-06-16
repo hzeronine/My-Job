@@ -40,10 +40,10 @@
             android:name=".SavedActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".HomeJob"
             android:exported="false" />
         <activity
-            android:name=".HomeJob"
+            android:name=".Login"
             android:exported="true"
             >
             <intent-filter>
