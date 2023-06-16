@@ -7,6 +7,21 @@
     android:orientation="vertical"
     tools:context=".HomeJob">
 
+    <FrameLayout
+        android:id="@+id/logo_splash_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/my_job_splash"
+            android:background="#FE7235"
+            />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
@@ -40,20 +55,36 @@
             android:layout_marginHorizontal="20dp" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextText"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/custom_inputbox"
-        android:drawableLeft="@drawable/search_logo"
-        android:drawablePadding="15dp"
-        android:ems="10"
-        android:hint="Search a job"
-        android:inputType="text"
-        android:paddingLeft="20dp"
-        android:textColor="#B5B5B5" />
+        app:iconifiedByDefault="false"
+        app:queryHint="Search Here..."
+        app:searchIcon="@drawable/search_logo">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <FrameLayout
+        android:id="@+id/seach_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_view_home" />
+
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -113,7 +144,7 @@
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_congNghe"
+                        android:id="@+id/btn_fulltime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -123,12 +154,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Công nghệ"
+                        android:text="Full-time"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_IT"
+                        android:id="@+id/btn_parttime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -139,12 +170,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="IT"
+                        android:text="Part-time"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_makerting"
+                        android:id="@+id/btn_intern"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -154,12 +185,12 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Makerting"
+                        android:text="Intern"
                         android:textColor="#747170"
                         android:textSize="10dp" />
 
                     <Button
-                        android:id="@+id/btn_phucVu"
+                        android:id="@+id/btn_Casual"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -169,7 +200,7 @@
                         android:insetBottom="0dp"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
-                        android:text="Phục Vụ"
+                        android:text="Casual"
                         android:textColor="#747170"
                         android:textSize="10dp" />
                 </LinearLayout>
@@ -184,17 +215,26 @@
         android:id="@+id/home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_view_home" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                tools:listitem="@layout/item_view_home" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -208,23 +248,23 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_home"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_home" />
+                    app:srcCompat="@drawable/ic_home" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Home" />
             </FrameLayout>
 
@@ -234,8 +274,10 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_Saved"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:paddingBottom="10dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
@@ -245,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Saved" />
             </FrameLayout>
 
@@ -255,9 +297,11 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_newpost"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_add" />
@@ -266,7 +310,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="New Post" />
             </FrameLayout>
 
@@ -276,9 +320,11 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_jobs"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_list" />
@@ -287,7 +333,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Jobs" />
             </FrameLayout>
 
@@ -297,9 +343,11 @@
                 android:layout_weight="1">
 
                 <ImageButton
+                    android:id="@+id/btn_account"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_weight="1"
+                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFFFFF"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/icon_user" />
@@ -308,7 +356,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:text="Account" />
             </FrameLayout>
         </LinearLayout>

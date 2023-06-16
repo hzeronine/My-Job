@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +39,7 @@ public class DangBai extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user;
     FirebaseFirestore db;
+    ImageButton btn_Back;
 
     boolean checkJID;
 
@@ -53,6 +57,7 @@ public class DangBai extends AppCompatActivity {
         edt_position = findViewById(R.id.edt_UL_position);
         edt_description = findViewById(R.id.edt_UL_description);
         btn_upload = findViewById(R.id.btn_UL_upload);
+        btn_Back = findViewById(R.id.btn_back_JobPosted);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
@@ -61,6 +66,12 @@ public class DangBai extends AppCompatActivity {
             public void onClick(View v) {
 
                 setdata();
+            }
+        });
+        btn_Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -76,21 +87,9 @@ public class DangBai extends AppCompatActivity {
         position = String.valueOf(edt_position.getText());
         description = String.valueOf(edt_description.getText());
 
-        //
+        Calendar calendar = Calendar.getInstance();
+        String JID = String.valueOf(calendar.getTimeInMillis());
 
-        String JID = RandomStringGenerator.generateRandomString();
-        do{
-            db.collection("Jobs").document(JID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot doc = task.getResult();
-                    if(doc.exists())
-                        checkJID = true;
-                    else
-                        checkJID = false;
-                }
-            });
-        }while (checkJID);
 
         String logo_url = "jobs_logo/default/defaultLogo.png";
         String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;

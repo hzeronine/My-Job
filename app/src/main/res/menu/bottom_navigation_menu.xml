@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/con_home"
+        android:title="Home"
+        android:icon="@drawable/icon_home" />
+    <item
+        android:id="@+id/save"
+        android:title="Saved"
+        android:icon="@drawable/icon_save" />
+    <item
+        android:id="@+id/post"
+        android:title="New Post"
+        android:enabled="false" />
+    <item
+        android:id="@+id/detail"
+        android:title="Jobs"
+        android:icon="@drawable/icon_list" />
+    <item
+        android:id="@+id/account"
+        android:title="Account"
+        android:icon="@drawable/icon_user" />
+</menu>

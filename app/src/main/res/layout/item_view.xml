@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,11 +11,13 @@
     android:padding="5dp"
     android:persistentDrawingCache="none">
 
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp">
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
@@ -26,7 +29,7 @@
 
         <TextView
             android:id="@+id/txt_TieuDe"
-            android:layout_width="300dp"
+            android:layout_width="284dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
@@ -51,13 +54,21 @@
         android:id="@+id/txt_Ten"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="4dp"
         android:paddingStart="15dp"
-        android:text="Ngân hàng TMCP Phát triển TP.HCM (HDBank)" />
+        android:text="Ngân hàng TMCP Phát triển TP.HCM (HDBank)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1" />
 
     <LinearLayout
+        android:id="@+id/LinearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/txt_Ten"
+        tools:layout_editor_absoluteX="5dp">
 
         <ImageView
             android:id="@+id/imageView_Luong"
@@ -95,13 +106,22 @@
         android:id="@+id/txt_ThoiHan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:paddingStart="15dp"
         android:text="Còn 67 ngày để ứng tuyển"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayout2" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/darker_gray" />
-</LinearLayout>
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_ThoiHan" />
+</androidx.constraintlayout.widget.ConstraintLayout>

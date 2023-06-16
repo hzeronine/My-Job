@@ -34,7 +34,6 @@ public class ChangePassword extends AppCompatActivity {
         init();
         //Xử lý su kiện
     }
-
     private void setEvent() {
 
         btn_back.setOnClickListener(new View.OnClickListener() {
