@@ -33,9 +33,7 @@ public class ChangePassword extends AppCompatActivity {
         // Ánh xạ ID cho các biến giao diện
         init();
         //Xử lý su kiện
-        setEvent();
     }
-
     private void setEvent() {
 
         btn_back.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +93,6 @@ public class ChangePassword extends AppCompatActivity {
                 });
 
             }
-
-
         });
     }
 

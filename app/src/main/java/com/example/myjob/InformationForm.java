@@ -30,13 +30,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InformationForm extends AppCompatActivity {
     CircleImageView image_avatar;
     Button btn_infor_logout, btn_infor_changePassword, btn_infor_uploadCV;
     TextView txt_infor_name;
-    FrameLayout FL_infor_homeJobs, FL_infor_saved, FL_infor_post, FL_infor_jobs, FL_infor_account;
+    ImageView FL_infor_homeJobs, FL_infor_saved, FL_infor_post, FL_infor_jobs, FL_infor_account;
     FirebaseStorage storage;
     StorageReference storageRef;
     FirebaseFirestore db;
@@ -47,7 +55,7 @@ public class InformationForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_form);
-        init();
+        getID();
         setData();
         setEvent();
         //if(progressDialog.isShowing())
@@ -77,7 +85,7 @@ public class InformationForm extends AppCompatActivity {
                         public void onSuccess(Uri uri) {
                             // Got the download URL for 'users/me/profile.png'
 
-                            Glide.with(getApplicationContext())
+                            Glide.with(InformationForm.this)
                                     .load(uri.toString())
                                     .into(image_avatar);
                         }
@@ -139,9 +147,40 @@ public class InformationForm extends AppCompatActivity {
                 finish();
             }
         });
+        FL_infor_homeJobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        FL_infor_saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SavedActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        FL_infor_post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+                startActivity(intent);
+            }
+        });
+        FL_infor_jobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), JobsList.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
-    private void init() {
+    private void getID() {
         image_avatar = findViewById(R.id.image_infor_avatar);
         btn_infor_logout = findViewById(R.id.btn_infor_logout);
         btn_infor_changePassword = findViewById(R.id.btn_infor_changePassword);

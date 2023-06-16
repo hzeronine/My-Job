@@ -95,7 +95,7 @@
         app:srcCompat="@drawable/icon_tick" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -385,7 +385,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/txt_diaChiCV"
         android:layout_width="51dp"
         android:layout_height="17dp"
         android:layout_marginStart="44dp"
