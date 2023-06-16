@@ -274,7 +274,7 @@
                 android:layout_weight="1">
 
                 <ImageButton
-                    android:id="@+id/btn_Saved"
+                    android:id="@+id/btn_Saved_JL"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingBottom="10dp"

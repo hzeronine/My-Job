@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:clipToPadding="true"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:persistentDrawingCache="none">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/img_avt"
+            android:layout_width="19dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/img_1" />
+
+        <TextView
+            android:id="@+id/txt_TieuDe"
+            android:layout_width="274dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:gravity="center|left"
+            android:text="Chuyên Viên Cao Cấp Chăm Sóc Và Phát Triển Khách Hàng"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btn_imgsave"
+            android:layout_width="25dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.6"
+            android:background="#FFFFFF"
+            android:paddingHorizontal="15dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/icon_save" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_Ten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="4dp"
+        android:paddingStart="15dp"
+        android:text="Ngân hàng TMCP Phát triển TP.HCM (HDBank)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/txt_Ten"
+        tools:layout_editor_absoluteX="5dp">
+
+        <ImageView
+            android:id="@+id/imageView_Luong"
+            android:layout_width="34dp"
+            android:layout_height="28dp"
+            app:srcCompat="@drawable/img_3" />
+
+        <TextView
+            android:id="@+id/txt_MucLuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Tới 28 triệu" />
+
+        <ImageView
+            android:id="@+id/imageView_ViTri"
+            android:layout_width="34dp"
+            android:layout_height="28dp"
+            app:srcCompat="@drawable/img_4" />
+
+        <TextView
+            android:id="@+id/txt_ViTri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:text="Hải Phòng , Hà Nội" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView_KN"
+        android:layout_width="34dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout2"
+        app:srcCompat="@drawable/img_kn" />
+
+    <TextView
+        android:id="@+id/txt_KN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:text="Dưới 1 năm"
+        app:layout_constraintStart_toEndOf="@+id/imageView_KN"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout2" />
+
+    <TextView
+        android:id="@+id/txt_ThoiHan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:paddingStart="15dp"
+        android:text="25/06/2023"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_KN" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_ThoiHan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

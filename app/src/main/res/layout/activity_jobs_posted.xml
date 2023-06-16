@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView_JP"
+            android:id="@+id/searchView_JL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/search_view_saved"
@@ -188,7 +188,7 @@
             android:backgroundTint="#FEFEFE"
             android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView_JP"
+            app:layout_constraintTop_toBottomOf="@id/searchView_JL"
             app:srcCompat="@drawable/img_delete" />
 
         <TextView
@@ -198,7 +198,7 @@
             android:layout_marginTop="10dp"
             android:text="Delete"
             app:layout_constraintStart_toEndOf="@+id/btn_Delete_JP"
-            app:layout_constraintTop_toBottomOf="@+id/searchView_JP" />
+            app:layout_constraintTop_toBottomOf="@+id/searchView_JL" />
 
         <CheckBox
             android:id="@+id/ck_SAll2"
@@ -210,7 +210,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.105"
             app:layout_constraintStart_toEndOf="@+id/textView5_JP"
-            app:layout_constraintTop_toBottomOf="@+id/searchView_JP" />
+            app:layout_constraintTop_toBottomOf="@+id/searchView_JL" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

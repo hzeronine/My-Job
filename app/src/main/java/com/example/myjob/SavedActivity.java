@@ -131,7 +131,7 @@ public class SavedActivity extends AppCompatActivity {
                 viecLamAdapter.deselectAll();
             }
         });
-        ImageButton btn_Home = findViewById(R.id.btn_Home);
+        ImageButton btn_Home = findViewById(R.id.btn_Home_JL);
         btn_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +141,7 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost);
+        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost_JL);
         btn_NewPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,17 +150,17 @@ public class SavedActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs);
+        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_JL);
         btn_Jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
+                Intent intent = new Intent(getApplicationContext(), JobsList.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        ImageButton btn_Account = findViewById(R.id.btn_Account);
+        ImageButton btn_Account = findViewById(R.id.btn_Account_JL);
         btn_Account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
