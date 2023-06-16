@@ -71,7 +71,31 @@ public class HomeJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_job);
         //Ánh xạ ID
-        setID();
+        recyclerView = findViewById(R.id.recycView);
+        btn_intern = findViewById(R.id.btn_intern);
+        btn_casual = findViewById(R.id.btn_Casual);
+        btn_newst = findViewById(R.id.btn_newst);
+        database_jobs = FirebaseFirestore.getInstance();
+        database_post = FirebaseFirestore.getInstance();
+        textView9 = findViewById(R.id.textView9);
+        btn_parttime = findViewById(R.id.btn_parttime);
+        btn_fulltime = findViewById(R.id.btn_fulltime);
+        btn_newpost = findViewById(R.id.btn_newpost);
+        btn_home = findViewById(R.id.btn_home);
+        searchViewHome = findViewById(R.id.searchViewHome);
+        btn_saved = findViewById(R.id.btn_Saved);
+        btn_home = findViewById(R.id.btn_home);
+        btn_newpost = findViewById(R.id.btn_newpost);
+        btn_jobs = findViewById(R.id.btn_jobs);
+        btn_account = findViewById(R.id.btn_account);
+        search_visibility = findViewById(R.id.seach_visibility);
+        recyclerViewHome = findViewById(R.id.recycView2);
+        listID_jobs = new ArrayList<>();
+        listID_posts = new ArrayList<>();
+        list_home = new ArrayList<>();
+        searchViewHome.clearFocus();
+        logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
 
         SplashHome();
         btn_home.setImageResource(R.drawable.click_ic_home);
@@ -98,34 +122,6 @@ public class HomeJob extends AppCompatActivity {
 
     }
 
-    private void setID() {
-        recyclerView = findViewById(R.id.recycView);
-        //btn_intern = findViewById(R.id.btn_intern);
-       // btn_casual = findViewById(R.id.btn_Casual);
-        btn_newst = findViewById(R.id.btn_newst);
-        database_jobs = FirebaseFirestore.getInstance();
-        database_post = FirebaseFirestore.getInstance();
-        textView9 = findViewById(R.id.textView9);
-       // btn_parttime = findViewById(R.id.btn_parttime);
-        //btn_fulltime = findViewById(R.id.btn_fulltime);
-        btn_newpost = findViewById(R.id.btn_newpost);
-        btn_home = findViewById(R.id.btn_home);
-        searchViewHome = findViewById(R.id.searchViewHome);
-        btn_saved = findViewById(R.id.btn_Saved_JL);
-        btn_home = findViewById(R.id.btn_home);
-        btn_newpost = findViewById(R.id.btn_newpost);
-        btn_jobs = findViewById(R.id.btn_jobs);
-        btn_account = findViewById(R.id.btn_account);
-        search_visibility = findViewById(R.id.seach_visibility);
-        recyclerViewHome = findViewById(R.id.recycView2);
-        listID_jobs = new ArrayList<>();
-        listID_posts = new ArrayList<>();
-        list_home = new ArrayList<>();
-        searchViewHome.clearFocus();
-        //logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
-        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-    }
-
     public void getDateAndJobs() {
         //database_post.enableNetwork();
         //dictionary_Time.clear();
@@ -141,7 +137,7 @@ public class HomeJob extends AppCompatActivity {
 
                     //Lấy dữ liệu từ Post
                     for (int i = 0; i < listID_posts.size(); i++) {
-                        String id_Post = listID_posts.get(i).toString();
+                        String id_Post = listID_jobs.get(i).toString();
                         database_post.collection("Post").document(listID_posts.get(i))
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -474,18 +470,18 @@ public class HomeJob extends AppCompatActivity {
         }
     }
     public void refreshDataView() {
-//        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
-//                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-//                startActivity(intent);
-//                finish();
-////                getDateAndJobs(); // Lấy dữ liệu mới
-//                swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
-//            }
-//        });
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                startActivity(intent);
+                finish();
+//                getDateAndJobs(); // Lấy dữ liệu mới
+                swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
+            }
+        });
     }
 
     public void delay3s(final Runnable task) {
