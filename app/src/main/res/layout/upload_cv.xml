@@ -65,8 +65,8 @@
         android:layout_width="642dp"
         android:layout_height="207dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="179dp">
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="333dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
