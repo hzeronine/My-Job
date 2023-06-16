@@ -64,7 +64,9 @@ public class HomeJob extends AppCompatActivity {
     FrameLayout logo_splash_visibility;
 
     FrameLayout search_visibility;
-    private int searchErrorCount = 0;
+    private int onlyOne = 0;
+    LayoutInflater inflater;
+    LinearLayout linearLayoutHorizontal;
     static ArrayList<BigData> filteredList = new ArrayList<>();
     private HashMap<String, String> dictionary_Time = new HashMap<>();
     private HashMap<String, String> dictionary_Title = new HashMap<>();
@@ -78,6 +80,8 @@ public class HomeJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_job);
         //Ánh xạ ID
+        linearLayoutHorizontal = findViewById(R.id.linear_layout_horizontal);
+        inflater = LayoutInflater.from(HomeJob.this);
         recyclerView = findViewById(R.id.recycView);
         btn_intern = findViewById(R.id.btn_intern);
         btn_casual = findViewById(R.id.btn_Casual);
@@ -106,33 +110,59 @@ public class HomeJob extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         logo_splash_visibility = findViewById(R.id.logo_splash_visibility);
         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-
-        SplashHome();
         btn_home.setImageResource(R.drawable.click_ic_home);
+        SplashHome();
         Menu();
-
         getDateAndJobs();
-        //getDateAndJobs();
-
         Search();
         refreshDataView();
 
+        FilterButton();
 
+
+
+    }
+
+    private void FilterButton() {
         btn_fulltime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterListbyCareer("full-time");
             }
         });
+        btn_parttime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterListbyCareer("part-time");
+            }
+        });
+        btn_intern.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterListbyCareer("intern");
+            }
+        });
+        btn_casual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterListbyCareer("casual");
+            }
+        });
         btn_newst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                database_post.clearPersistence();
+                database_jobs.clearPersistence();
+                database_saved.clearPersistence();
+                listID_jobs.clear();
+                listID_posts.clear();
+                listID_saved.clear();
+                list_home.clear();
+                linearLayoutHorizontal.removeAllViews();
                 homeAdapter.clearRecyclerView();
                 getDateAndJobs();
             }
         });
-
-
     }
 
     public void getDateAndJobs() {
@@ -253,9 +283,8 @@ public class HomeJob extends AppCompatActivity {
                                     String description;
                                     String specialized;
                                     String logo_URL;
-
                                     String JID_need;
-                                    int numberCare = 10;
+                                    int numberCare;
                                     String UID_post;
                                     String title;
 
@@ -314,42 +343,24 @@ public class HomeJob extends AppCompatActivity {
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
                                             recyclerViewHome.setAdapter(homeAdapter);
-                                            //recyclerViewList.add(recyclerView);
 
 
 
                                             //Set dữ liệu vào horizotalScrollView
-                                            LayoutInflater inflater = LayoutInflater.from(HomeJob.this);
-                                            LinearLayout linearLayoutHorizontal = findViewById(R.id.linear_layout_horizontal);
-                                            View itemView = inflater.inflate(R.layout.item_view_scroll, linearLayoutHorizontal, false);
+
 
                                             // Truy cập các thành phần trong itemView1 và thiết lập giá trị
 
-                                            int maxLength = 25;
-                                            TextView txt_career = itemView.findViewById(R.id.txt_SpecializedVS);
-                                            String originalText = career;
-                                            if (originalText.length() > maxLength) {
-                                                String trimmedText = originalText.substring(0, maxLength) + "...";
-                                                txt_career.setText(trimmedText);
-                                            } else {
-                                                txt_career.setText(career);
-                                            }
-
-
-                                            TextView txt_Company_Name = itemView.findViewById(R.id.txt_Company_NameVS);
-                                            setTrimmedText(txt_Company_Name, city, 25);
-                                            TextView txt_salary = itemView.findViewById(R.id.txt_salarySV);
-                                            txt_salary.setText(salary);
-                                            TextView txt_city = itemView.findViewById(R.id.txt_view1);
-                                            setTrimmedText(txt_city, city, 6);
-                                            TextView txt_cereer = itemView.findViewById(R.id.txt_view2);
-                                            setTrimmedText(txt_cereer, career, 6);
-                                            TextView txt_exp = itemView.findViewById(R.id.txt_view3);
-                                            setTrimmedText(txt_exp, exp, 6);
-                                            ImageView logo = itemView.findViewById(R.id.imgView_logo);
-                                            logo.setImageResource(R.drawable.img_1);
+                                            Collections.sort(list_home, new Comparator<BigData>() {
+                                                @Override
+                                                public int compare(BigData item1, BigData item2) {
+                                                    return Integer.compare(item2.getNumberCare(), item1.getNumberCare());
+                                                }
+                                            });
+                                            //homeAdapter.notifyDataSetChanged();
+                                            addViewsToHorizontalScrollView();
                                             // Thêm itemView vào trong LinearLayout của HorizontalScrollView
-                                            linearLayoutHorizontal.addView(itemView);
+
                                         }
                                     }
                                 }
@@ -360,6 +371,32 @@ public class HomeJob extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void addViewsToHorizontalScrollView() {
+        linearLayoutHorizontal.removeAllViews();
+        for (BigData item : list_home) {
+            View itemView = inflater.inflate(R.layout.item_view_scroll, linearLayoutHorizontal, false);
+
+            TextView txt_career = itemView.findViewById(R.id.txt_SpecializedVS);
+            setTrimmedText(txt_career, item.getCareer(), 25);
+
+            TextView txt_Company_Name = itemView.findViewById(R.id.txt_Company_NameVS);
+            setTrimmedText(txt_Company_Name, item.getCity(), 25);
+
+            TextView txt_salary = itemView.findViewById(R.id.txt_salarySV);
+            txt_salary.setText(item.getSalary());
+
+            TextView txt_city = itemView.findViewById(R.id.txt_view1);
+            setTrimmedText(txt_city, item.getCity(), 6);
+
+            TextView txt_careerview = itemView.findViewById(R.id.txt_view2);
+            setTrimmedText(txt_careerview, item.getCareer(), 6);
+            TextView txt_exp = itemView.findViewById(R.id.txt_view3);
+            setTrimmedText(txt_exp, item.getExp(), 6);
+            ImageView logo = itemView.findViewById(R.id.imgView_logo);
+            logo.setImageResource(R.drawable.img_1);
+            linearLayoutHorizontal.addView(itemView);
+        }
     }
     private void filterList(String text) {
 
@@ -383,9 +420,9 @@ public class HomeJob extends AppCompatActivity {
             recyclerView.setAdapter(homeAdapter);
         }
 
-        if (filteredList.isEmpty() && searchErrorCount == 0) {
+        if (filteredList.isEmpty() && onlyOne == 0) {
             Toast.makeText(this, "Can't find the job you're looking for, please try searching again!", Toast.LENGTH_SHORT).show();
-            searchErrorCount++;
+            onlyOne++;
         }
     }
     private void filterListbyCareer(String text) {
@@ -519,10 +556,16 @@ public class HomeJob extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                homeAdapter.clearRecyclerView(); // Xóa dữ liệu hiện có trong RecyclerView
-                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-                startActivity(intent);
-                finish();
+                database_post.clearPersistence();
+                database_jobs.clearPersistence();
+                database_saved.clearPersistence();
+                listID_jobs.clear();
+                listID_posts.clear();
+                listID_saved.clear();
+                list_home.clear();
+                linearLayoutHorizontal.removeAllViews();
+                homeAdapter.clearRecyclerView();
+                getDateAndJobs();;
                 //getDateAndJobs(); // Lấy dữ liệu mới
                 swipeRefreshLayout.setRefreshing(false); // Kết thúc hiệu ứng "refresh"
             }

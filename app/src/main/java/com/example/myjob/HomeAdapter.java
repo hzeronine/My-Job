@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -40,7 +41,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     int numberCare = 0;
-    FirebaseFirestore database_saved = FirebaseFirestore.getInstance();;
+    FirebaseFirestore database_saved = FirebaseFirestore.getInstance();
+
+    ArrayList<String> listID_saved = listID_saved = new ArrayList<>();
     public HomeAdapter(Context context, ArrayList<BigData> bigData)
     {
         this.context = context;
@@ -65,10 +68,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Gán dữ liêu
         BigData constructor_home = bigData.get(position);
-
-
         int maxLength = 40; // Số ký tự tối đa bạn muốn hiển thị
-
         String originalText = constructor_home.getSpecialized();
         if (originalText.length() > maxLength) {
             String trimmedText = originalText.substring(0, maxLength) + "...";
@@ -86,7 +86,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.btn_imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ID_saved = "";
+
                 int numberCare = constructor_home.getNumberCare();
                 if(constructor_home.isChecked()) {
                     // Xóa khỏi mục Saved
@@ -101,17 +101,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                                     Toast.makeText(context, "Unsaved", Toast.LENGTH_SHORT).show();
                                 }
                             });
-
                     // Giảm lượt tương tác
-
-                    numberCare = numberCare;
-                    //int count = Integer.valueOf(numberCare);
+                    numberCare = numberCare - 1;
+                    constructor_home.setNumberCare(numberCare);
+                    // Tạo Map Update dữ liệu
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("Number_Care", numberCare);
 
                     // Cập nhật dữ liệu vào trường cụ thể trong tài liệu
-                    String collectionName = "Post"; // Tên của bộ sưu tập chứa tài liệu
-                    String documentId = constructor_home.getUID_posted(); // ID của tài liệu cần cập nhật
+                    String collectionName = "Post";
+                    String documentId = constructor_home.getUID_posted();
+                    // Truy cập data và update
                     database_saved.collection(collectionName)
                             .document(documentId)
                             .update(updateData)
@@ -127,14 +127,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                                     // Xử lý khi cập nhật thất bại
                                 }
                             });
-
+                    //Ngược lại
                 } else {
-//                    ID_saved = generateRandomString();
-//                    constructor_home.setId(ID_saved);
+
                     holder.btn_imgSave.setImageResource(R.drawable.click_ic_save);
                     constructor_home.setChecked(true);
 
-
+                    //Truy cập database Saved
                     database_saved.collection("Saved").document(user.getUid())
                             .update("Post_Saved", FieldValue.arrayUnion(constructor_home.getPID()))
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -144,8 +143,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
                                 }
                             });
 
-
+                    // Tăng tương tác post
                     numberCare = numberCare +1;
+                    constructor_home.setNumberCare(numberCare);
                     //int count = Integer.valueOf(numberCare);
                     Map<String, Object> updateData = new HashMap<>();
                     updateData.put("Number_Care", numberCare);
@@ -216,8 +216,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    void setdata() {
-
-
-    }
 }
