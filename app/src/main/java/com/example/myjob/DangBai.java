@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,15 +39,17 @@ import java.util.Random;
 
 public class DangBai extends AppCompatActivity {
     EditText edt_title, edt_companyname, edt_workaddress, edt_specialized, edt_experience,
-            edt_salary, edt_position, edt_description;
+            edt_salary, edt_position, edt_description, edt_career;
     Button btn_upload;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user;
     FirebaseFirestore db;
     ImageButton btn_Back;
-
+    Spinner spinner;
+    ImageView img_Company;
     boolean checkJID;
-
+    final String[] selectedOption = new String[1];
+    private static final int PICK_IMAGE_REQUEST = 1;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +64,51 @@ public class DangBai extends AppCompatActivity {
         edt_position = findViewById(R.id.edt_UL_position);
         edt_description = findViewById(R.id.edt_UL_description);
         btn_upload = findViewById(R.id.btn_UL_upload);
-        btn_Back = findViewById(R.id.btn_back_JobPosted);
+        edt_career = findViewById(R.id.edt_UL_career);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        spinner = findViewById(R.id.spinner);
+        img_Company = findViewById(R.id.img_Company);
+
+
+// ...
+
+// Đoạn mã sẽ được thực thi khi người dùng nhấp vào ImageView
+        img_Company.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo Intent để chọn ảnh từ ứng dụng khác
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            }
+        });
+
+        ///////////////////////
+        String[] options = {"Part-time", "Full-time", "Intern", "Casual", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedOption[0] = options[position];
+                if (position == 4) {
+                    edt_career.setVisibility(View.VISIBLE);
+                    selectedOption[0] = String.valueOf(edt_career.getText());
+                } else {
+                    edt_career.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Xử lý sự kiện khi không có tùy chọn nào được chọn
+            }
+        });
 
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,23 +117,19 @@ public class DangBai extends AppCompatActivity {
                 setdata();
             }
         });
-        btn_Back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
     }
 
     void setdata() {
         String title, companyname, workaddress, specialized, experience, salary, position, description;
+
         title = String.valueOf(edt_title.getText());
         companyname = String.valueOf(edt_companyname.getText());
         workaddress = String.valueOf(edt_workaddress.getText());
         specialized = String.valueOf(edt_specialized.getText());
         experience = String.valueOf(edt_experience.getText());
         salary = String.valueOf(edt_salary.getText());
-        position = String.valueOf(edt_position.getText());
+        position = selectedOption[0];
         description = String.valueOf(edt_description.getText());
 
         Calendar calendar = Calendar.getInstance();
@@ -172,5 +217,19 @@ public class DangBai extends AppCompatActivity {
         }
 
         return inputString;
+    }
+    // Phương thức này sẽ được gọi khi người dùng chọn một ảnh và quay lại từ Intent
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Kiểm tra requestCode có khớp với PICK_IMAGE_REQUEST hay không
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Lấy Uri của ảnh đã chọn
+            Uri imageUri = data.getData();
+
+            // TODO: Xử lý ảnh được chọn ở đây, ví dụ như hiển thị nó trong ImageView
+            img_Company.setImageURI(imageUri);
+        }
     }
 }
