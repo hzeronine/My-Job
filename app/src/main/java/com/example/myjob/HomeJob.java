@@ -24,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.fido.fido2.api.common.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -53,7 +57,7 @@ public class HomeJob extends AppCompatActivity {
     FirebaseFirestore database_post;
     FirebaseFirestore database_saved;
     FirebaseUser user;
-    Button btn_fulltime, btn_parttime, btn_casual, btn_intern, btn_newst;
+    Button btn_fulltime, btn_parttime, btn_casual, btn_intern, btn_newst, btn_Other;
     TextView textView9;
     ArrayList<String> listID_jobs;
     ArrayList<String> listID_posts;
@@ -62,7 +66,6 @@ public class HomeJob extends AppCompatActivity {
     ImageButton btn_newpost, btn_home, btn_saved, btn_jobs, btn_account;
     Animation animation;
     FrameLayout logo_splash_visibility;
-
     FrameLayout search_visibility;
     private int onlyOne = 0;
     LayoutInflater inflater;
@@ -86,6 +89,7 @@ public class HomeJob extends AppCompatActivity {
         btn_intern = findViewById(R.id.btn_intern);
         btn_casual = findViewById(R.id.btn_Casual);
         btn_newst = findViewById(R.id.btn_newst);
+        btn_Other = findViewById(R.id.btn_Other);
         database_jobs = FirebaseFirestore.getInstance();
         database_post = FirebaseFirestore.getInstance();
         database_saved = FirebaseFirestore.getInstance();
@@ -119,11 +123,15 @@ public class HomeJob extends AppCompatActivity {
 
         FilterButton();
 
-
-
     }
 
     private void FilterButton() {
+        btn_Other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterListOther();
+            }
+        });
         btn_fulltime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -299,10 +307,8 @@ public class HomeJob extends AppCompatActivity {
                                         description = documentSnapshot.getData().get("Description").toString();
                                         specialized = documentSnapshot.getData().get("Specialized").toString();
                                         logo_URL = documentSnapshot.getData().get("Logo_URL").toString();
-//                                        if((dictionary_DateTime.containsKey(id_Jobs))) {
-//                                            date_submitted = dictionary_DateTime.values().toString();
 //
-//                                        }
+
                                         date_submitted = dictionary_Time.get(id_Jobs.toString());
                                         JID_need = dictionary_JIDNeed.get(id_Jobs);
                                         UID_post = dictionary_UID_Posted.get(id_Jobs);
@@ -315,14 +321,10 @@ public class HomeJob extends AppCompatActivity {
                                         if(getSaved) {
                                             saved = true;
                                         }
-                                       // Toast.makeText(HomeJob.this, numberCare, Toast.LENGTH_SHORT).show();
 
-                                        //numberCare = Integer.parseInt(dictionary_JIDNeed.get(id_Jobs));
-                                        //Toast.makeText(HomeJob.this, id_Jobs, Toast.LENGTH_SHORT).show();
-                                        //date_submitted = documentSnapshot.getData().get("Logo_URL").toString();
                                         if(companyName != "" && city != "" && career != "" && exp != "" && salary != "" && date_submitted != "") {
                                             //ConstructorHome(String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked)
-                                            list_home.add(new BigData(PID,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,R.drawable.img_1,saved));
+                                            list_home.add(new BigData(PID,numberCare,title,ID_post, companyName,city,career,description,exp, salary,specialized,date_submitted,logo_URL,saved));
 
                                             // Sắp xếp danh sách theo thời gian gần nhất
                                             Collections.sort(list_home, new Comparator<BigData>() {
@@ -340,6 +342,8 @@ public class HomeJob extends AppCompatActivity {
                                                     return 0;
                                                 }
                                             });
+
+
                                             homeAdapter = new HomeAdapter(getApplicationContext(),list_home);
                                             recyclerView.setAdapter(homeAdapter);
                                             recyclerViewHome.setAdapter(homeAdapter);
@@ -393,8 +397,12 @@ public class HomeJob extends AppCompatActivity {
             setTrimmedText(txt_careerview, item.getCareer(), 6);
             TextView txt_exp = itemView.findViewById(R.id.txt_view3);
             setTrimmedText(txt_exp, item.getExp(), 6);
+
             ImageView logo = itemView.findViewById(R.id.imgView_logo);
-            logo.setImageResource(R.drawable.img_1);
+
+            Picasso.get()
+                    .load(item.getLogo_URL())
+                    .into(logo);
             linearLayoutHorizontal.addView(itemView);
         }
     }
@@ -423,6 +431,24 @@ public class HomeJob extends AppCompatActivity {
         if (filteredList.isEmpty() && onlyOne == 0) {
             Toast.makeText(this, "Can't find the job you're looking for, please try searching again!", Toast.LENGTH_SHORT).show();
             onlyOne++;
+        }
+    }
+    private void filterListOther() {
+        filteredList.clear();
+        //String searchText = text.toLowerCase();
+        for (BigData job : list_home) {
+            String career = job.getCareer().toLowerCase();
+            if (!career.equals("part-time") && !career.equals("full-time") && !career.equals("intern") && !career.equals("casual")) {
+                filteredList.add(job);
+            }
+        }
+        if (filteredList.isEmpty()) {
+            homeAdapter.clearRecyclerView();
+            recyclerViewHome.setAdapter(homeAdapter);
+            Toast.makeText(this, "Can't find the job you're looking for at the moment", Toast.LENGTH_SHORT).show();
+        } else {
+            homeAdapter.setFilteredList(filteredList);
+            recyclerViewHome.setAdapter(homeAdapter);
         }
     }
     private void filterListbyCareer(String text) {
@@ -465,7 +491,7 @@ public class HomeJob extends AppCompatActivity {
         btn_jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
                 startActivity(intent);
                 finish();
             }

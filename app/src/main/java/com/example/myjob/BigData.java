@@ -55,9 +55,9 @@ public class BigData {
     private int numberCare;
     private String titile;
     private String UID_posted;
-    private int logo_URL;
+    private String logo_URL;
 
-    public BigData(String PID, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, int logo_URL, boolean checked) {
+    public BigData(String PID, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, String logo_URL, boolean checked) {
         this.company_Name = company_Name;
         this.city = city;
         this.career = career;
@@ -116,11 +116,11 @@ public class BigData {
         this.exp = exp;
     }
 
-    public int getLogo_URL() {
+    public String getLogo_URL() {
         return logo_URL;
     }
 
-    public void setLogo_URL(int logo_URL) {
+    public void setLogo_URL(String logo_URL) {
         this.logo_URL = logo_URL;
     }
 

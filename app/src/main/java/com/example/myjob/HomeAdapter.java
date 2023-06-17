@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -79,7 +80,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
         holder.txt_company.setText(constructor_home.getCompany_Name());
         holder.txt_diaChi.setText(constructor_home.getCity());
         holder.txt_luong.setText(constructor_home.getSalary());
-        holder.img_icon.setImageResource(constructor_home.getLogo_URL());
+        //holder.img_icon.setImageResource(constructor_home.getLogo_URL());
+        Picasso.get()
+                .load(constructor_home.getLogo_URL())
+                .into(holder.img_icon);
+
         //holder.btn_imgSave.setImageResource(R.drawable.icon_save);
         holder.txt_date.setText(constructor_home.getDate());
         holder.btn_imgSave.setImageResource(constructor_home.isChecked() ? R.drawable.click_ic_save : R.drawable.icon_save);
