@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -130,30 +131,40 @@ public class HomeJob extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 filterListOther();
+                setDefault();
+                btn_Other.setBackgroundColor(Color.parseColor("#FE7235"));
             }
         });
         btn_fulltime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterListbyCareer("full-time");
+                setDefault();
+                btn_fulltime.setBackgroundColor(Color.parseColor("#FE7235"));
             }
         });
         btn_parttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterListbyCareer("part-time");
+                setDefault();
+                btn_parttime.setBackgroundColor(Color.parseColor("#FE7235"));
             }
         });
         btn_intern.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterListbyCareer("intern");
+                setDefault();
+                btn_intern.setBackgroundColor(Color.parseColor("#FE7235"));
             }
         });
         btn_casual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterListbyCareer("casual");
+                setDefault();
+                btn_casual.setBackgroundColor(Color.parseColor("#FE7235"));
             }
         });
         btn_newst.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +182,14 @@ public class HomeJob extends AppCompatActivity {
                 getDateAndJobs();
             }
         });
+    }
+    void setDefault() {
+        btn_newst.setBackgroundColor(Color.GRAY);
+        btn_intern.setBackgroundColor(Color.GRAY);
+        btn_parttime.setBackgroundColor(Color.GRAY);
+        btn_fulltime.setBackgroundColor(Color.GRAY);
+        btn_casual.setBackgroundColor(Color.GRAY);
+        btn_Other.setBackgroundColor(Color.GRAY);
     }
 
     public void getDateAndJobs() {

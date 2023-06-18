@@ -4,12 +4,15 @@ import static com.example.myjob.RandomStringGenerator.generateRandomString;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -177,10 +180,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             }
         });
 
-
+        holder.layout_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickGoToDetail(constructor_home);
+            }
+        });
 
     }
 //
+    private void onClickGoToDetail(BigData constructor_home) {
+       Intent intent = new Intent(context, JobDetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_bigData", constructor_home);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
     @Override
     public int getItemCount() {
         return bigData.size(); // trả item tại vị trí postion
@@ -199,6 +214,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
 
         TextView txt_company;
 
+        LinearLayout layout_item;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -211,7 +227,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             txt_date = itemView.findViewById(R.id.txt_date);
             btn_imgSave = itemView.findViewById(R.id.btn_imgsave);
             txt_company = itemView.findViewById(R.id.txt_company);
-
+            layout_item = itemView.findViewById(R.id.layout_item);
 
         }
 

@@ -1,6 +1,8 @@
 package com.example.myjob;
 
-public class BigData {
+import java.io.Serializable;
+
+public class BigData implements Serializable {
     public String getId() {
         return id;
     }
