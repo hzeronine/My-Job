@@ -51,113 +51,113 @@ public class SavedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved);
 
         // Ánh xạ ID
-        list_home = new ArrayList<>();
-        listID_saved = new ArrayList<>();
-        listID_posts = new ArrayList<>();
-        database_saved = FirebaseFirestore.getInstance();
-        database_post = FirebaseFirestore.getInstance();
-
-        recyclerView = findViewById(R.id.recyclerview);
-        searchView = findViewById(R.id.searchView);
-        searchView.clearFocus();
-        btn_imgSaved = findViewById(R.id.btn_Saved);
-        btn_imgSaved.setImageResource(R.drawable.click_ic_save);
-
-
-        ViewDataSaved();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()) { //Kiểm tra nếu văn bản lọc mới rỗng
-                    filterList("");     //Chỉnh lại danh sách dữ liệu để trở về giá trị ban đầu
-                    return false;
-                } else {
-                    filterList(newText); //Lọc danh sách dữ liệu theo văn bản lọc mới
-                    return true;
-                }
-            }
-        });
-
-        getDataPosted();
-
-//        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
-//        viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
-//        recyclerView.setAdapter(viecLamAdapter);
-
-        ImageButton btnDelete = findViewById(R.id.btn_Delete);
-
-        btnDelete.setOnClickListener(v -> {
-            if(filteredList.isEmpty()) {
-                ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
-                for (ViecLam item : selectedItems) {
-                    listViecLam.remove(item);
-                    Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
-                }
-                viecLamAdapter.notifyDataSetChanged();
-
-            }else{
-                ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
-                for (ViecLam item : selectedItems) {
-                    listViecLam.remove(item);
-                }
-                for (ViecLam item : selectedItems) {
-                    filteredList.remove(item);
-                    Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
-                }
-                viecLamAdapter.notifyDataSetChanged();
-            }
-        });
-
-        CheckBox ck_SAll = findViewById(R.id.ck_SAll);
-        ck_SAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-               viecLamAdapter.selectAll();
-            } else {
-                viecLamAdapter.deselectAll();
-            }
-        });
-        ImageButton btn_Home = findViewById(R.id.btn_Home);
-        btn_Home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost);
-        btn_NewPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DangBai.class);
-                startActivity(intent);
-            }
-        });
-
-        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_List);
-        btn_Jobs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobsList.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        ImageButton btn_Account = findViewById(R.id.btn_Account);
-        btn_Account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), InformationForm.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        list_home = new ArrayList<>();
+//        listID_saved = new ArrayList<>();
+//        listID_posts = new ArrayList<>();
+//        database_saved = FirebaseFirestore.getInstance();
+//        database_post = FirebaseFirestore.getInstance();
+//
+//        recyclerView = findViewById(R.id.recyclerview);
+//        searchView = findViewById(R.id.searchView);
+//        searchView.clearFocus();
+//        btn_imgSaved = findViewById(R.id.btn_Saved);
+//        btn_imgSaved.setImageResource(R.drawable.click_ic_save);
+//
+//
+//        ViewDataSaved();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                if (newText.isEmpty()) { //Kiểm tra nếu văn bản lọc mới rỗng
+//                    filterList("");     //Chỉnh lại danh sách dữ liệu để trở về giá trị ban đầu
+//                    return false;
+//                } else {
+//                    filterList(newText); //Lọc danh sách dữ liệu theo văn bản lọc mới
+//                    return true;
+//                }
+//            }
+//        });
+//
+//        getDataPosted();
+//
+////        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
+////        viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
+////        recyclerView.setAdapter(viecLamAdapter);
+//
+//        ImageButton btnDelete = findViewById(R.id.btn_Delete);
+//
+//        btnDelete.setOnClickListener(v -> {
+//            if(filteredList.isEmpty()) {
+//                ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
+//                for (ViecLam item : selectedItems) {
+//                    listViecLam.remove(item);
+//                    Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
+//                }
+//                viecLamAdapter.notifyDataSetChanged();
+//
+//            }else{
+//                ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
+//                for (ViecLam item : selectedItems) {
+//                    listViecLam.remove(item);
+//                }
+//                for (ViecLam item : selectedItems) {
+//                    filteredList.remove(item);
+//                    Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
+//                }
+//                viecLamAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        CheckBox ck_SAll = findViewById(R.id.ck_SAll);
+//        ck_SAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//               viecLamAdapter.selectAll();
+//            } else {
+//                viecLamAdapter.deselectAll();
+//            }
+//        });
+//        ImageButton btn_Home = findViewById(R.id.btn_Home);
+//        btn_Home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
+//
+//        ImageButton btn_NewPost = findViewById(R.id.btn_NewPost);
+//        btn_NewPost.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), DangBai.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        ImageButton btn_Jobs = findViewById(R.id.btn_Jobs_List);
+//        btn_Jobs.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), JobsList.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
+//
+//        ImageButton btn_Account = findViewById(R.id.btn_Account);
+//        btn_Account.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), InformationForm.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     //Đưa data vào đây nè Huy

@@ -8,261 +8,417 @@
     tools:context=".DangBai" >
 
 
-    <ImageButton
-        android:id="@+id/btn_back_JobPosted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="15dp"
-        android:background="#F6F4F6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_back" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="165dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="160dp"
-        android:text="Published Recruitment"
-        android:textColor="#FE7235"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
-        app:layout_constraintStart_toEndOf="@+id/btn_back_JobPosted"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:text="Title(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back_JobPosted" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="1"
+                android:text="Create a new job"
+                android:textColor="#FE7235"
+                android:textSize="25sp"
 
-    <EditText
-        android:id="@+id/edt_UL_title"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="Ex: BUSINESS STAFF , SOFTWARE ENGINEER"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginVertical="10dp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="124dp"
-        android:text="Company Name(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                />
 
-    <EditText
-        android:id="@+id/edt_UL_companyname"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="156dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="Ex: TPSOFTWARE COMPANY"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:hint="Business staff, Software engineer..."
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textSize="15sp"
 
-    <EditText
-        android:id="@+id/edt_UL_workaddress"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="228dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="Ex:75 LE LAI, WARD 5, GO VAP DISTRICT"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="196dp"
-        android:text="Work Address(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Specialized(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="268dp"
-        android:text="Specialized(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_specialized"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:paddingLeft="18dp"
+                android:hint="Information technology, Doctors..."
+                android:inputType="text"
+                android:layout_marginBottom="10dp"
 
-    <EditText
-        android:id="@+id/edt_UL_specialized"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="Ex:INFORMATION TECHNOLOGY , DOCTORS"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/btn_UL_upload"
-        android:layout_width="103dp"
-        android:layout_height="59dp"
-        android:backgroundTint="#FE7235"
-        android:text="UPLOAD"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Company Name(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="340dp"
-        android:text="Experience(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_companyname"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:paddingLeft="18dp"
+                android:hint="Gear, FPT Software..."
+                android:inputType="text"
 
-    <EditText
-        android:id="@+id/edt_UL_experience"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="372dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="RECORD THE EXPERIENCE NEEDED"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="412dp"
-        android:text="Salary(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salary(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edt_UL_salary"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="444dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="Ex: AGREEMENT , 7 MILLION TO 10 MILLION"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_salary"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:paddingLeft="18dp"
+                android:hint="Up to 15M, wage agreement..."
+                android:inputType="text"
 
-    <EditText
-        android:id="@+id/edt_UL_description"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="588dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="JOB DESCRIPTION "
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="556dp"
-        android:text="Description(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edt_UL_position"
-        android:layout_width="394dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="516dp"
-        android:background="@drawable/custom_inputbox"
-        android:ems="10"
-        android:hint="RECOGNITION OF POSITION"
-        android:inputType="text"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:hint="Job description "
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="484dp"
-        android:text="Position(*)"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Experience(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="628dp"
-        android:text="Note : Những mục có dấu (*) là thông tin bắt buộc"
-        android:textColor="#FE7235"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <EditText
+                android:id="@+id/edt_UL_experience"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:paddingLeft="18dp"
+                android:hint="6 month, 2 years... "
+                android:inputType="text"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Position(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/custom_inputbox"
+                android:paddingLeft="12dp" />
+
+            <EditText
+                android:id="@+id/edt_UL_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:hint="RECOGNITION OF POSITION"
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/edt_UL_career"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:hint="Enter the position you need to recruit"
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Work Address(*)"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_UL_workaddress"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_inputbox"
+                android:ems="10"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="18dp"
+                android:hint="Dien Bien Phu, Da Nang City..."
+                android:inputType="text"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="20dp"
+                android:text="Upload your company photo(*)\nClick on my jobs" />
+
+            <ImageView
+                android:id="@+id/img_Company"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
+                app:srcCompat="@drawable/my_job_splash" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Note: Items marked with an asterisk (*) are required information"
+                android:textColor="#FE7235"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_UL_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="60dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FE7235"
+                android:text="UPLOAD"
+                android:layout_marginBottom="60dp"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_home" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Home" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_Saved"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_save" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Saved" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_newpost"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_add" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="New Post" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_jobs"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_list" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Jobs" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/btn_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/icon_user" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="Account" />
+            </FrameLayout>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

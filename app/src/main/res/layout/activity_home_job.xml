@@ -17,7 +17,8 @@
             android:id="@+id/imageView7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/logomyjob___copy" />
+            app:srcCompat="@drawable/my_job_splash"
+            android:background="#FE7235"/>
     </FrameLayout>
 
     <TextView
@@ -199,6 +200,21 @@
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
                         android:text="Casual"
+                        android:textColor="#747170"
+                        android:textSize="10dp" />
+
+                    <Button
+                        android:id="@+id/btn_Other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#D1D1D1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:text="Other"
                         android:textColor="#747170"
                         android:textSize="10dp" />
                 </LinearLayout>

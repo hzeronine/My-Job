@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -18,13 +19,13 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="5dp"
-            android:paddingBottom="5dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="#FFFFFF"
             android:elevation="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="5dp">
 
 
             <LinearLayout
@@ -35,9 +36,9 @@
                 <ImageView
                     android:id="@+id/img_icon"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="55dp"
                     android:layout_margin="10dp"
+                    android:layout_weight="1"
                     android:src="@drawable/search_logo" />
 
                 <LinearLayout
@@ -65,8 +66,7 @@
                         android:layout_weight="4"
                         android:text="Gear"
                         android:textColor="#FE7235"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <ImageButton
@@ -98,8 +98,8 @@
                     android:id="@+id/txt_luong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
                     android:text="$1200 - $3000 / Mo"
                     android:textColor="#747170" />
 
@@ -107,14 +107,12 @@
                     android:id="@+id/txt_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginHorizontal="10dp"
-                    android:text="10/06/2023"
+                    android:layout_weight="1"
                     android:gravity="right"
-                    android:textColor="#747170"
-                    />
+                    android:text="10/06/2023"
+                    android:textColor="#747170" />
             </LinearLayout>
-
 
 
         </LinearLayout>
