@@ -75,6 +75,7 @@ public class HomeJob extends AppCompatActivity {
     private int onlyOne = 0;
     LayoutInflater inflater;
     LinearLayout linearLayoutHorizontal;
+    HorizontalScrollView horizontalScrollView;
     static ArrayList<BigData> filteredList = new ArrayList<>();
     private HashMap<String, String> dictionary_Time = new HashMap<>();
     private HashMap<String, String> dictionary_Title = new HashMap<>();
@@ -88,6 +89,7 @@ public class HomeJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_job);
         //Ánh xạ ID
+        horizontalScrollView = findViewById(R.id.horizontalScrollView);
         linearLayoutHorizontal = findViewById(R.id.linear_layout_horizontal);
         inflater = LayoutInflater.from(HomeJob.this);
         recyclerView = findViewById(R.id.recycView);
@@ -433,7 +435,6 @@ public class HomeJob extends AppCompatActivity {
 
 
     private void horizontalClickItem() {
-        HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
         ViewGroup container = (ViewGroup) horizontalScrollView.getChildAt(0);
 
         for (int i = 0; i < container.getChildCount(); i++) {
@@ -444,7 +445,6 @@ public class HomeJob extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Get the corresponding BigData item from the list
-                    Toast.makeText(HomeJob.this, "hiii", Toast.LENGTH_SHORT).show();
                     BigData clickedItem = list_home.get(index);
 
                     // Create an intent to start the JobDetails activity
