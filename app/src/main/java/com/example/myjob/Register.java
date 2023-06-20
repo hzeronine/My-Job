@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -130,6 +132,16 @@ public class Register extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            Map<String, Object> DataSaved = new HashMap<>();
+                                            DataSaved.put("Post_Saved", Arrays.asList(""));
+                                            DataSaved.put("Post_Posted", Arrays.asList(""));
+                                            db.collection("Saved").document(user.getUid())
+                                                    .set(DataSaved).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                                        }
+                                                    });
                                             Intent intent = new Intent(getApplicationContext(), HomeJob.class);
                                             startActivity(intent);
                                             finish();
