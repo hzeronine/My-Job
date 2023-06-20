@@ -47,7 +47,7 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="100dp"
+            android:layout_width="97dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:srcCompat="@drawable/ring_logo"
@@ -105,11 +105,9 @@
                 android:textStyle="bold" />
 
             <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="142dp"
-                android:layout_marginHorizontal="20dp"
-                android:clickable="true">
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="20dp">
 
                 <LinearLayout
                     android:id="@+id/linear_layout_horizontal"
