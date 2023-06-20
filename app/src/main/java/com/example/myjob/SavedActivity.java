@@ -8,8 +8,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -30,6 +32,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import kotlinx.coroutines.Delay;
 
 public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -46,7 +53,7 @@ public class SavedActivity extends AppCompatActivity {
     public List<String> listID_saved;
     public ArrayList<String> listID_posts;
     ArrayList<BigData> list_home;
-    private HashMap<String, String> dictionary_Time = new HashMap<>();
+    private HashMap<String, Object> Post = new HashMap<>();
     private HashMap<String, String> dictionary_Title = new HashMap<>();
     private HashMap<String, Integer> dictionary_NumberCare = new HashMap<>();
     private HashMap<String, String> dictionary_JIDNeed = new HashMap<>();
@@ -58,10 +65,13 @@ public class SavedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_saved);
 
         setID();
+
+        //await ;
         getDataPosted();
+
+
         //listID_saved.add("Asd");
-        for(String c : listID_saved)
-            Toast.makeText(this, c, Toast.LENGTH_SHORT).show();
+
 
         //ViewDataSaved();
 //        listViecLam = generateViecLamList(); // gán danh sách ViecLam với dữ liệu được cung cấp từ phương thức generateViecLamList()
@@ -220,7 +230,7 @@ public class SavedActivity extends AppCompatActivity {
             return;
         }
 
-        for(int i = 0; i < listID_saved.size(); i++){
+        for(int i = 1; i < listID_saved.size(); i++){
             Toast.makeText(SavedActivity.this, listID_saved.get(i), Toast.LENGTH_SHORT).show();
             database_ref.collection("Post").document(listID_saved.get(i))
                     .get()
@@ -228,38 +238,45 @@ public class SavedActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             DocumentSnapshot documentSnapshot = task.getResult();
-                            Toast.makeText(SavedActivity.this, getTaskId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SavedActivity.this, String.valueOf(getTaskId()), Toast.LENGTH_SHORT).show();
                         }
                     });
         }
     }
+    public void delay3s(final Runnable task) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                task.run();
+            }
+        }, 2000);
+    }
 
-    public void getDataPosted() {
+    public  void getDataPosted() {
+        AtomicInteger counter = new AtomicInteger(0);
         database_ref.collection("Saved").document(user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
-                            listID_saved = (ArrayList<String>) documentSnapshot.getData().get("Post_Saved");
-
-                            for(String c : (ArrayList<String>) documentSnapshot.getData().get("Post_Saved")){
-                                SavedActivity.this.listID_saved.add(c);
-                                Toast.makeText(SavedActivity.this, listID_saved.get(0), Toast.LENGTH_SHORT).show();
-                            }
-
-                            //Toast.makeText(getApplicationContext(),listID_saved.size(),Toast.LENGTH_SHORT).show();
+                            for (Object obj : (List<String>)documentSnapshot.getData().get("Post_Saved"))
+                                listID_saved.add(obj.toString());
+                            ViewDataSaved();
+                            //Toast.makeText(getApplicationContext(),String.valueOf(listID_saved.size()) ,Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
 
                         }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),"Get Failure2",Toast.LENGTH_SHORT).show();
-                    }
                 });
+
+    }
+    public void Test() {
+        Toast.makeText(getApplicationContext(),String.valueOf(Post.size()) ,Toast.LENGTH_SHORT).show();
+
     }
 }
