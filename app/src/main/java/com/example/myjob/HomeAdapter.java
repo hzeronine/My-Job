@@ -43,8 +43,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     ArrayList<BigData> bigData;
     ArrayList<List> list;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-    int numberCare = 0;
     FirebaseFirestore database_saved = FirebaseFirestore.getInstance();
 
     ArrayList<String> listID_saved = listID_saved = new ArrayList<>();
@@ -78,7 +76,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
             String trimmedText = originalText.substring(0, maxLength) + "...";
             holder.txt_tieuDe.setText(trimmedText);
         } else {
-            holder.txt_tieuDe.setText(constructor_home.getSpecialized());
+            holder.txt_tieuDe.setText(constructor_home.getTitile());
         }
         holder.txt_company.setText(constructor_home.getCompany_Name());
         holder.txt_diaChi.setText(constructor_home.getCity());
