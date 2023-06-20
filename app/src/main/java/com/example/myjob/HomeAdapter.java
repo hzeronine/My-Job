@@ -188,7 +188,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>{
     }
 //
     private void onClickGoToDetail(BigData constructor_home) {
-       Intent intent = new Intent(context, JobDetails.class);
+        Intent intent = new Intent(context, JobDetails.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_bigData", constructor_home);
         intent.putExtras(bundle);
