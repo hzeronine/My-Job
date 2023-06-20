@@ -2,13 +2,13 @@ package com.example.myjob;
 public class ViecLam {
     private boolean isSelected;
     private String tieuDe;
-    private int hinhAnh;
+    private String hinhAnh;
     private String tenCty;
     private String mucLuong;
     private String thoiHan;
     private String viTri;
     private String ID;
-    public ViecLam(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan , int hinhAnh)
+    public ViecLam(String ID,String tieuDe, String tenCty, String mucLuong, String viTri, String thoiHan , String hinhAnh)
     {
         this.ID = ID;
         this.tieuDe = tieuDe;
@@ -23,7 +23,7 @@ public class ViecLam {
         return tieuDe;
     }
 
-    public int getHinhAnh() {
+    public String getHinhAnh() {
         return hinhAnh;
     }
 
@@ -64,7 +64,7 @@ public class ViecLam {
         this.tieuDe = tieuDe;
     }
 
-    public void setHinhAnh(int hinhAnh) {
+    public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 

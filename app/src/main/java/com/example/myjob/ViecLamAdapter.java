@@ -1,6 +1,7 @@
 package com.example.myjob;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHolder> {
@@ -68,7 +76,10 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             holder.txt_MucLuong.setText(viecLam.getMucLuong());
             holder.txt_ViTri.setText(viecLam.getViTri());
             holder.txt_ThoiHan.setText(viecLam.getThoiHan());
-            holder.img_avt.setImageResource(viecLam.getHinhAnh());
+//            Picasso.get()
+//                    .load(viecLam.getHinhAnh())
+//                    .into(holder.img_avt);
+            holder.img_avt.setImageResource(R.drawable.img_1);
             holder.img_Luong.setImageResource(R.drawable.img_3);
             holder.img_ViTri.setImageResource(R.drawable.img_4);
             holder.ck_Delete.setOnCheckedChangeListener(null);

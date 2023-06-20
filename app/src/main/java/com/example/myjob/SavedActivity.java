@@ -1,46 +1,38 @@
 package com.example.myjob;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import kotlinx.coroutines.Delay;
 
 public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<ViecLam> listViecLam;
+    ArrayList<ViecLam> listViecLam = new ArrayList<>();
     ArrayList<ViecLam> filteredList = new ArrayList<>();
     ViecLamAdapter viecLamAdapter;
     HomeAdapter homeAdapter;
@@ -53,20 +45,13 @@ public class SavedActivity extends AppCompatActivity {
     public List<String> listID_saved;
     public ArrayList<String> listID_posts;
     ArrayList<BigData> list_home;
-    private HashMap<String, Object> Post = new HashMap<>();
-    private HashMap<String, String> dictionary_Title = new HashMap<>();
-    private HashMap<String, Integer> dictionary_NumberCare = new HashMap<>();
-    private HashMap<String, String> dictionary_JIDNeed = new HashMap<>();
-    private HashMap<String, String> dictionary_UID_Posted = new HashMap<>();
-    private HashMap<String, String> dictionary_ID_Posted = new HashMap<>();
+    private Map<String,BigData> dic_bigdata = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
 
         setID();
-
-        //await ;
         getDataPosted();
 
 
@@ -154,7 +139,7 @@ public class SavedActivity extends AppCompatActivity {
         btn_Jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
+                Intent intent = new Intent(getApplicationContext(), JobsList.class);
                 startActivity(intent);
                 finish();
             }
@@ -194,20 +179,20 @@ public class SavedActivity extends AppCompatActivity {
     }
 
     //Đưa data vào đây nè Huy
-    private ArrayList<ViecLam> generateViecLamList() {
-        ArrayList<ViecLam> list = new ArrayList<>();
-        list.add(new ViecLam("1","Chuyên Viên Cao Cấp Chăm Sóc Phát triển Khách Hàng", "Ngân hàng TMCP Phát triển TP.HCM (HDBank)", "Tới 28 triệu", "Hải Phòng, Hà Nội", "as", R.drawable.img_1));
-        list.add(new ViecLam("2","Quản lý sản xuất", "Công ty GHI", "Thỏa thuận", "TP.HCM", "5", 1));
-        list.add(new ViecLam("3","Giảng viên tiếng Anh", "Trường đại học ABC", "20-25 triệu", "Hà Nội", "10", 2));
-        list.add(new ViecLam("4","Nhân viên bán hàng", "Công ty JKL", "Thỏa thuận", "Đà Nẵng", "12", 3));
-        list.add(new ViecLam("5","Designer UX/UI", "Công ty MNO", "15-20 triệu", "Hà Nội", "13", 4));
-        list.add(new ViecLam("6","Chuyên viên tư vấn bảo hiểm", "Ngân hàng XYZ", "20-25 triệu", "TP.HCM", "9", 6));
-        list.add(new ViecLam("7","Thực tập sinh CNTT", "Công ty ABC", "5-10 triệu", "Hà Nội", "6", 5));
-        list.add(new ViecLam("8","Kỹ sư phần mềm Java", "Công ty PQR", "20-25 triệu", "Đà Nẵng", "7", 6));
-        list.add(new ViecLam("9","Chuyên viên kiểm toán", "Công ty STU", "Thỏa thuận", "Hà Nội", "30", 7));
-        list.add(new ViecLam("10","Nhân viên hành chính", "Công ty DEF", "Thỏa thuận", "Hà Nội", "29", 8));
-        return list;
-    }
+//    private ArrayList<ViecLam> generateViecLamList() {
+//        ArrayList<ViecLam> list = new ArrayList<>();
+//        list.add(new ViecLam("1","Chuyên Viên Cao Cấp Chăm Sóc Phát triển Khách Hàng", "Ngân hàng TMCP Phát triển TP.HCM (HDBank)", "Tới 28 triệu", "Hải Phòng, Hà Nội", "as", R.drawable.img_1));
+//        list.add(new ViecLam("2","Quản lý sản xuất", "Công ty GHI", "Thỏa thuận", "TP.HCM", "5", 1));
+//        list.add(new ViecLam("3","Giảng viên tiếng Anh", "Trường đại học ABC", "20-25 triệu", "Hà Nội", "10", 2));
+//        list.add(new ViecLam("4","Nhân viên bán hàng", "Công ty JKL", "Thỏa thuận", "Đà Nẵng", "12", 3));
+//        list.add(new ViecLam("5","Designer UX/UI", "Công ty MNO", "15-20 triệu", "Hà Nội", "13", 4));
+//        list.add(new ViecLam("6","Chuyên viên tư vấn bảo hiểm", "Ngân hàng XYZ", "20-25 triệu", "TP.HCM", "9", 6));
+//        list.add(new ViecLam("7","Thực tập sinh CNTT", "Công ty ABC", "5-10 triệu", "Hà Nội", "6", 5));
+//        list.add(new ViecLam("8","Kỹ sư phần mềm Java", "Công ty PQR", "20-25 triệu", "Đà Nẵng", "7", 6));
+//        list.add(new ViecLam("9","Chuyên viên kiểm toán", "Công ty STU", "Thỏa thuận", "Hà Nội", "30", 7));
+//        list.add(new ViecLam("10","Nhân viên hành chính", "Công ty DEF", "Thỏa thuận", "Hà Nội", "29", 8));
+//        return list;
+//    }
 
     private void filterList(String text) {
         filteredList.clear();
@@ -223,38 +208,44 @@ public class SavedActivity extends AppCompatActivity {
         }
     }
 
-    public void ViewDataSaved() {
-        if(listID_saved.size() == 0){
-            //Toast.makeText(SavedActivity.this, listID_saved.get(0), Toast.LENGTH_SHORT).show();
-
+    public void SetDataDicBigdata() {
+        if(listID_saved.size() <= 1){
+            Toast.makeText(SavedActivity.this, String.valueOf(listID_saved.size()), Toast.LENGTH_SHORT).show();
             return;
         }
-
+        Toast.makeText(SavedActivity.this, String.valueOf(listID_saved.size()), Toast.LENGTH_SHORT).show();
+        AtomicInteger atomicInt = new AtomicInteger(0);
         for(int i = 1; i < listID_saved.size(); i++){
-            Toast.makeText(SavedActivity.this, listID_saved.get(i), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(SavedActivity.this, listID_saved.get(i), Toast.LENGTH_SHORT).show();
             database_ref.collection("Post").document(listID_saved.get(i))
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            Toast.makeText(SavedActivity.this, String.valueOf(getTaskId()), Toast.LENGTH_SHORT).show();
+                            if(task.isSuccessful()) {
+                                DocumentSnapshot documentSnapshot = task.getResult();
+                                String JID_need = documentSnapshot.getData().get("JID_need").toString();
+                                dic_bigdata.put(JID_need, new BigData());
+                                dic_bigdata.get(JID_need).setPID(documentSnapshot.getId());
+                                dic_bigdata.get(JID_need).setId(documentSnapshot.getData().get("JID_need").toString());
+                                dic_bigdata.get(JID_need).setTitile(documentSnapshot.getData().get("Title").toString());
+                                dic_bigdata.get(JID_need).setDate(documentSnapshot.getData().get("Time").toString());
+                                dic_bigdata.get(JID_need).setNumberCare(documentSnapshot.getLong("Number_Care").intValue());
+                                dic_bigdata.get(JID_need).setUID_posted(documentSnapshot.getData().get("UID_Posted").toString());
+                                if(atomicInt.incrementAndGet() == listID_saved.size() - 1)
+                                    GetJobData();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
+
+                            }
                         }
                     });
         }
-    }
-    public void delay3s(final Runnable task) {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                task.run();
-            }
-        }, 2000);
+
     }
 
-    public  void getDataPosted() {
-        AtomicInteger counter = new AtomicInteger(0);
+    public void getDataPosted() {
+
         database_ref.collection("Saved").document(user.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -263,9 +254,14 @@ public class SavedActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
-                            for (Object obj : (List<String>)documentSnapshot.getData().get("Post_Saved"))
+                            //AtomicInteger counter = new AtomicInteger(0);
+                            for (Object obj : (List<String>)documentSnapshot.getData().get("Post_Saved")){
                                 listID_saved.add(obj.toString());
-                            ViewDataSaved();
+                                //Toast.makeText(SavedActivity.this, obj.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                           //if(counter.incrementAndGet() == ((List<Object>) documentSnapshot.getData().get("Post_Saved")).size())
+                            SetDataDicBigdata();
                             //Toast.makeText(getApplicationContext(),String.valueOf(listID_saved.size()) ,Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
@@ -275,8 +271,62 @@ public class SavedActivity extends AppCompatActivity {
                 });
 
     }
-    public void Test() {
-        Toast.makeText(getApplicationContext(),String.valueOf(Post.size()) ,Toast.LENGTH_SHORT).show();
+    public void GetJobData() {
+        AtomicInteger x = new AtomicInteger(0);
+        for(Map.Entry<String,BigData> entry : dic_bigdata.entrySet()){
+            database_ref.collection("Jobs").document(entry.getKey())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                DocumentSnapshot documentSnapshot = task.getResult();
+                                String JID = documentSnapshot.getId();
+                                dic_bigdata.get(JID).setCity(documentSnapshot.getData().get("City").toString());
+                                dic_bigdata.get(JID).setCareer(documentSnapshot.getData().get("Career").toString());
+                                dic_bigdata.get(JID).setCompany_Name(documentSnapshot.getData().get("Company_Name").toString());
+                                dic_bigdata.get(JID).setDescription(documentSnapshot.getData().get("Description").toString());
+                                dic_bigdata.get(JID).setExp(documentSnapshot.getData().get("Exp").toString());
+                                dic_bigdata.get(JID).setLogo_URL(documentSnapshot.getData().get("Logo_URL").toString());
+                                dic_bigdata.get(JID).setSalary(documentSnapshot.getData().get("Salary").toString());
+                                dic_bigdata.get(JID).setSpecialized(documentSnapshot.getData().get("Specialized").toString());
+                                if(x.incrementAndGet() == dic_bigdata.size())
+                                    ViewData();
+                            }else{
 
+                            }
+                        }
+                    });
+
+        }
+
+    }
+
+
+    private void ViewData() {
+        AtomicInteger x = new AtomicInteger(0);
+        for(Map.Entry<String,BigData> entry : dic_bigdata.entrySet()) {
+            BigData temp = entry.getValue();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            long diffInDays;
+            //Toast.makeText(this, String.valueOf(entry.getKey()), Toast.LENGTH_SHORT).show();
+            try {
+                Date datePosted = dateFormat.parse(temp.getDate().toString());
+                Calendar calendar = Calendar.getInstance();
+                Date currentDate = calendar.getTime();
+                long diffInMillis = currentDate.getTime() - datePosted.getTime();
+                diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
+                if(diffInDays < 30){
+                    listViecLam.add(new ViecLam(temp.getPID(),temp.getTitile(),temp.getCompany_Name(),temp.getSalary(),temp.getCity(),String.valueOf(30-diffInDays),temp.getLogo_URL()));
+                }
+            }catch (Exception e){
+                Toast.makeText(this, "false to set day" , Toast.LENGTH_SHORT).show();
+            }
+            if(x.incrementAndGet() == dic_bigdata.size()){
+                viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
+                recyclerView.setAdapter(viecLamAdapter);
+            }
+            //listViecLam.add(new ViecLam(temp.getPID(),temp.getTitile(),temp.getCompany_Name(),temp.getSalary(),temp.getCity(),temp.get));
+        }
     }
 }
