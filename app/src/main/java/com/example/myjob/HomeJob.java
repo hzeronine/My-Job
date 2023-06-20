@@ -13,12 +13,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import android.content.Intent;
 public class HomeJob extends AppCompatActivity {
     RecyclerView recyclerView, recyclerViewHome;
     ArrayList<BigData> list_home;
@@ -123,7 +127,7 @@ public class HomeJob extends AppCompatActivity {
         refreshDataView();
 
         FilterButton();
-
+        horizontalClickItem();
     }
 
     private void FilterButton() {
@@ -224,7 +228,7 @@ public class HomeJob extends AppCompatActivity {
                                     DocumentSnapshot documentSnapshot = task.getResult();
                                     JID_need = documentSnapshot.getData().get("JID_need").toString();
                                     datetime = documentSnapshot.getData().get("Time").toString();
-                                    title = documentSnapshot.getData().get("Time").toString();
+                                    title = documentSnapshot.getData().get("Title").toString();
                                     JID_post = documentSnapshot.getData().get("UID_Posted").toString();
                                     number_care = documentSnapshot.getLong("Number_Care").intValue();
                                     dictionary_Time.put(JID_need,datetime);
@@ -233,7 +237,7 @@ public class HomeJob extends AppCompatActivity {
                                     dictionary_NumberCare.put(JID_need,number_care);
                                     dictionary_JIDNeed.put(JID_need,JID_need);
                                     dictionary_ID_Posted.put(JID_need, id_Post);
-                                    //Toast.makeText(HomeJob.this, JID_need, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(HomeJob.this, title, Toast.LENGTH_SHORT).show();
                                     // Tăng counter lên 1
                                     if (counter.incrementAndGet() == listID_posts.size()) {
                                         // Nếu counter đạt giá trị của listID_posts, tức là tất cả công việc đã hoàn thành
@@ -388,6 +392,7 @@ public class HomeJob extends AppCompatActivity {
                                     }
                                 }
                             });
+                        //horizontalClickItem();
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
@@ -425,6 +430,44 @@ public class HomeJob extends AppCompatActivity {
             linearLayoutHorizontal.addView(itemView);
         }
     }
+
+
+    private void horizontalClickItem() {
+        HorizontalScrollView horizontalScrollView = findViewById(R.id.horizontalScrollView);
+        ViewGroup container = (ViewGroup) horizontalScrollView.getChildAt(0);
+
+        for (int i = 0; i < container.getChildCount(); i++) {
+            View child = container.getChildAt(i);
+            final int index = i;
+
+            child.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Get the corresponding BigData item from the list
+                    Toast.makeText(HomeJob.this, "hiii", Toast.LENGTH_SHORT).show();
+                    BigData clickedItem = list_home.get(index);
+
+                    // Create an intent to start the JobDetails activity
+                    Intent intent = new Intent(HomeJob.this, JobDetails.class);
+
+                    // Pass relevant data to the JobDetails activity using intent extras
+                    intent.putExtra("jobId", clickedItem.getId()); // Replace "getId()" with the actual method to get the job ID
+                    intent.putExtra("jobTitle", clickedItem.getTitile()); // Replace "getTitle()" with the actual method to get the job title
+
+                    // Start the JobDetails activity
+                    startActivity(intent);
+                }
+            });
+        }
+    }
+
+    private void displayDetailInformation(int index) {
+        Intent intent = new Intent(this, JobDetails.class);
+        // Truyền dữ liệu tương ứng với chỉ số (index) của phần tử đã được nhấp chuột
+        intent.putExtra("jobIndex", index);
+        startActivity(intent);
+    }
+
     private void filterList(String text) {
 
         filteredList.clear();
