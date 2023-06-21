@@ -59,6 +59,22 @@ public class BigData implements Serializable {
     private String UID_posted;
     private String logo_URL;
 
+    public BigData() {
+        this.company_Name = "";
+        this.city = "";
+        this.career = "";
+        this.description = "";
+        this.exp = "";
+        this.salary = "";
+        this.specialized = "";
+        this.date = "";
+        this.logo_URL = "";
+        this.checked = false;
+        this.PID = "";
+        this.numberCare= 0;
+        this.titile = "";
+        this.UID_posted = "";
+    }
     public BigData(String PID, int numberCare, String titile, String UID_posted, String company_Name, String city, String career, String description, String exp, String salary, String specialized, String date, String logo_URL, boolean checked) {
         this.company_Name = company_Name;
         this.city = city;

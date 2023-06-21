@@ -94,6 +94,14 @@ public class ChangePassword extends AppCompatActivity {
 
             }
         });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getApplicationContext(),HomeJob.class);
+                startActivity(Intent);
+                finish();
+            }
+        });
     }
 
     private void init() {
