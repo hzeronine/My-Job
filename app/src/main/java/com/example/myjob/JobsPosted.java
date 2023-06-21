@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class JobsPosted extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<JobsPostedItem> listJobsPostedItem;
-    ArrayList<JobsPostedItem> filteredList = new ArrayList<>();
-    JobsPostedAdapter jobsPostedAdapter;
+    ArrayList<ViecLam> listJobsPostedItem;
+    ArrayList<ViecLam> filteredList = new ArrayList<>();
+    ViecLamAdapter jobsPostedAdapter;
     SearchView searchView;
 
     @Override
@@ -43,26 +43,26 @@ public class JobsPosted extends AppCompatActivity {
             }
         });
         listJobsPostedItem = generateJobsPostedItemList(); // gán danh sách JobsPostedItem với dữ liệu được cung cấp từ phương thức generateJobsPostedItemList()
-        jobsPostedAdapter = new JobsPostedAdapter(getApplicationContext(), listJobsPostedItem);
+        jobsPostedAdapter = new ViecLamAdapter(getApplicationContext(), listJobsPostedItem);
         recyclerView.setAdapter(jobsPostedAdapter);
 
         ImageButton btnDelete = findViewById(R.id.btn_Delete_JP);
 
         btnDelete.setOnClickListener(v -> {
             if(filteredList.isEmpty()) {
-                ArrayList<JobsPostedItem> selectedItems = jobsPostedAdapter.getSelectedItems();
-                for (JobsPostedItem item : selectedItems) {
+                ArrayList<ViecLam> selectedItems = jobsPostedAdapter.getSelectedItems();
+                for (ViecLam item : selectedItems) {
                     listJobsPostedItem.remove(item);
                     Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
                 }
                 jobsPostedAdapter.notifyDataSetChanged();
 
             }else{
-                ArrayList<JobsPostedItem> selectedItems = jobsPostedAdapter.getSelectedItems();
-                for (JobsPostedItem item : selectedItems) {
+                ArrayList<ViecLam> selectedItems = jobsPostedAdapter.getSelectedItems();
+                for (ViecLam item : selectedItems) {
                     listJobsPostedItem.remove(item);
                 }
-                for (JobsPostedItem item : selectedItems) {
+                for (ViecLam item : selectedItems) {
                     filteredList.remove(item);
                     Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
                 }
@@ -119,19 +119,19 @@ public class JobsPosted extends AppCompatActivity {
     }
 
 
-    private ArrayList<JobsPostedItem> generateJobsPostedItemList() {
-        ArrayList<JobsPostedItem> list = new ArrayList<>();
-        list.add(new JobsPostedItem("1","Chuyên Viên Cao Cấp Chăm Sóc Phát triển Khách Hàng", "Ngân hàng TMCP Phát triển TP.HCM (HDBank)", "Tới 28 triệu", "Hải Phòng, Hà Nội", "as", R.drawable.img_1));
-        list.add(new JobsPostedItem("2","Quản lý sản xuất", "Công ty GHI", "Thỏa thuận", "TP.HCM", "5", 1));
-        list.add(new JobsPostedItem("3","Giảng viên tiếng Anh", "Trường đại học ABC", "20-25 triệu", "Hà Nội", "10", 2));
-        list.add(new JobsPostedItem("4","Nhân viên bán hàng", "Công ty JKL", "Thỏa thuận", "Đà Nẵng", "12", 3));
-        list.add(new JobsPostedItem("5","Designer UX/UI", "Công ty MNO", "15-20 triệu", "Hà Nội", "13", 4));
+    private ArrayList<ViecLam> generateJobsPostedItemList() {
+        ArrayList<ViecLam> list = new ArrayList<>();
+        list.add(new ViecLam("1","Chuyên Viên Cao Cấp Chăm Sóc Phát triển Khách Hàng", "Ngân hàng TMCP Phát triển TP.HCM (HDBank)", "Tới 28 triệu", "Hải Phòng, Hà Nội", "as", "R.drawable.img_1"));
+        list.add(new ViecLam("2","Quản lý sản xuất", "Công ty GHI", "Thỏa thuận", "TP.HCM", "5", "1"));
+        list.add(new ViecLam("3","Giảng viên tiếng Anh", "Trường đại học ABC", "20-25 triệu", "Hà Nội", "10", "2"));
+        list.add(new ViecLam("4","Nhân viên bán hàng", "Công ty JKL", "Thỏa thuận", "Đà Nẵng", "12", "3"));
+        list.add(new ViecLam("5","Designer UX/UI", "Công ty MNO", "15-20 triệu", "Hà Nội", "13", "4"));
         return list;
     }
 
     private void filterList(String text) {
         filteredList.clear();
-        for (JobsPostedItem item : listJobsPostedItem) {
+        for (ViecLam item : listJobsPostedItem) {
             if (item.getTieuDe().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }

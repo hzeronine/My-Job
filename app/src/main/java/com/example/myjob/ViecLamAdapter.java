@@ -30,6 +30,8 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     private boolean isAllSelected;
     boolean isFilterApplied = false;
 
+    BigData data;
+
     public ArrayList<ViecLam> getSelectedItems() {
         ArrayList<ViecLam> selectedItems = new ArrayList<>();
         for (ViecLam item : listViecLam) {
@@ -79,17 +81,19 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Gán dữ liêu
         if (listViecLam != null && !listViecLam.isEmpty() && position < listViecLam.size()) {
-            BigData data = listBigdata.get(position);
+
+            if(listBigdata.size() > 1)
+                data = listBigdata.get(position);
             ViecLam viecLam = listViecLam.get(position);
             holder.txt_TieuDe.setText(viecLam.getTieuDe());
             holder.txt_Ten.setText(viecLam.getTenCty());
             holder.txt_MucLuong.setText(viecLam.getMucLuong());
             holder.txt_ViTri.setText(viecLam.getViTri());
             holder.txt_ThoiHan.setText(viecLam.getThoiHan());
-            Picasso.get()
-                    .load(viecLam.getHinhAnh())
-                    .into(holder.img_avt);
-            //holder.img_avt.setImageResource(R.drawable.img_1);
+//            Picasso.get()
+//                    .load(viecLam.getHinhAnh())
+//                    .into(holder.img_avt);
+            holder.img_avt.setImageResource(R.drawable.img_1);
             holder.img_Luong.setImageResource(R.drawable.img_3);
             holder.img_ViTri.setImageResource(R.drawable.img_4);
             holder.ck_Delete.setOnCheckedChangeListener(null);
@@ -101,12 +105,13 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
             holder.ck_Delete.setOnClickListener(v -> {
                 viecLam.setSelected(holder.ck_Delete.isChecked());
             });
-            holder.rowItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickGoToDetail(data);
-                }
-            });
+            if (data != null)
+                holder.rowItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickGoToDetail(data);
+                    }
+                });
         }
     }
 
