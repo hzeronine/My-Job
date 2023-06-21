@@ -3,6 +3,8 @@ package com.example.myjob;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -27,8 +32,15 @@ import java.util.Map;
 public class JobDetails extends AppCompatActivity {
     BigData bigData;
     ImageButton detail_btn_Saved;
+    Button detail_applyNow;
+    Uri imageUri;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore database_saved = FirebaseFirestore.getInstance();
+    UploadTask uploadTask;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    FirebaseFirestore db;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    StorageReference storageRef = storage.getReference().child("CV_images");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +65,8 @@ public class JobDetails extends AppCompatActivity {
         TextView detail_txt_company = findViewById(R.id.detail_txt_company);
         TextView detail_jobDescription = findViewById(R.id.detail_jobDescription);
         TextView detail_interest= findViewById(R.id.detail_interest);
+        detail_applyNow = findViewById(R.id.detail_applyNow);
+        db = FirebaseFirestore.getInstance();
 
         ImageView detail_img_btn_logo = findViewById(R.id.detail_img_btn_logo);
         // Set data
@@ -79,6 +93,16 @@ public class JobDetails extends AppCompatActivity {
             }
         });
         Saved();
+
+        detail_applyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+
+            }
+        });
     }
 
     private void Saved(){
@@ -170,5 +194,59 @@ public class JobDetails extends AppCompatActivity {
                 }
             }
         });
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Kiểm tra requestCode có khớp với PICK_IMAGE_REQUEST hay không
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            // Lấy Uri của ảnh đã chọn
+            imageUri = data.getData();
+            final String[] imageUrl = new String[1];
+            String fileName = "image_" + System.currentTimeMillis() + ".jpg";
+            StorageReference imageRef = storageRef.child(fileName);
+
+            // Tải ảnh lên Firebase Storage
+
+            if (imageUri != null) {
+                // Tải ảnh lên Firebase Storage
+                uploadTask = imageRef.putFile(imageUri);
+                uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Lấy URL của ảnh đã tải lên
+                            imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri downloadUri) {
+                                    // Thực hiện các hành động tiếp theo với URL của ảnh đã tải lên
+                                    imageUrl[0] = downloadUri.toString();
+                                    Map<String, Object> DataCV = new HashMap<>();
+                                    DataCV.put("CV_ID_Uploaded", imageUrl[0]);
+                                    db.collection("Post").document(bigData.getPID())
+                                            .update("CV_ID_Uploaded", FieldValue.arrayUnion(imageUrl[0]))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(JobDetails.this, "Upload CV Success", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    e.printStackTrace();
+                                                    Toast.makeText(JobDetails.this, "Upload CV failed.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            // TODO: Xử lý ảnh được chọn ở đây, ví dụ như hiển thị nó trong ImageView
+            Toast.makeText(this, "Upload CV success", Toast.LENGTH_SHORT).show();
+        }
     }
 }

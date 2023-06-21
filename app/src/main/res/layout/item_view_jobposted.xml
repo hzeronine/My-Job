@@ -35,10 +35,10 @@
 
                 <ImageView
                     android:id="@+id/img_icon"
-                    android:layout_width="55dp"
+                    android:layout_width="0dp"
                     android:layout_height="55dp"
                     android:layout_margin="10dp"
-                    android:scaleType="fitXY"
+                    android:layout_weight="1"
                     android:src="@drawable/search_logo" />
 
                 <LinearLayout
@@ -70,14 +70,14 @@
                 </LinearLayout>
 
                 <ImageButton
-                    android:id="@+id/btn_imgsave"
+                    android:id="@+id/btn_imgdelete"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:paddingHorizontal="15dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/icon_save" />
+                    app:srcCompat="@drawable/baseline_delete_24" />
 
             </LinearLayout>
 
