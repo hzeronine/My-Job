@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SavedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<ViecLam> listViecLam = new ArrayList<>();
+    ArrayList<BigData> listBigdata = new ArrayList<>();
     ArrayList<ViecLam> filteredList = new ArrayList<>();
     ViecLamAdapter viecLamAdapter;
     HomeAdapter homeAdapter;
@@ -90,8 +92,17 @@ public class SavedActivity extends AppCompatActivity {
             if(filteredList.isEmpty()) {
                 ArrayList<ViecLam> selectedItems = viecLamAdapter.getSelectedItems();
                 for (ViecLam item : selectedItems) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    database_ref.collection("Saved").document(user.getUid())
+                            .update("Post_Saved", FieldValue.arrayRemove(item.getID()))
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(getApplicationContext(), "Delete Success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                     listViecLam.remove(item);
-                    Toast.makeText(getApplicationContext(), String.format("Deleted item with ID %s", item.getID()), Toast.LENGTH_SHORT).show();
                 }
                 viecLamAdapter.notifyDataSetChanged();
 
@@ -117,7 +128,7 @@ public class SavedActivity extends AppCompatActivity {
         });
     }
 
-    private void setEventMenu() {
+    private void setEventMenu(){
         btn_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,7 +185,7 @@ public class SavedActivity extends AppCompatActivity {
         btn_Account = findViewById(R.id.btn_Account);
         btn_Home = findViewById(R.id.btn_Home);
         btn_NewPost = findViewById(R.id.btn_NewPost);
-        btn_Jobs = findViewById(R.id.btn_Jobs);
+        btn_Jobs = findViewById(R.id.btn_Jobs_SF);
 
     }
 
@@ -227,6 +238,7 @@ public class SavedActivity extends AppCompatActivity {
                                 String JID_need = documentSnapshot.getData().get("JID_need").toString();
                                 dic_bigdata.put(JID_need, new BigData());
                                 dic_bigdata.get(JID_need).setPID(documentSnapshot.getId());
+                                dic_bigdata.get(JID_need).setChecked(true);
                                 dic_bigdata.get(JID_need).setId(documentSnapshot.getData().get("JID_need").toString());
                                 dic_bigdata.get(JID_need).setTitile(documentSnapshot.getData().get("Title").toString());
                                 dic_bigdata.get(JID_need).setDate(documentSnapshot.getData().get("Time").toString());
@@ -254,14 +266,16 @@ public class SavedActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot = task.getResult();
-                            //AtomicInteger counter = new AtomicInteger(0);
+                            AtomicInteger counter = new AtomicInteger(0);
                             for (Object obj : (List<String>)documentSnapshot.getData().get("Post_Saved")){
                                 listID_saved.add(obj.toString());
+                                if(counter.incrementAndGet() == ((List<?>) documentSnapshot.getData().get("Post_Saved")).size())
+                                    SetDataDicBigdata();
                                 //Toast.makeText(SavedActivity.this, obj.toString(), Toast.LENGTH_SHORT).show();
                             }
 
                            //if(counter.incrementAndGet() == ((List<Object>) documentSnapshot.getData().get("Post_Saved")).size())
-                            SetDataDicBigdata();
+
                             //Toast.makeText(getApplicationContext(),String.valueOf(listID_saved.size()) ,Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(getApplicationContext(),"Get Failure",Toast.LENGTH_SHORT).show();
@@ -318,12 +332,13 @@ public class SavedActivity extends AppCompatActivity {
                 diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis);
                 if(diffInDays < 30){
                     listViecLam.add(new ViecLam(temp.getPID(),temp.getTitile(),temp.getCompany_Name(),temp.getSalary(),temp.getCity(),String.valueOf(30-diffInDays),temp.getLogo_URL()));
+                    listBigdata.add(temp);
                 }
             }catch (Exception e){
                 Toast.makeText(this, "false to set day" , Toast.LENGTH_SHORT).show();
             }
             if(x.incrementAndGet() == dic_bigdata.size()){
-                viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam);
+                viecLamAdapter = new ViecLamAdapter(getApplicationContext(), listViecLam, listBigdata);
                 recyclerView.setAdapter(viecLamAdapter);
             }
             //listViecLam.add(new ViecLam(temp.getPID(),temp.getTitile(),temp.getCompany_Name(),temp.getSalary(),temp.getCity(),temp.get));
