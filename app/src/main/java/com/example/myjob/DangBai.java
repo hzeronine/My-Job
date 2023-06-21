@@ -64,6 +64,7 @@ public class DangBai extends AppCompatActivity {
     final String[] selectedOption = new String[1];
     private static final int PICK_IMAGE_REQUEST = 1;
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    UploadTask uploadTask;
 
     // Lấy tham chiếu đến thư mục trong Firebase Storage mà bạn muốn lưu trữ ảnh
     StorageReference storageRef = storage.getReference().child("jobs_logo");
@@ -107,11 +108,28 @@ public class DangBai extends AppCompatActivity {
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkError != 0) {
-                    TextView textView22 = findViewById(R.id.textView22);
-                    textView22.setTextColor(Color.RED);
-                    textView22.setText("Please choose position");
-                } else {
+                 if(validateEditText(edt_title) == false) {
+                    Toast.makeText(DangBai.this, "Please enter title", Toast.LENGTH_SHORT).show();
+                } else if(validateEditText(edt_specialized) == false) {
+                    Toast.makeText(DangBai.this, "Please enter specialized", Toast.LENGTH_SHORT).show();
+                }else if(validateEditText(edt_companyname) == false) {
+                    Toast.makeText(DangBai.this, "Please enter company name", Toast.LENGTH_SHORT).show();
+                }else if(validateEditText(edt_salary) == false) {
+                    Toast.makeText(DangBai.this, "Please enter salary", Toast.LENGTH_SHORT).show();
+                }else if(validateEditText(edt_description) == false) {
+                    Toast.makeText(DangBai.this, "Please enter description", Toast.LENGTH_SHORT).show();
+                }else if(validateEditText(edt_experience) == false) {
+                    Toast.makeText(DangBai.this, "Please enter experience", Toast.LENGTH_SHORT).show();
+                }else if(checkError != 0) {
+                     TextView textView22 = findViewById(R.id.textView22);
+                     textView22.setTextColor(Color.RED);
+                     textView22.setText("Please choose position");
+                 } else if(validateEditText(edt_workaddress) == false) {
+                    Toast.makeText(DangBai.this, "Please enter workaddress", Toast.LENGTH_SHORT).show();
+                } else if (validateEditText(edt_career) == false && edt_career.getVisibility() == View.VISIBLE) {
+                         Toast.makeText(DangBai.this, "Please enter career", Toast.LENGTH_SHORT).show();
+                 }
+                 else {
                     setdata();
                 }
 
@@ -140,19 +158,20 @@ public class DangBai extends AppCompatActivity {
         StorageReference imageRef = storageRef.child(fileName);
 
         // Tải ảnh lên Firebase Storage
-        UploadTask uploadTask = imageRef.putFile(imageUri);
 
-        // Đăng ký lắng nghe sự kiện hoàn thành của quá trình tải lên
-        uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful()) {
-                    // Lấy URL của ảnh đã tải lên
-                    imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri downloadUri) {
-                            // Thực hiện các hành động tiếp theo với URL của ảnh đã tải lên
-                            imageUrl[0] = downloadUri.toString();
+        if (imageUri != null) {
+            // Tải ảnh lên Firebase Storage
+            uploadTask = imageRef.putFile(imageUri);
+            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        // Lấy URL của ảnh đã tải lên
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri downloadUri) {
+                                // Thực hiện các hành động tiếp theo với URL của ảnh đã tải lên
+                                imageUrl[0] = downloadUri.toString();
 //                            String url = imageUrl[0];
 //                            String fileName = "jobs_logo/default/defaultLogo.png";
 //                            try {
@@ -161,74 +180,75 @@ public class DangBai extends AppCompatActivity {
 //                            } catch (MalformedURLException e) {
 //                                e.printStackTrace();
 //                            }
-                            String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;
-                            // Sign in success, update UI with the signed-in user's information
-                            //Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
-                            Map<String, Object> Datajobs = new HashMap<>();
-                            Datajobs.put("Company_Name", companyname);
-                            Datajobs.put("Logo_URL", imageUrl[0]);
-                            Datajobs.put("City", workaddress);
-                            Datajobs.put("Specialized",specialized);
-                            Datajobs.put("Career",position);
-                            Datajobs.put("Exp",experience);
-                            Datajobs.put("Salary",salary);
-                            Datajobs.put("Description",description);
+                                String PID = RandomStringGenerator.LastFour(user.getUid()) + "_" + JID;
+                                // Sign in success, update UI with the signed-in user's information
+                                //Toast.makeText(DangBai.this, "Authentication succes.", Toast.LENGTH_SHORT).show();
+                                Map<String, Object> Datajobs = new HashMap<>();
+                                Datajobs.put("Company_Name", companyname);
+                                Datajobs.put("Logo_URL", imageUrl[0]);
+                                Datajobs.put("City", workaddress);
+                                Datajobs.put("Specialized",specialized);
+                                Datajobs.put("Career",position);
+                                Datajobs.put("Exp",experience);
+                                Datajobs.put("Salary",salary);
+                                Datajobs.put("Description",description);
 
-                            Map<String,Object> Datapost = new HashMap<>();
-                            Datapost.put("Title",title);
-                            Datapost.put("UID_Posted",user.getUid());
-                            Datapost.put("Number_Care",0);
-                            Datapost.put("JID_need",JID);
-                            Datapost.put("Time",RandomStringGenerator.getCurrentDateTime());
-                            Datapost.put("CV_ID_Uploaded", Arrays.asList(""));
+                                Map<String,Object> Datapost = new HashMap<>();
+                                Datapost.put("Title",title);
+                                Datapost.put("UID_Posted",user.getUid());
+                                Datapost.put("Number_Care",0);
+                                Datapost.put("JID_need",JID);
+                                Datapost.put("Time",RandomStringGenerator.getCurrentDateTime());
+                                Datapost.put("CV_ID_Uploaded", Arrays.asList(""));
 
 
-                            db.collection("Jobs").document(JID)
-                                    .set(Datajobs)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(DangBai.this, "add data succes.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            e.printStackTrace();
-                                            Toast.makeText(DangBai.this, "add data failed.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                db.collection("Jobs").document(JID)
+                                        .set(Datajobs)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(DangBai.this, "Post Success", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                e.printStackTrace();
+                                                Toast.makeText(DangBai.this, "Post failed.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
 
-                            db.collection("Post").document(PID)
-                                    .set(Datapost)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
+                                db.collection("Post").document(PID)
+                                        .set(Datapost)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
 
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
 
-                                        }
-                                    });
-                            db.collection("Saved").document(user.getUid())
-                                    .update("Post_Posted", FieldValue.arrayUnion(PID))
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(DangBai.this, "Post Success", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-                    });
-                } else {
-                    // Xử lý khi quá trình tải lên không thành công
+                                            }
+                                        });
+                                db.collection("Saved").document(user.getUid())
+                                        .update("Post_Posted", FieldValue.arrayUnion(PID))
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                            }
+                                        });
+                            }
+                        });
+                    } else {
+                        // Xử lý khi quá trình tải lên không thành công
+                    }
                 }
-            }
-        });
-
-
+            });
+        } else {
+            // Người dùng chưa chọn ảnh, hiển thị thông báo
+            Toast.makeText(getApplicationContext(), "Please choose logo", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public String random() {
@@ -246,7 +266,19 @@ public class DangBai extends AppCompatActivity {
         return randomString + "_" + random.nextInt(90);
 
     }
+    private boolean validateEditText(EditText editText) {
+        String input = editText.getText().toString().trim();
 
+        if (input.isEmpty()) {
+            editText.setError("Vui lòng nhập giá trị.");
+            return false;
+        } else if (input.length() < 3 || input.length() > 50) {
+            editText.setError("Vui lòng nhập từ 3 đến 50 kí tự.");
+            return false;
+        }
+
+        return true;
+    }
     public String LastFour(String inputString) {
         if (inputString.length() >= 4) {
             String lastFour = inputString.substring(inputString.length() - 4);
@@ -352,6 +384,7 @@ public class DangBai extends AppCompatActivity {
                     textView22.setTextColor(Color.GRAY);
                     textView22.setText("Position(*)");
                     checkError = 0;
+
                 } else if (position == 0) {
                     checkError++;
                 }

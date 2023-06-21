@@ -553,7 +553,7 @@ public class HomeJob extends AppCompatActivity {
         btn_jobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), JobsPosted.class);
+                Intent intent = new Intent(getApplicationContext(), HomeJob.class);
                 startActivity(intent);
                 finish();
             }
