@@ -55,6 +55,7 @@ public class ViecLamAdapter extends RecyclerView.Adapter<ViecLamAdapter.ViewHold
     {
         this.context = context;
         this.listViecLam = listViecLam;
+        this.listBigdata = new ArrayList<>();
     }
     public ViecLamAdapter(Context context, ArrayList<ViecLam> listViecLam, ArrayList<BigData> listBigdata)
     {

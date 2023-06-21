@@ -37,7 +37,6 @@ public class SavedActivity extends AppCompatActivity {
     ArrayList<BigData> listBigdata = new ArrayList<>();
     ArrayList<ViecLam> filteredList = new ArrayList<>();
     ViecLamAdapter viecLamAdapter;
-    HomeAdapter homeAdapter;
     SearchView searchView;
     FirebaseFirestore database_ref;
     FirebaseUser user;
@@ -46,7 +45,6 @@ public class SavedActivity extends AppCompatActivity {
     ImageButton btn_imgSaved, btn_Account, btn_Home, btn_NewPost, btn_Jobs;
     public List<String> listID_saved;
     public ArrayList<String> listID_posts;
-    ArrayList<BigData> list_home;
     private Map<String,BigData> dic_bigdata = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +167,6 @@ public class SavedActivity extends AppCompatActivity {
 
     private void setID() {
         // Ánh xạ ID
-        list_home = new ArrayList<>();
         listID_saved = new ArrayList<>();
         listID_posts = new ArrayList<>();
         database_ref = FirebaseFirestore.getInstance();
